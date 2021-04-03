@@ -1,0 +1,32 @@
+.headroom--not-top.navbar-theme-primary {
+  background-color: #5e7299 !important;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: #0a654a !important;
+}
+
+.slick-slide {
+  opacity: 0.5;
+}
+
+.slick-slide.slick-active {
+  opacity: 1;
+}
+
+.divider_top {
+  background: url("/images/top_divider.png") repeat-x center bottom;
+}
+
+.divider_top_black {
+  background: url("/images/top_divider_blue.png") repeat-x center bottom;
+}
+
+#sub-header {
+  color: #030303;
+  background: #e5eff1 url("/images/bg_sub-header.png") repeat 0 0;
+}
+
+.single-course #sub-header {
+  background: #e5eff1 url("/images/bg_sub-header.png") repeat 0 0 !important;
+}
