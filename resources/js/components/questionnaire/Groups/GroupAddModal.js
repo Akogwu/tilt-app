@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -56,6 +57,7 @@ export default function GroupAddModal() {
                             <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+
                                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                     <div className="sm:flex sm:items-start">
                                         <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -66,12 +68,41 @@ export default function GroupAddModal() {
                                         </div>
                                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                             <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                                Deactivate account
+                                                Create Group
                                             </h3>
                                             <div className="mt-2">
-                                                <p className="text-sm text-gray-500">
-                                                    Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.
-                                                </p>
+                                                <form   noValidate autoComplete="off">
+                                                    <div className="grid grid-cols-2 gap-2.5 my-2">
+                                                        <div>
+                                                            <TextField
+                                                                id="outlined-helperText"
+                                                                label="Helper text"
+                                                                defaultValue="Default Value"
+                                                                helperText="Some important text"
+                                                                variant="outlined"
+                                                            />
+                                                            <br/><small className={"text-danger"}></small>
+                                                        </div>
+
+                                                        <div>
+                                                            <TextField  name="icon"   margin="dense" error=""  label="Icon" variant="outlined" />
+                                                            <br/><small className={"text-danger"}></small>
+                                                        </div>
+
+                                                        <div>
+                                                            <TextField  name="color"   label="Color" margin="dense" error=""  variant="outlined"  />
+                                                            <br/><small className={"text-danger"}></small>
+                                                        </div>
+
+                                                        <div>
+                                                            <TextField name="description" label="Description" margin="dense" error=""  multiline rows={4} variant="outlined" />
+                                                            <br/><small className={"text-danger"}></small>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -84,6 +115,8 @@ export default function GroupAddModal() {
                                         Cancel
                                     </button>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>

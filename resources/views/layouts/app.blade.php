@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="{{ mix('css/tailwind.css') }}">
         @yield('styles')
         @livewireStyles
-
         <!-- Scripts -->
         <script src="{{ mix('js/bundle.js') }}" defer></script>
     </head>

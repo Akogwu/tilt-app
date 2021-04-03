@@ -12,11 +12,12 @@
 
         <!-- Styles -->
         <script src="https://kit.fontawesome.com/c8d84f105a.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/tailwind.css') }}">
         <link rel="stylesheet" href="{{ mix('css/login.css') }}">
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        @livewireStyles
     </head>
     <body class="auth-bg">
         <div class="font-sans text-gray-900 antialiased">
@@ -24,5 +25,6 @@
         </div>
 
     @stack('scripts')
+        @livewireScripts
     </body>
 </html>
