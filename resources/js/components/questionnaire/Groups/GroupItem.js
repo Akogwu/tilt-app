@@ -6,26 +6,30 @@ import ListItem from "@material-ui/core/ListItem";
 
 import PropTypes from 'prop-types';
 
-const GroupItem = ({group,index}) => {
 
+const GroupItem = ({group,index}) => {
     const [selectedGroup,setSelectedGroup] = useState();
+    const [openDeleteModal,setOpenDeleteModal] = useState(false);
 
     const handleSelectedGroup = (id) => {
         setSelectedGroup(id);
     }
+
+    const handleOpenDeleteModal = () => {
+        setOpenDeleteModal(true);
+    }
+    const handleCloseDeleteModal = () => {
+        setOpenDeleteModal(false);
+    }
+
 
 
 
 
     return (
         <Fragment>
-            <ListItem button className={'shadow-md my-1'} selected={selectedGroup === index} onClick={ () => handleSelectedGroup(index)}>
-                <ListItemIcon>
-                    <i className={`fa fa-${group.icon} text-${group.color}`}> </i>
-                </ListItemIcon>
-                <ListItemText primary={group.name}/>
-                <GroupActionButtons/>
-            </ListItem>
+            <GroupDeleteModal open={open} handleClose={handleCloseDeleteModal}/>
+
         </Fragment>
     );
 }

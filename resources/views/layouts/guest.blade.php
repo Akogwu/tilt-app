@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="{{ mix('css/login.css') }}">
 
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ mix('js/bundle.js') }}" defer></script>
         @livewireStyles
     </head>
     <body class="auth-bg">

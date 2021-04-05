@@ -1,10 +1,10 @@
-import React, {Fragment, useEffect, useState,useContext} from 'react';
+import React, {Fragment,useContext} from 'react';
 import ListGroups from "./ListGroups";
 import {GroupContext} from "./GroupContext";
 
 const Groups = () => {
 
-    const [groups,setGroups] = useContext(GroupContext);
+    const [groups] = useContext(GroupContext);
 
 
 
