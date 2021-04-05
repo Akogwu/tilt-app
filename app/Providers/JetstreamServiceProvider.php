@@ -32,6 +32,15 @@ class JetstreamServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configurePermissions();
+        //help redirect
+        $this->app->singleton(
+            \Laravel\Fortify\Contracts\LoginResponse::class,
+            \App\Http\Responses\LoginResponse::class
+        );
+        $this->app->singleton(
+            \Laravel\Fortify\Contracts\TwoFactorLoginResponse::class,
+            \App\Http\Responses\LoginResponse::class
+        );
 
         Jetstream::createTeamsUsing(CreateTeam::class);
         Jetstream::updateTeamNamesUsing(UpdateTeamName::class);

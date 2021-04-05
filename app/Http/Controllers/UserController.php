@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\StudentResource;
 use App\Http\Resources\UsersResource;
-use App\PrivateLearner;
-use App\Student;
-use App\User;
+use App\Models\PrivateLearner;
+use App\Models\Student;
+use App\Models\User;
 use App\Util\ImageUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -8,15 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Tymon\JWTAuth\JWTAuth;
 
 class AuthController extends Controller
 {
-    protected $jwt;
 
-    public function __construct(JWTAuth $jwt)
+    public function __construct()
     {
-        $this->jwt = $jwt;
     }
 
     public function getLoginUserDetail(){
@@ -72,7 +69,7 @@ class AuthController extends Controller
         return response()->json(["status"=>true, 'data'=>$data, 'token'=>$token], 200);
     }
 
-    public function getAuthenticatedUser()
+    /*public function getAuthenticatedUser()
     {
         try {
             if (! $user = $this->jwt->parseToken($this->jwt->getToken())->authenticate()->role) {
@@ -94,7 +91,7 @@ class AuthController extends Controller
         }
 
         return response()->json(compact('user'));
-    }
+    }*/
 
     public function getAllRoles(){
         $roles = Role::all();
