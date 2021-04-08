@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\SectionAllResource;
-use App\Questionnaire;
-use App\Section;
+use App\Models\Questionnaire;
+use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 

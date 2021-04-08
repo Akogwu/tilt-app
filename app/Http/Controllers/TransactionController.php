@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TransactionResource;
 use App\Mail\TestResultPaymentMail;
-use App\School;
-use App\SchoolAdmin;
-use App\TestResult;
-use App\Transaction;
-use App\transactionLog;
+use App\Models\School;
+use App\Models\SchoolAdmin;
+use App\Models\TestResult;
+use App\Models\Transaction;
+use App\Models\transactionLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;

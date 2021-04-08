@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
+use App\Models\Group;
 
-use App\Session;
-use App\TestResult;
+use App\Models\Session;
+use App\Models\TestResult;
 
 use Illuminate\Support\Facades\Log;
 

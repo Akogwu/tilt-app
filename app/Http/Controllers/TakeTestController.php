@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Group;
+use App\Models\Group;
 use App\Http\Resources\AllQuestionnaireResource;
 use App\Http\Resources\SessionAnswersResource;
-use App\Role;
-use App\Session;
-use App\TestRecord;
-use App\User;
+use App\Models\Role;
+use App\Models\Session;
+use App\Models\TestRecord;
+use App\Models\User;
 use App\Util\TestResultCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

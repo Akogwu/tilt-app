@@ -63,17 +63,17 @@ export default function GroupAddModal({open,handleClose}) {
 
                                                         <div>
                                                             <TextField  name="icon" value={values.icon}  margin="dense" error=""  label="Icon" variant="outlined" onChange={handleChange}/>
-                                                            <br/><small className={"text-danger"}></small>
+                                                            <br/><small className={"text-danger"}>{errors.icon && errors.icon}</small>
                                                         </div>
 
                                                         <div>
                                                             <TextField  name="color"  value={values.color}  label="Color" margin="dense" error=""  variant="outlined" onChange={handleChange}  />
-                                                            <br/><small className={"text-danger"}></small>
+                                                            <br/><small className={"text-danger"}>{errors.color && errors.color}</small>
                                                         </div>
 
                                                         <div>
                                                             <TextField name="description" value={values.description} label="Description" margin="dense" error=""  multiline rows={4} variant="outlined" onChange={handleChange} />
-                                                            <br/><small className={"text-danger"}></small>
+                                                            <br/><small className={"text-danger"}>{errors.description && errors.description}</small>
                                                         </div>
                                                     </div>
                                                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

@@ -14,6 +14,7 @@
                     </div>
 
                     <div id="questionnaire-component"></div>
+                    <div id="taketest"></div>
                 </div>
             </div>
         </div>

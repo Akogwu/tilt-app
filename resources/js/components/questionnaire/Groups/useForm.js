@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from "react";
 import {GroupContext} from './GroupContext';
 import {postGroup,updateGroup,getGroups} from './GroupApi';
+import {apiGet} from "../../utils/ConnectApi";
 
 const useForm = (validate,handleSuccess,handleClose,fillData) => {
 
@@ -57,7 +58,9 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         e.preventDefault();
         setErrors(validate(values));
         updateGroup(data,group_id).then(res => {
-
+            apiGet('groups').then(res => {
+               setGroups([res.data]);
+            });
         });
     }
 

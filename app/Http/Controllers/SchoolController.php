@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\SchoolDetailResource;
 use App\Http\Resources\StudentResource;
-use App\School;
-use App\SchoolAdmin;
-use App\Student;
-use App\User;
+use App\Models\School;
+use App\Models\SchoolAdmin;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller

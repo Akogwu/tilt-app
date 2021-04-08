@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
-use App\User;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;

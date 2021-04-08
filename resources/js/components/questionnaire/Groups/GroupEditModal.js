@@ -13,7 +13,7 @@ export default function GroupEditModal({open,handleClose,fillData}) {
     const handleSuccess = () => {
         setSuccess(true);
     }
-    const {values,group,handleChange,errors,handleEdit,handleChangeEdit} = useForm(validate,handleSuccess,handleClose,fillData);
+    const {values,errors,handleEdit,handleChangeEdit} = useForm(validate,handleSuccess,handleClose,fillData);
     const [success,setSuccess] = useState(false);
 
 
