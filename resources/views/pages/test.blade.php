@@ -16,7 +16,7 @@
                     <h2 class="md:text-base mb-0 text-orange">Patiently answer every question honestly.</h2>
                     <p>Ask your teacher or guardian to explain any question you do not clearly understand</p>
                     <div class="mt-4 mt-lg-5 mb-5 mb-lg-0">
-                        <a href="#" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
+                        <a href="{{ route('questions') }}" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
                             <span class="btn-inner-text">
                                 Begin the test <i class="fas fa-arrow-right ml-2"></i>
                             </span>
@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="mt-4 mt-lg-5 mb-5 mb-lg-0 text-center">
-                <a href="#" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
+                <a href="{{ route('questions') }}" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
                     <span class="btn-inner-text">
                         Begin the test <i class="fas fa-arrow-right ml-2"></i>
                     </span>

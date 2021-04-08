@@ -22,9 +22,14 @@ Route::get('/about', function () {
 Route::get('/contact',function (){
     return view('pages.contact');
 })->name('me.contact');
+
 Route::get('/test',function (){
     return view('pages.test');
 });
+Route::get('/take-test',function (){
+    return view('pages.questions');
+})->name('questions');
+
 Route::get('/profile',function (){
     return view('pages.profile');
 });

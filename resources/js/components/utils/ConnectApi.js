@@ -2,9 +2,15 @@
 import axios from "axios";
 const api = 'https://tiltapp-api.herokuapp.com/';
 
+let headers = {
+    "Content-Type": "application/json",
+    Accept: "*/*",
+};
 
 export const apiGet = (endpoint) =>{
-    return axios.get(`${api}${endpoint}`).then(res => {
+    return axios.get(`${api}${endpoint}`,{
+        headers
+    }).then(res => {
         return res.data;
     }).catch((err) => {
         try {
