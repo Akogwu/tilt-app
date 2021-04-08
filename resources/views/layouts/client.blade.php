@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c8d84f105a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/tailwind.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/custom.css">
 
