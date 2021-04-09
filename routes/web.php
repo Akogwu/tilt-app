@@ -42,3 +42,4 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth:sanctum','verified']],fu
     Route::get('questionnaire',[\App\Http\Controllers\QuestionnaireController::class,'index'])->name('questionnaire');
 });
 
+require_once 'test-routes.php';
