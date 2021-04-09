@@ -15,7 +15,7 @@ const ListGroups = (props) => {
     const [selectedGroup,setSelectedGroup] = useState();
     const [openDeleteModal,setOpenDeleteModal] = useState(false);
     const [openEditModal,setOpenEditModal] = useState(false);
-    const [,,loadingSections,setSecGroupId] = useContext(SectionContext);
+    const [,,loadingSections,,setSecGroupId] = useContext(SectionContext);
     const [id,setId] = useState();
     const [group,setGroup] = useState();
 

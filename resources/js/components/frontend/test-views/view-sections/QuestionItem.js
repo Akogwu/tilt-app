@@ -28,10 +28,10 @@ const QuestionItem = (props) => {
 				opacity: activeQuestion === question ? opacity.full : opacity.fade, // checks if question to be rendered is currently read by user so it should not faded
 			}}
 		>
-			<h3 className={`text-bold text-${color} text-center`}>{question}</h3>
+			<h3 className={`text-bold text-${color}-700 text-center`}>{question}</h3>
 			<div className="row">
 				<div className="col-3">
-					<p className={`text-${color} font-weight-bold text-right`}>
+					<p className={`text-${color}-500 font-weight-bold text-right`}>
 						Strongly agree
 					</p>
 				</div>

@@ -12,8 +12,11 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import {QuestionContext} from "../questions/QuestionContext";
+import PropTypes from 'prop-types';
 
-export default function SectionEditModal({open,handleClose,fillData}) {
+
+
+ function SectionEditModal({open,handleClose,fillData}) {
     const handleSuccess = ($success = true) => {
         setSuccess($success);
     }
@@ -68,10 +71,8 @@ export default function SectionEditModal({open,handleClose,fillData}) {
                                                 <form   noValidate autoComplete="off" onSubmit={ (e) => handleEdit(e,fillData.id)}>
                                                     <div className="my-2">
                                                         <div className="my-4">
-                                                            <TextField  name="name" value={values.name}  fullWidth  margin="dense" error=""  label="Name"
-                                                                        InputLabelProps={{
-                                                                            shrink: true,
-                                                                        }}
+                                                            <TextField  name="name" value={values.name || ''}  fullWidth  margin="dense" error={errors.name && true}  label="Name"
+
                                                                         variant="outlined" onChange={  handleChangeEdit } />
                                                             <br/><small className={"text-red-400"}>{errors.name && errors.name}</small>
                                                         </div>
@@ -83,16 +84,18 @@ export default function SectionEditModal({open,handleClose,fillData}) {
                                                                     labelId="select-group-label"
                                                                     id="select-group"
                                                                     disabled
-                                                                    value={values.group_id}
+                                                                    value={values.group_id || ''}
                                                                     name="group_id"
+                                                                    error={errors.group_id && true}
                                                                     label="Group">
                                                                     <MenuItem  value={values.group_id}>{values.group_name}</MenuItem>
                                                                 </Select>
                                                             </FormControl>
+                                                            <small className={"text-red-400"}>{errors.group_id && errors.group_id}</small>
                                                         </div>
                                                         <div className="mb-4">
-                                                            <TextField name="description" value={values.description} fullWidth label="Description" margin="dense" error=""  multiline rows={4} variant="outlined" onChange={handleChangeEdit} />
-                                                            <br/><small className={"text-danger"}></small>
+                                                            <TextField name="description" value={values.description} fullWidth label="Description" margin="dense" error={errors.description && true}  multiline rows={4} variant="outlined" onChange={handleChangeEdit} />
+                                                            <br/><small className={"text-red-400"}>{errors.description && errors.description}</small>
                                                         </div>
 
                                                         <div className="mb-4">
@@ -105,13 +108,16 @@ export default function SectionEditModal({open,handleClose,fillData}) {
                                                                     onChange={handleSelectChangeEdit}
                                                                     label="Recommendation"
                                                                     name="recommendation"
+                                                                    error={errors.recommendation && true}
                                                                     fullWidth>
                                                                     {
-                                                                        (loadingQuestions)? <MenuItem selected={true}>Loading... please wait</MenuItem> : questions.map( (question,index) => <MenuItem key={index} selected={(question.id === recommendedId)}  value={question.id}>{question.question.substring(0,50)+'...'}</MenuItem>)
+                                                                        (loadingQuestions)? <MenuItem  selected={true}>Loading... please wait</MenuItem> : questions.map( (question,index) => <MenuItem key={index} selected={(question.id === recommendedId)}  value={question.id}>{question.question.substring(0,50)+'...'}</MenuItem>)
                                                                     }
 
                                                                 </Select>
                                                             </FormControl>
+                                                            <br/>
+                                                            <small className={"text-red-400"}>{errors.recommendation && errors.recommendation}</small>
                                                         </div>
 
                                                     </div>
@@ -136,3 +142,11 @@ export default function SectionEditModal({open,handleClose,fillData}) {
         </div>
     );
 }
+
+SectionEditModal.propTypes = {
+    open:PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    fillData:PropTypes.object.isRequired
+}
+
+export default SectionEditModal;

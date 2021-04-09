@@ -6,7 +6,7 @@ import {apiGet} from "../../utils/ConnectApi";
 const useForm = (validate,handleSuccess,handleClose,fillData) => {
 
     const [groups,setGroups] = useContext(GroupContext);
-
+    const [errors, setErrors] = useState({});
     const [values,setValues] = useState({
         name:'',
         color:'',
@@ -24,8 +24,6 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
     },[fillData]);
 
 
-    const [errors, setErrors] = useState({});
-
     const data = {
         name:values.name,
         color:values.color,
@@ -34,16 +32,17 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
     }
     const handleChange = e => {
         const {name,value} = e.target;
-        setValues({...values,[name]:value.trim()})
+        setValues({...values,[name]:value})
     }
     const handleChangeEdit = e => {
         const {name,value} = e.target;
-        setValues({...values,[name]:value.trim()})
+        setValues({...values,[name]:value})
     }
 
     const handleSubmit = e =>{
         e.preventDefault();
         setErrors(validate(values));
+        if (Object.keys(validate(values)).length <= 0)
         postGroup(data).then(() => {
             setGroups([...groups,data]);
             handleSuccess();
@@ -57,9 +56,16 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
     const handleEdit = (e,group_id) => {
         e.preventDefault();
         setErrors(validate(values));
+        if (Object.keys(validate(values)).length <= 0)
         updateGroup(data,group_id).then(res => {
-            apiGet('groups').then(res => {
-               setGroups([res.data]);
+            apiGet('groups').then(groups => {
+              setGroups(groups);
+
+                handleSuccess();
+                setTimeout(function (){
+                    handleClose();
+                },1500)
+
             });
         });
     }

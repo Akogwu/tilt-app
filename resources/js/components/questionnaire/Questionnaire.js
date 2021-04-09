@@ -15,6 +15,7 @@ import SectionAddModal from "./Sections/SectionAddModal";
 import Sections from "./Sections/Sections";
 import {QuestionProvider} from "./questions/QuestionContext";
 import QuestionPanel from "./questions/QuestionPanel";
+import Questions from "./questions/Questions";
 
 
 const Questionnaire = ()  => {
@@ -55,7 +56,7 @@ const Questionnaire = ()  => {
                                 <Sections/>
                             </div>
                             <div className="p-3 w-1/2">
-                                <QuestionPanel/>
+                                <Questions/>
                             </div>
                         </div>
                     </QuestionProvider>

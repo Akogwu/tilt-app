@@ -57,22 +57,22 @@ export default function GroupAddModal({open,handleClose}) {
                                                 <form   noValidate autoComplete="off" onSubmit={handleSubmit}>
                                                     <div className="grid grid-cols-2 gap-2.5 my-2">
                                                         <div>
-                                                            <TextField  name="name" value={values.name}   margin="dense" error=""  label="Name" variant="outlined" onChange={  handleChange } />
+                                                            <TextField  name="name" value={values.name}   margin="dense" error={errors.name && true}  label="Name" variant="outlined" onChange={  handleChange } />
                                                             <br/><small className={"text-red-400"}>{errors.name && errors.name}</small>
                                                         </div>
 
                                                         <div>
-                                                            <TextField  name="icon" value={values.icon}  margin="dense" error=""  label="Icon" variant="outlined" onChange={handleChange}/>
-                                                            <br/><small className={"text-danger"}>{errors.icon && errors.icon}</small>
+                                                            <TextField  name="icon" value={values.icon}  margin="dense" error={errors.icon && true}  label="Icon" variant="outlined" onChange={handleChange}/>
+                                                            <br/><small className={"text-red-400"}>{errors.icon && errors.icon}</small>
                                                         </div>
 
                                                         <div>
-                                                            <TextField  name="color"  value={values.color}  label="Color" margin="dense" error=""  variant="outlined" onChange={handleChange}  />
+                                                            <TextField  name="color"  value={values.color}  label="Color" margin="dense" error={errors.color && true}  variant="outlined" onChange={handleChange}  />
                                                             <br/><small className={"text-danger"}>{errors.color && errors.color}</small>
                                                         </div>
 
                                                         <div>
-                                                            <TextField name="description" value={values.description} label="Description" margin="dense" error=""  multiline rows={4} variant="outlined" onChange={handleChange} />
+                                                            <TextField name="description" value={values.description} label="Description" margin="dense" error={errors.description}  multiline rows={4} variant="outlined" onChange={handleChange} />
                                                             <br/><small className={"text-danger"}>{errors.description && errors.description}</small>
                                                         </div>
                                                     </div>

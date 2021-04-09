@@ -1,6 +1,5 @@
 export default function validateInfo(values){
     const errors = {};
-
     if (!values.name.trim())
         errors.name = 'Section name is required';
     if (!values.group_id)

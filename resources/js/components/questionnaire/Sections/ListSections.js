@@ -3,17 +3,16 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import IconButton from '@material-ui/core/IconButton';
 import {SectionContext} from "./SectionContext";
 import SectionActionButtons from "./SectionActionButtons";
 import SectionEditModal from "./SectionEditModal";
 import SectionDeleteModal from "./SectionDeleteModal";
-import GroupDeleteModal from "../Groups/GroupDeleteModal";
 import {QuestionContext} from "../questions/QuestionContext";
+import Loader from "react-loader-spinner";
 
 
 const ListSections = () =>{
-    const [sections,,loadingSections] = useContext(SectionContext);
+    const [sections,setSections,loadingSections,secGroupId,setSecGroupId] = useContext(SectionContext);
     const [selectedSection,setSelectedSection] = useState();
     const [openDeleteModal,setOpenDeleteModal] = useState(false);
     const [openEditModal,setOpenEditModal] = useState(false);
@@ -49,7 +48,8 @@ const ListSections = () =>{
 
     return (
         <Fragment>
-            <SectionEditModal open={openEditModal} fillData={section} handleClose={handleCloseEditModal} />
+            {openEditModal && <SectionEditModal open={openEditModal} fillData={section} handleClose={handleCloseEditModal} /> }
+
             <SectionDeleteModal section_id={id} open={openDeleteModal} handleClose={handleCloseDeleteModal}/>
             <List>
                 {
@@ -57,9 +57,15 @@ const ListSections = () =>{
                  sections && sections.map( (section,index) =>
                     <ListItem className="pt-2 pb-2 shadow-sm" button key={index} selected={index === selectedSection}  onClick={ () => handleSelectedSection(section,index) } >
                         <ListItemText primary={section.name} />
-                        <ListItemSecondaryAction>
-                            <SectionActionButtons handleOpen={ () => handleOpenDeleteModal(section.id)} handleOpenEdit={ () => handleOpenEditModal(section)}/>
-                        </ListItemSecondaryAction>
+
+                        {
+                            (loadingQuestions && selectedSection === index)?<Loader edge="end" type="Oval" color="gray" height={27} width={27}/>:
+                                <ListItemSecondaryAction>
+                                    <SectionActionButtons handleOpen={ () => handleOpenDeleteModal(section.id)} handleOpenEdit={ () => handleOpenEditModal(section)}/>
+                                </ListItemSecondaryAction>
+                        }
+
+
                     </ListItem>):
 
                         <div className="">

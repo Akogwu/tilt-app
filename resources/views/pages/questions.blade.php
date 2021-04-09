@@ -6,9 +6,8 @@
         </div>
     </section>
 
-    <div class="section">
-        <div class="container">
-            <div id="question-component"></div>
-        </div>
+    <div class="">
+        <div id="question-component"></div>
     </div>
+
 @endsection

@@ -9,9 +9,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 import {GroupContext} from "../Groups/GroupContext";
 import MenuItem from '@material-ui/core/MenuItem';
+import PropTypes from 'prop-types';
 
-
+SectionAddModal.propTypes = {
+    open: PropTypes.bool.isRequired,
+    handleClose:PropTypes.func.isRequired
+}
 export default function SectionAddModal({open,handleClose}) {
+
     const handleSuccess = ($success = true) => {
         setSuccess($success);
     }
@@ -46,7 +51,6 @@ export default function SectionAddModal({open,handleClose}) {
 
                                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                     <div className="">
-
                                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                             <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                                                 Create Section
@@ -66,18 +70,19 @@ export default function SectionAddModal({open,handleClose}) {
 
                                                         <div>
                                                             <TextField
-                                                                id="outlined-select-currency"
+                                                                id="outlined-select-group"
                                                                 select
-                                                                label="Select"
+                                                                label="Select Group"
                                                                 value={values.group_id}
-                                                                onChange={handleSelectChange}
+                                                                onChange={handleChange}
                                                                 helperText="Please select a group"
                                                                 variant="outlined"
                                                                 fullWidth
                                                                 name="group_id"
+                                                                error={errors.group_id && true}
                                                             >
                                                                 {groups && groups.map((group) => (
-                                                                    <MenuItem key={group.id} name="group_id"  value={group.id}>
+                                                                    <MenuItem key={group.id}   value={group.id}>
                                                                         {group.name}
                                                                     </MenuItem>
                                                                 ))}
@@ -86,12 +91,12 @@ export default function SectionAddModal({open,handleClose}) {
                                                         </div>
 
                                                         <div>
-                                                            <TextField  name="name" value={values.name} fullWidth  margin="dense" error=""  label="Name" variant="outlined" onChange={  handleChange } />
+                                                            <TextField  name="name" value={values.name} fullWidth  margin="dense" error={errors.name && true}  label="Name" variant="outlined" onChange={  handleChange } />
                                                             <br/><small className={"text-red-400"}>{errors.name && errors.name}</small>
                                                         </div>
 
                                                         <div>
-                                                            <TextField name="description" fullWidth value={values.description} label="Description" margin="dense" error=""  multiline rows={4} variant="outlined" onChange={handleChange} />
+                                                            <TextField name="description" fullWidth value={values.description} label="Description" margin="dense" error={errors.description && true}  multiline rows={4} variant="outlined" onChange={handleChange} />
                                                             <br/><small className={"text-red-400"}>{errors.description && errors.description}</small>
                                                         </div>
                                                     </div>

@@ -13,7 +13,7 @@ import axios from "axios";
 import config from "./helpers/Config";
 import {apiGet} from "../../utils/ConnectApi";
 import {QuestionContext} from "./QuestionContext";
-//import AlertMessage from "./Alert";
+import AlertMessage from "./Alert";
 
 import isEmpty from "./utils/is-empty";
 import ReactDOM from "react-dom";
@@ -131,30 +131,25 @@ class Questionnaire extends Component {
 	};
 
 	// loads questionnaire data from API
-	 getQuestionnaireDataApi() {
-
-	    apiGet('test/get-questions').then(questions => {
-	        console.log(questions);
-        })
-
-		// await axios
-		// 	// .get(config.apiBaseUrl + "test/get-questions")
-		// 	// .then((res) => {
-		// 	// 	if (res.status) {
-		// 	// 		this.setState({ loading: false });
-		// 	// 		this.setState({ groups: res.data });
-		// 	// 	} else {
-		// 	// 		this.setState({ loading: false });
-		// 	// 		alert("Could not retrieve questions, Please reload");
-		// 	// 	}
-		// 	// }).catch((err) => {
-        //     //     try {
-        //     //         console.log(err.response.data);
-        //     //         return err.response.data;
-        //     //     } catch (error) {
-        //     //         console.log(error);
-        //     //     }
-        //     // });
+	async getQuestionnaireDataApi() {
+		await axios
+			.get(config.apiBaseUrl + "test/get-questions")
+			.then((res) => {
+				if (res.status) {
+					this.setState({ loading: false });
+					this.setState({ groups: res.data });
+				} else {
+					this.setState({ loading: false });
+					alert("Could not retrieve questions, Please reload");
+				}
+			}).catch((err) => {
+                try {
+                    console.log(err.response.data);
+                    return err.response.data;
+                } catch (error) {
+                    console.log(error);
+                }
+            });
 	}
 
 	// displays list of question groups on screen
@@ -163,7 +158,7 @@ class Questionnaire extends Component {
 
 		return groups.map((group, index) => {
 			return (
-				<Button key={index} variant={this.currentGroupButtonColor(group)}>
+				<Button key={index}  variant={this.currentGroupButtonColor(group)}>
 					<span>
 						<i className={`fa fa-3x fa-${group.icon} pl-2 pr-2`}> </i>
 					</span>
@@ -176,13 +171,12 @@ class Questionnaire extends Component {
 	// gets color of the current group
 	currentGroupButtonColor = (group) => {
 		const { currentGroup } = this.state;
-
 		if (!isEmpty(currentGroup) && !isEmpty(group)) {
 			if (currentGroup.group_id === group.group_id) {
 				return currentGroup.color;
 			}
 		}
-		return "gray-300";
+		return "gray-400";
 	};
 
 	// displays spinner on screen
@@ -422,14 +416,14 @@ class Questionnaire extends Component {
 				id="next-button"
 				icon={"fa-arrow-right"}
 				text={"Next"}
-				color={this.state.currentColor || "gray"}
+				color={this.state.currentColor || "text-gray-700"}
 				onClick={(e) => this.handleNext(e)}
 			/>
 		) : (
 			<PageButtonIconRight
 				icon={"fa-arrow-right"}
 				text={"Next"}
-				color={this.state.currentColor || "gray"}
+				color={this.state.currentColor || "text-gray-700"}
 				onClick={(e) =>
 					this.setOpentMessage(
 						"warning",
@@ -723,12 +717,12 @@ class Questionnaire extends Component {
 					this.showSpinner("lg")
 				) : (
 					<div className="mb-10 mt-5">
-						{/*<AlertMessage*/}
-						{/*	open={this.state.openMessage}*/}
-						{/*	message={this.state.message}*/}
-						{/*	closeMessage={this.closeMessage}*/}
-						{/*	severity={this.state.severity}*/}
-						{/*/>*/}
+						<AlertMessage
+							open={this.state.openMessage}
+							message={this.state.message}
+							closeMessage={this.closeMessage}
+							severity={this.state.severity}
+						/>
 
 						<Section>
 							{this.renderQuestions()}

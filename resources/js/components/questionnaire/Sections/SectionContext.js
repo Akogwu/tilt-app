@@ -24,7 +24,7 @@ export const SectionProvider = (props) => {
     },[secGroupId]);
 
     return (
-        <SectionContext.Provider value={[sections,setSections,loadingSections,setSecGroupId]}>
+        <SectionContext.Provider value={[sections,setSections,loadingSections,secGroupId,setSecGroupId]}>
             {props.children}
         </SectionContext.Provider>
     );

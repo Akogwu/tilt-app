@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from "react";
-import {SectionContext} from './SectionContext';
+import {SectionContext} from "../Sections/SectionContext";
 import { apiPost, apiUpdate} from "../../utils/ConnectApi";
 
 const useForm = (validate,handleSuccess,handleClose,fillData) => {
@@ -42,14 +42,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         setValues({...values,[name]:value.trim()})
     }
 
-    const handleSelectChange = e => {
-        setValues({group_id:e.target.value});
-    }
 
-    const handleChangeEdit = e => {
-        const {name,value} = e.target;
-        setValues({...values,[name]:value.trim()})
-    }
 
     const handleSubmit = e =>{
         e.preventDefault();
@@ -73,7 +66,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         });
     }
 
-    return {values,handleChange,handleSelectChange,errors,handleSubmit,handleEdit,handleChangeEdit}
+    return {values,handleChange,errors,handleSubmit}
 }
 
 export default useForm;

@@ -1,10 +1,10 @@
 import React, {useState, useContext, useEffect} from "react";
 import {SectionContext} from './SectionContext';
-import { apiPost, apiUpdate} from "../../utils/ConnectApi";
+import {apiGet, apiPost, apiUpdate} from "../../utils/ConnectApi";
 
 const useForm = (validate,handleSuccess,handleClose,fillData) => {
 
-    const [sections,setSections,,setSecGroupId] = useContext(SectionContext);
+    const [sections,setSections,,secGroupId,setSecGroupId] = useContext(SectionContext);
 
     const [values,setValues] = useState({
         name:'',
@@ -35,16 +35,17 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
     }
     const handleChange = e => {
         const {name,value} = e.target;
-        setValues({...values,[name]:value.trim()})
+        setValues({...values,[name]:value})
     }
 
     const handleSelectChange = e => {
+        console.log(e.target.value);
         setValues({group_id:e.target.value});
     }
 
     const handleChangeEdit = e => {
         const {name,value} = e.target;
-        setValues({...values,[name]:value.trim()})
+        setValues({...values,[name]:value})
     }
 
     const handleSelectChangeEdit = e => {
@@ -73,7 +74,17 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         e.preventDefault();
         setErrors(validate(values));
         apiUpdate(data,`sections/${section_id}`).then( () => {
-            setSections([...sections])
+            handleSuccess();
+            apiGet(`groups/${secGroupId}/sections`).then(sections => {
+                setSections(sections);
+            });
+            setTimeout(function (){
+                handleClose();
+                setValues({
+                    name: '',group_id: '',description: ''
+                })
+                handleSuccess(false);
+            },1500)
         });
     }
 
