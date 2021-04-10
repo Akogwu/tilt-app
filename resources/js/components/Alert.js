@@ -16,17 +16,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Snackbars = (props) => {
+const AlertMessage = ({open,handleCloseSnack,message,severity}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Snackbar open={!!props.open} autoHideDuration={6000} onClose={props.handleCloseSnack}>
-                <Alert onClose={props.handleCloseSnack} severity="success">
-                    {props.message}
+            <Snackbar open={!!open} autoHideDuration={6000} onClose={handleCloseSnack}>
+                <Alert onClose={handleCloseSnack} severity={`${severity}`}>
+                    {message}
                 </Alert>
             </Snackbar>
         </div>
     );
 };
 
-export default Snackbars;
+export default AlertMessage;

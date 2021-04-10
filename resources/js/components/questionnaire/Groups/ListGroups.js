@@ -57,8 +57,7 @@ const ListGroups = (props) => {
                         <ListItemText primary={group.name}/>
                         <ListItemSecondaryAction>
                         {
-                            ( loadingSections && selectedGroup === index)?
-                                <Loader edge="end" type="Oval" color="gray" height={27} width={27}/>:
+                            ( loadingSections && selectedGroup === index)? <Loader edge="end" type="Oval" color="gray" height={27} width={27}/>:
                             <GroupActionButtons  handleOpenEdit={ () => handleOpenEditModal(group)}  handleOpen={ () => handleOpenDeleteModal(group.id)}/>
                         }
                         </ListItemSecondaryAction>
