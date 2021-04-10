@@ -1,7 +1,6 @@
 
 import axios from "axios";
-const api = 'http://127.0.0.1:8000/';
-//const api = 'https://tiltapp-api.herokuapp.com/';
+const api = 'https://tiltapp-api.herokuapp.com/';
 
 let headers = {
     "Content-Type": "application/json",

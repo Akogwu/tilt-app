@@ -10,10 +10,10 @@ import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function GroupEditModal({open,handleClose,fillData}) {
-    const handleSuccess = () => {
-        setSuccess(true);
+    const handleSuccess = ($success = true) => {
+        setSuccess($success);
     }
-    const {values,errors,handleEdit,handleChangeEdit} = useForm(validate,handleSuccess,handleClose,fillData);
+    const {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit} = useForm(validate,handleSuccess,handleClose,fillData);
     const [success,setSuccess] = useState(false);
 
 

@@ -48,7 +48,15 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
             handleSuccess();
             setTimeout(function (){
                 handleClose();
+                setValues({
+                    name: '',
+                    color: '',
+                    icon: '',
+                    description: ''
+                })
+                handleSuccess(false);
             },1500)
+
         });
 
     }
@@ -64,6 +72,8 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
                 handleSuccess();
                 setTimeout(function (){
                     handleClose();
+
+                    handleSuccess(false);
                 },1500)
 
             });

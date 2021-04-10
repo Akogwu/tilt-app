@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
             width: '100%',
         },
     },
+    flex:{
+        Display:'flex',
+    },
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
@@ -52,152 +55,71 @@ const useStyles = makeStyles((theme) => ({
 
 const  QuestionPanel = ({question,index}) => {
     const classes = useStyles();
-
-    const [score, setScore] = useState(20)
-    const [remark, setRemark] = useState("")
-    const [weight_point, setWeightPoint] = useState([])
-    const [open, setOpen] = React.useState(false);
-    const [loading, setLoading] = useState(false)
-    const [expanded, setExpanded] = React.useState(false);
-    const [sectId, setSectId] = useState();
-    const [qstId, setQstId] = useState();
-    const {values,handleChange, errors, handleSubmit} = useForm(validate,false,false,fillData);
+    const {state,handleChanges, handleChangeRemark,handleAddRemark,handleUpdateQuestion, errors, handleSubmit} = useForm(validate,false,false, question);
 
 
+    // const [state,setState] = useState({
+    //     question:'',
+    //     weight_points:[],
+    //     weight_point:20,
+    //     remark:'',
+    //     section_id:'',
+    //     question_id:''
+    // });
 
 
-    useEffect ( () => {
-       async function setDetails(){
-           setWeightPoint(weight_point => weight_point = question.weight_points)
-           setQstId(question.id)
-           setSectId(question.section_id);
-           //setQuestion(question.question);
-           if(question.weight_points){
-               const point = 20
-               const pointObj = await weight_point.find(o => o.weight_point === point)
-               if (pointObj){
-                   setRemark(pointObj.remark)
-               }else setRemark("")
-           }
-       }
-        setDetails();
-    },[weight_point])
+    // useEffect( () => {
+    //     const {question,weight_points,section_id} = props.question;
+    //     let initial_point = 20;
+    //     let initial = weight_points.find(current_score => current_score.weight_point === initial_point);
+    //     setState({...state,
+    //         question: question,
+    //         weight_points: weight_points,
+    //         remark:initial.remark,
+    //         section_id:section_id,
+    //         question_id: props.question.id
+    //     });
+    // },[props, state]);
 
+    // const data = {
+    //     question: state.question,
+    //     section_id: state.section_id,
+    //     weight_point:state.weight_points
+    // };
+    //
+    //
+    // const handleChanges = (e) => {
+    //     setState({...state,[e.target.name]:e.target.value});
+    // };
+    //
+    // const handleRemarkChanges = (e) => {
+    //     const score = parseInt(e.target.value);
+    //     let scoreObj = state.weight_points.find(current_score => current_score.weight_point === score);
+    //     setState({...state,weight_point:scoreObj.weight_point,remark:scoreObj.remark});
+    // };
 
+    // const handleCloseDialog = () => setOpenDeleteDialog(false);
+    // const handleDeleteQuestion = id => {
+    //     setSelectedQuestion(id);
+    //     setOpenDeleteDialog(true);
+    // };
 
-    const data = {
-        section_id:sectId,
-        question: question,
-        weight_point: weight_point
-    };
-
-
-    const handleRemarkChange = (event) => {
-        setRemark(event.target.value)
-    };
-    const handleQuestionChange = (event) => {
-        setQuestion(event.target.value)
-    };
-    const handleScoreChange = async (event) => {
-        setScore(event.target.value);
-
-        const point = event.target.value
-
-        // weight_point.forEach
-        const pointObj = await weight_point.find(o => o.weight_point === point)
-
-        if (pointObj){
-            setRemark(pointObj.remark)
-        }else setRemark("")
-
-    };
-    const handleRemarkAdd = () => {
-        if (remark !== ""){
-            let wt_point = {};
-            wt_point.questionnaire_id = qstId;
-            wt_point.weight_point = parseInt(score);
-            wt_point.remark = remark;
-
-            const index = weight_point.findIndex(x => x.weight_point === wt_point.weight_point);
-
-            console.log(index);
-
-            weight_point[index].remark = wt_point.remark;
-            handleClick()
-        }else alert("Enter a remark to add this score")
-    };
-
-    const handleClick = () => {
-        setOpen(true);
-    };
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    };
-
-    const deleteQuestion = (id) => {
-        setLoading(true);
-        if ( id !== 0){
-            window.confirm('Are you sure?') &&
-            axios.delete('https://tiltapp-api.herokuapp.com/questionnaire/'+id).then(async res => {
-                if (res.status){
-                    handleClick();
-
-                    await getUpdatedQuestion();
-                    setLoading(false)
-                }else {
-                    setLoading(false);
-                    alert("Could not add question")
-                }
-            } ).catch(err => console.log(err));
-        }
-    };
-
-    const getUpdatedQuestion = () => {
-        axios.get('https://tiltapp-api.herokuapp.com/sections/'+sectId+'/questionnaires').then(res => {
-            if (res.status){
-                setQuestions(questObj => ({...questObj, questionList:res.data }))
-            }
-        }).catch( err => {
-            console.log(err);
-        });
-    };
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault()
-        if(sectId === undefined || sectId === 0){
-            return alert("Kindly reselect a section to update questions")
-
-        }
-        if (Object.keys(errors).length === 0){
-            setLoading(true);
-            axios.put('https://tiltapp-api.herokuapp.com/questionnaire/'+qstId,data).then(async res => {
-                if (res.status){
-                    await getUpdatedQuestion()
-                    setLoading(false)
-                    handleClick()
-                }else {
-                    setLoading(false)
-                    alert("Could not add question")
-
-                }
-
-            }).then( err => {
-                setLoading(false);
-
-                console.log(err);
-            } );
-        }else{
-            setErrors(errors)
-        }
-    };
-
-    const handleExpChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+    // const handleUpdateForm = async e => {
+    //     e.preventDefault();
+    //     let res = await axios.put(config.apiBaseUrl+`questionnaire/${state.question_id}`,data,{headers:{Authorization: `Bearer ${returnToken()}`}});
+    //     setReturnMessage('Updated successfully');
+    //     setOpenSnack(true);
+    //     console.log(res)
+    // };
+    //
+    // const handleAddRemark = () => {
+    //     let setData = {};
+    //     setData.weight_point = state.weight_point;
+    //     setData.remark       = state.remark;
+    //     let index = state.weight_points.findIndex( obj => obj.weight_point === setData.weight_point);
+    //     state.weight_points[index].remark = setData.remark;
+    // };
+    // const handleCloseSnack = () => setOpenSnack(false);
 
 
 
@@ -209,10 +131,10 @@ const  QuestionPanel = ({question,index}) => {
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography className={classes.heading}>{question.question}</Typography>
+                    <Typography className={classes.heading}>{state.question}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <form noValidate autoComplete="off"  className={classes.form}>
+                    <form noValidate autoComplete="off" onSubmit={handleUpdateQuestion}  className={classes.form}>
                         <div >
                             <TextField
                                 fullWidth
@@ -221,18 +143,19 @@ const  QuestionPanel = ({question,index}) => {
                                 multiline
                                 rows={3}
                                 name="question"
-                                value={question.question}
+                                onChange={handleChanges}
+                                value={state.question}
                                 variant="outlined"/>
                         </div>
-                        <div className={classes.root}>
+                        <div className={classes.flex}>
                             <TextField
                                 fullWidth
                                 id="select-section"
                                 select
                                 label="Select score"
-                                onChange=""
+                                onChange={handleChangeRemark}
                                 helperText="Please select score"
-                                value=""
+                                value={state.weight_point}
                                 variant="outlined">
                                 <MenuItem  value="20">20%</MenuItem>
                                 <MenuItem  value="40">40%</MenuItem>
@@ -244,11 +167,11 @@ const  QuestionPanel = ({question,index}) => {
                                 id="outlined-multiline-flexible"
                                 label={"Remark"}
                                 multiline
-                                value=""
+                                value={state.remark}
                                 name={"remark"}
-                                onChange=""
-                                onBlur=""
-                                helperText=""
+                                onChange={handleChanges}
+                                onBlur={handleAddRemark}
+                                helperText={state.weight_point}
                                 rowsMax={4}
                                 variant="outlined"/>
                         </div>
