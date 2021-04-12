@@ -1,7 +1,7 @@
 <?php
 
 $router->group(['prefix' => 'groups'], function () use ($router) {
-    $router->get('/', 'GroupController@getAll');
+    $router->get('/', [\App\Http\Controllers\GroupController::class,'getAll']);
     $router->get('/{groupId}', 'GroupController@getSingle');
     $router->get('{groupId}/sections', 'GroupController@getSection');
 

@@ -43,3 +43,4 @@ Route::group(['prefix'=>'admin', 'middleware' => ['auth:sanctum','verified']],fu
 });
 
 require_once 'test-routes.php';
+require_once 'group-routes.php';

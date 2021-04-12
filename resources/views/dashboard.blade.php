@@ -12,4 +12,7 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        <script src="/js/app.js"></script>
+    @endpush
 </x-app-layout>
