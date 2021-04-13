@@ -178,7 +178,7 @@
                 </div>
             </div>
         </div>
-
+        <div id="dashboard-component"></div>
     </div>
 </div>
 

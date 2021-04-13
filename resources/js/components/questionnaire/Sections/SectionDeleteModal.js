@@ -16,9 +16,6 @@ export default function SectionDeleteModal({open,handleClose,section_id}) {
 
     const {handleDeleteModal} = useActionDelete();
 
-
-
-
     return (
         <div>
             <Dialog

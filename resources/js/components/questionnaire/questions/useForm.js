@@ -1,12 +1,20 @@
 import React, {useState, useContext, useEffect} from "react";
-import {SectionContext} from "../Sections/SectionContext";
-import { apiPost, apiUpdate} from "../../utils/ConnectApi";
+
+import {apiGet, apiPost, apiUpdate} from "../../utils/ConnectApi";
 import {QuestionContext} from "./QuestionContext";
 
 const useForm = (validate,handleSuccess,handleClose,question) => {
 
-    const [sections,setSections,,setSecGroupId] = useContext(SectionContext);
     const [questions,setQuestions,loadingQuestions,sectionId,setSectionId] = useContext(QuestionContext);
+    const [loading, setLoading] = useState(false);
+
+    const [weightPoints] = useState([
+        { weight_point : 20,  remark : "Poor  result"},
+        { weight_point : 40,  remark : "Fairly good result"},
+        { weight_point : 60,  remark : "Good result"},
+        { weight_point : 80,  remark : "Excellent result"},
+        { weight_point : 100,  remark : "Perfect result"},
+    ]);
 
     const [state,setState] = useState({
         question:'',
@@ -18,7 +26,6 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
     });
 
     useEffect(()=>{
-        console.log(question);
         let initial_point = 20;
         question && setState({...state,
             question: question.question,
@@ -39,6 +46,13 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         section_id:state.section_id,
         question_id:state.question_id
     }
+
+    const newData = {
+        question:state.question,
+        weight_point:weightPoints,
+        section_id:sectionId
+    }
+
     const handleChanges = e => {
         const {name,value} = e.target;
         setState({...state,[name]:value.trim()})
@@ -63,13 +77,17 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
 
     const handleSubmit = e =>{
         e.preventDefault();
-        setErrors(validate(values));
-        if (Object.keys(validate(values)).length <= 0)
-        apiPost(data,'sections').then( () => {
-            setSections([...sections,data]);
-            setSecGroupId(data.group_id);
+        setLoading(true);
+        setErrors(validate(state));
+        if (Object.keys(validate(state)).length <= 0)
+            console.log(newData);
+        apiPost(newData,'questionnaire').then( () => {
+            apiGet(`sections/${sectionId}/questionnaires`).then( questions => {
+                setQuestions(questions);
+            } )
             handleSuccess();
             setTimeout(function (){
+                setLoading(false);
                 handleClose();
             },1500)
         });
@@ -77,7 +95,9 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
 
     const handleUpdateQuestion = async e => {
         e.preventDefault();
+        setLoading(true);
         await apiUpdate(data,`questionnaire/${state.question_id}`).then( () => {
+            setLoading(false);
             setSectionId(state.section_id);
         })
     };
@@ -90,7 +110,7 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         });
     }
 
-    return {state,handleChanges,handleChangeRemark,handleAddRemark,handleUpdateQuestion,errors,handleSubmit}
+    return {state,handleChanges,handleChangeRemark,handleAddRemark,handleUpdateQuestion,errors,handleSubmit,loading}
 }
 
 export default useForm;

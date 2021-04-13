@@ -1,5 +1,6 @@
 import React, {createContext, useEffect, useState} from 'react';
 import {getGroups} from "./GroupApi";
+import {apiGet} from "../../utils/ConnectApi";
 
 export const GroupContext = createContext();
 
@@ -8,7 +9,7 @@ export const GroupProvider = (props) => {
     const [loadingGroups,setLoadingGroups] = useState(true);
 
     useEffect( () => {
-        getGroups().then(groups => {
+        apiGet('groups').then(groups => {
             setGroups(groups);
             setLoadingGroups(false);
         });
