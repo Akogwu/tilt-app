@@ -30,7 +30,11 @@ Route::get('/take-test',function (){
     return view('pages.questions');
 })->name('questions');
 
-Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');
+Route::group(['middleware'=>'auth'], function (){
+    Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');
+
+});
+//auth
 
 //Country endpoints
 $router->group(['prefix' => 'countries'], function () use ($router) {

@@ -1,18 +1,37 @@
 <?php
 
 
-namespace App\Util;
+namespace App\Repository;
 
 
 use App\Models\Group;
 use App\Models\Questionnaire;
 use App\Models\QuestionnaireWeightPoint;
 use App\Models\Section;
+use App\Models\Session;
 use App\Models\TestRecord;
 use App\Models\TestResult;
 
-class TestResultCalculator
+class TestResultRepository
 {
+    public function getMyTestResults($userId){
+
+        $sessionWithResult = Session::where([['user_id', $userId],['completed', true]])->orderBy('created_at', 'desc')
+            ->with('testResult');
+        //TestResult::where('session_id')
+        return $sessionWithResult->get();
+    }
+
+    public function getTestDetails($userId){
+        $session = Session::where('user_id', $userId);
+        $attempts = $session->count();
+        $total_results = TestResult::whereIn('session_id', $session->pluck('id'))->count();
+        return[
+            'attempts'=>$attempts,
+            'total_tests'=> $total_results
+        ];
+    }
+
     public function calculate($sessionId){
         $data =[];
         $groupData = [];
@@ -53,9 +72,9 @@ class TestResultCalculator
             $totalAnswerWeightPoint += $answerWp;
             $percentage = $this->convertToPercentage($answerWp, $sumMaxWp);
             $groupData[] = [
-              'group_id'=>$group->id,
-              'group_score'=>$groupScore,
-              'group_percentage'=>$percentage
+                'group_id'=>$group->id,
+                'group_score'=>$groupScore,
+                'group_percentage'=>$percentage
             ];
 
         }
@@ -72,12 +91,11 @@ class TestResultCalculator
 
     }
 
+
     private function convertToPercentage($numerator, $denominator){
         if ($numerator == 0)
             return 0;
         $percent = ($numerator/$denominator) * 100;
         return round($percent);
     }
-
-
 }

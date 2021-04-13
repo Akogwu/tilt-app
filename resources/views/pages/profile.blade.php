@@ -7,15 +7,23 @@
             <div class="row justify-content-center pt-5">
                 <div class="col-10 mx-auto text-center">
 
+                    @php
+                    //default image
+                        $image ='/images/profile.jpg';
+                            if (!is_null($user->image_url)){
+                                $image =$user->image_url;
+    }
+                    @endphp
+
                     <figure class=" rounded-xl  md:p-0">
-                        <img class="w-32 h-32 md:w-48 md:h-auto  rounded-full mx-auto" src="/images/profile.jpg" alt="" width="384" height="512">
+                        <img class="w-32 h-32 md:w-48 md:h-auto  rounded-full mx-auto" src="{{$image}}" alt="" width="384" height="512">
                         <div class="pt-2 md:p-8 text-center md:text-left ">
                             <figcaption class="font-medium">
                                 <div class="font-bold text-blue-900">
-                                    Akogwu Emmanuel
+                                    {{$user->name}}
                                 </div>
                                 <div class="text-gray-500">
-                                    Graduate Student
+                                    {{$user->role_id}}
                                 </div>
                             </figcaption>
                             <button class="rounded-full w-5 h-5 text-tertiary" title="Edit Profile"><i class="fas fa-edit fa-2x"></i></button>
@@ -36,7 +44,7 @@
                         <div class="nav nav-tabs flex-column flex-md-row shadow-sm border-soft justify-content-around bg-white rounded mb-3 py-3"
                              id="nav-tab" role="tablist">
                             <a class="nav-item nav-link active" id="nav-evidence-tab" data-toggle="tab" href="#" role="tab" aria-controls="nav-evidence" aria-selected="true">
-                                <i class="fas fa-file-alt"></i>No. of test taken <span class="badge badge-warning">0</span>
+                                <i class="fas fa-file-alt"></i>No. of test taken <span class="badge badge-warning">{{$testDetail['total_tests']}}</span>
                             </a>
                             <a class="nav-item nav-link" id="nav-causes-tab" data-toggle="tab" href="#" role="tab" aria-controls="nav-causes" aria-selected="false">
                                 <i class="fas fa-chart-pie"></i>Success Transactions <span class="badge badge-dark">0</span>
