@@ -15,13 +15,13 @@ class LoginResponse implements ContractsLoginResponse
             return redirect()->intended('/contact');
         }
         if (auth()->user()->role_id == 'PRIVATE_LEARNER') {
-            return redirect()->intended('/contact');
+            return redirect()->intended('/profile');
         }
         if (auth()->user()->role_id == 'SCHOOL_ADMIN') {
             return redirect()->intended('/contact');
         }
         if (auth()->user()->role_id == 'STUDENT') {
-            return redirect()->intended('/contact');
+            return redirect()->intended('/profile');
         }
         return redirect()->intended('terms');
     }

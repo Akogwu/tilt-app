@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\Session;
 use App\Models\TestRecord;
 use App\Models\User;
+use App\Repository\TestResultRepository;
 use App\Util\TestResultCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,13 @@ use Illuminate\Support\Facades\Log;
 
 class TakeTestController extends Controller
 {
+    private $testResultRepository;
+
+    public function __construct(TestResultRepository $testResultRepository)
+    {
+        $this->testResultRepository = $testResultRepository;
+    }
+
     //create session
     public function createSession(Request $request){
         $userId = "";
@@ -54,8 +62,7 @@ class TakeTestController extends Controller
             }
         try {
             //calculate the result
-            $test = new TestResultCalculator();
-            $test->calculate($request->session_id);
+            $this->testResultRepository->calculate($request->session_id);
             //update session to completed
             $session->update(['completed'=>true]);
         }catch (\Exception $exception){

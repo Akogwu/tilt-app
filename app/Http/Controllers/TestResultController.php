@@ -31,23 +31,5 @@ class TestResultController extends Controller
         ], 200);
     }
 
-    public function getMyTestResults($userId){
-
-        $sessionWithResult = Session::where([['user_id', $userId],['completed', true]])->orderBy('created_at', 'desc')
-            ->with('testResult');
-        //TestResult::where('session_id')
-        return $sessionWithResult->get();
-    }
-    public function getTestDetails($userId){
-        $session = Session::where('user_id', $userId);
-        $attempts = $session->count();
-        $total_results = TestResult::whereIn('session_id', $session->pluck('id'))->count();
-        $data=[
-          'attempts'=>$attempts,
-          'total_tests'=> $total_results
-        ];
-
-        return response()->json(['status'=>true, 'data'=>$data], 200);
-    }
 
 }
