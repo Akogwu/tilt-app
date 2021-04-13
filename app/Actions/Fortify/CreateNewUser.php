@@ -34,21 +34,22 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return DB::transaction(function () use ($input) {
+            //dd($input['firstname']);
             return tap(User::create([
                 'name' => $input['lastname'].' '.$input['firstname'],
-                'firstname' => $input['firstname'],
-                'lastname' => $input['lastname'],
+                'first_name' => $input['firstname'],
+                'last_name' => $input['lastname'],
                 'email' => $input['email'],
-                'phone' => $input['phone'] ?? null,
-                'role_id' => $input['role_id'] ?? null,
+                'phone' => $input['phone'],
+                'role_id' => $input['role_id'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
-                if ($input['role_id'] == 'PRIVATE_LEARNER'):
-                    PrivateLearner::createNewOrUpdate($input,$user);
-                elseif ($input['role_id'] == 'SCHOOL_ADMIN'):
-                    $school = School::createNew($input);
-                    SchoolAdmin::createNew($user->id, $school->id);
-                endif;
+//                if ($input['role_id'] == 'PRIVATE_LEARNER'):
+//                    PrivateLearner::createNewOrUpdate($input,$user);
+//                elseif ($input['role_id'] == 'SCHOOL_ADMIN'):
+//                    $school = School::createNew($input);
+//                    SchoolAdmin::createNew($user->id, $school->id);
+//                endif;
                 $this->createTeam($user);
             });
         });

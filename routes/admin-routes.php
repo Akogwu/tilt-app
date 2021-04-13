@@ -4,7 +4,7 @@ $router->group(['prefix' => 'admin', 'middleware' => ['auth'] ], function () use
     $router->get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'dashboard']);
 });
 
-$router->group(['prefix' => 'school-management',  'middleware' => 'auth'], function () use ($router) {
+$router->group(['prefix' => 'school-management',  'middleware' => ['auth','admin']], function () use ($router) {
     //$router->group(['middleware' => 'admin'], function () use ($router){
 
     $router->get('/schools', [\App\Http\Controllers\Admin\AdminController::class,'getAllSchool'])->name('schools.index');

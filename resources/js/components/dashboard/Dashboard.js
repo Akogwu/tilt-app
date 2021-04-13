@@ -17,8 +17,7 @@ const Dashboard = () => {
         <Fragment>
 
             <div className="grid grid-cols-12 gap-6 mt-5">
-                <div
-                    className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-green-400 via-green-500 to-green-700">
+                <div className="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-green-400 via-green-500 to-green-700">
                     <div className="report-box zoom-in">
                         <div className="box p-5">
                             <div className="flex">

@@ -10,6 +10,7 @@ use App\Models\SchoolAdmin;
 use App\Models\Session;
 use App\Models\Student;
 use App\Models\Subscription;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -106,6 +107,7 @@ class RegistrationController extends Controller
         //add to request object
         $request->request->add(['role_id' => $role->id]);
         $user = User::createNew($request);
+
         $school = School::createNew($request);
         SchoolAdmin::createNew($user->id, $school->id);
 
@@ -114,6 +116,9 @@ class RegistrationController extends Controller
         return redirect()->route('schools.index');
         //response()->json(['status'=> true,"message"=>"Registration Successful"], 201);
     }
+
+
+
     public function student(Request $request){
         $this->validate($request, [
             'first_name' => 'required|string',

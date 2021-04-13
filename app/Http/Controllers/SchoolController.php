@@ -58,7 +58,8 @@ class SchoolController extends Controller
     public function get(School $school){
         if ($school == null)
             return redirect()->route('schools.index')->with(['warning' => 'School not found']);
-        return view('pages.school.show',compact('school'));
+        $students = Student::where('school_id', $school->id)->paginate(10);
+        return view('pages.school.show',compact('school','students'));
     }
 
     public function delete($schoolId){

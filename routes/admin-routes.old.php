@@ -42,8 +42,3 @@ $router->group(['prefix' => 'school-management','middleware' => ['auth'] ], func
         $router->post('/delete-students', [\App\Http\Controllers\StudentController::class,'delete']);
     });
 });
-//school admin
-$router->group(['prefix' => 'school-admin', 'middleware' => ['auth','school_admin']], function () use ($router) {
-    $router->get('/dashboard', [\App\Http\Controllers\SchoolAdminController::class,'dashboard']);
-    $router->get('/request-delete/{studentId}', [\App\Http\Controllers\SchoolAdminController::class,'requestDelete']);
-});

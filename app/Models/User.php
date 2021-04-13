@@ -33,9 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -79,6 +77,8 @@ class User extends Authenticatable implements MustVerifyEmail
         });
     }
 
+
+
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
@@ -120,6 +120,8 @@ class User extends Authenticatable implements MustVerifyEmail
         );
         return $role;
     }
+
+
 
     public function detail(){
         if ($this->role->role =="PRIVATE_LEARNER")

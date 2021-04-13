@@ -36,7 +36,7 @@ class SchoolAdminController extends Controller
             'total_transactions'=> $transaction,
             'students'=>$students,
         ];
-        return view('pages.school.dashboard',compact('data'));
+        return view('pages.school.admin.dashboard',compact('data'));
     }
     //only admin and school_admin
     public function getSchoolAdmin($schoolAdminId){

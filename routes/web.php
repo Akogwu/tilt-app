@@ -38,12 +38,24 @@ $router->group(['prefix' => 'countries'], function () use ($router) {
     $router->get('/{countryId}/states', [\App\Http\Controllers\CountryController::class,'getState'])->name('country.states');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::middleware(['auth:sanctum', 'verified','admin'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
 Route::group(['prefix'=>'admin', 'middleware' => ['auth:sanctum','verified']],function (){
     Route::get('questionnaire',[\App\Http\Controllers\QuestionnaireController::class,'index'])->name('questionnaire');
+});
+
+//school admin
+Route::group(['prefix' => 'school-admin', 'middleware' => ['auth','school_admin']], function () {
+    Route::get('/dashboard', [\App\Http\Controllers\SchoolAdminController::class,'dashboard'])->name('school.admin.dashboard');
+    Route::get('/request-delete/{studentId}', [\App\Http\Controllers\SchoolAdminController::class,'requestDelete']);
+});
+
+
+Route::get('logout',function (){
+    \Illuminate\Support\Facades\Auth::logout();
+    return redirect('/');
 });
 
 require_once 'test-routes.php';
