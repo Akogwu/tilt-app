@@ -43,12 +43,14 @@
         "@mdi/js": "^5.9.55",
         "@mdi/react": "^1.5.0",
         "animate.css": "^4.1.1",
+        "core-util-is": "^1.0.2",
         "headroom.js": "^0.12.0",
         "jquery": "^3.6.0",
         "prop-types": "^15.7.2",
         "react-bootstrap": "^1.5.2",
         "react-content-loader": "^6.0.2",
         "react-loader-spinner": "^4.0.0",
-        "react-reveal": "^1.2.2"
+        "react-reveal": "^1.2.2",
+        "webpack-dev-server": "*"
     }
 }
