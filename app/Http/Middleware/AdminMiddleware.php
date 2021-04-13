@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SchoolAdminMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class SchoolAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role_id != 'SCHOOL_ADMIN')
+        if (Auth::user()->role_id != 'ADMIN')
             abort(403);
 
         return $next($request);
