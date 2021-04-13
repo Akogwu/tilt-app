@@ -30,8 +30,12 @@ Route::get('/take-test',function (){
     return view('pages.questions');
 })->name('questions');
 
-Route::get('/profile',function (){
-    return view('pages.profile');
+Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');
+
+//Country endpoints
+$router->group(['prefix' => 'countries'], function () use ($router) {
+    $router->get('/', [\App\Http\Controllers\CountryController::class,'getAll']);
+    $router->get('/{countryId}/states', [\App\Http\Controllers\CountryController::class,'getState'])->name('country.states');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -48,3 +52,4 @@ require_once 'questionnaire-routes.php';
 require_once 'section-routes.php';
 require_once 'subscription-routes.php';
 require_once 'admin-routes.php';
+require_once 'school-routes.php';

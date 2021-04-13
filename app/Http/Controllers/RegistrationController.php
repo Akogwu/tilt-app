@@ -24,6 +24,13 @@ class RegistrationController extends Controller
        // return view('pages.contact',compact('countries'));
     }
 
+
+    public function createSchool(){
+        $countries = Country::all();
+        return view('pages.school.create',compact('countries'));
+    }
+
+
     public function admin(Request $request){
         $this->validate($request, [
             'first_name' => 'required|string',
@@ -104,7 +111,8 @@ class RegistrationController extends Controller
 
         //TODO send mail
 
-        return response()->json(['status'=> true,"message"=>"Registration Successful"], 201);
+        return redirect()->route('schools.index');
+        //response()->json(['status'=> true,"message"=>"Registration Successful"], 201);
     }
     public function student(Request $request){
         $this->validate($request, [

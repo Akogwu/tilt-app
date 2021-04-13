@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Notifications\PasswordResetNotification;
+use App\Models\PrivateLearner;
+use App\Models\SchoolAdmin;
+use App\Models\Student;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -50,7 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $casts = [
-        'id'                => 'string',
+        'id' => 'string',
         'email_verified_at' => 'datetime',
     ];
 
@@ -66,29 +71,89 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
         self::creating(function ($model) {
-            $model->id = (string) Uuid::generate(4);
+            $model->id = (string)Uuid::generate(4);
         });
     }
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class, 'role_id');
     }
-    public function student(){
+
+    public function student()
+    {
         return $this->hasOne(Student::class, 'user_id');
     }
 
-    public function privateLearner(){
+    public function privateLearner()
+    {
         return $this->hasOne(PrivateLearner::class, 'user_id');
     }
 
-    public function schoolAdmin(){
+    public function schoolAdmin()
+    {
         return $this->hasOne(SchoolAdmin::class, 'user_id');
     }
 
-    public function fullname() {
+    public function fullname()
+    {
         return $this->last_name . ' ' . $this->first_name;
     }
+
+    public static function createNew($request){
+        $role = self::firstOrCreate(
+            ['email'=>$request->email],
+            [
+                'name' => $request->last_name.' '.$request->first_name,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'middle_name' => $request->middle_name,
+                'role_id' => $request->role_id,
+                'phone_number' => $request->phone_number,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]
+        );
+        return $role;
+    }
+
+    public function detail(){
+        if ($this->role->role =="PRIVATE_LEARNER")
+            return [
+                'id'=>$this->id,
+                'first_name'=>$this->first_name,
+                'last_name'=>$this->last_name,
+                'middle_name'=>$this->middle_name,
+                'fullname'=>$this->fullname(),
+                'email'=>$this->email,
+                'phone_number'=>$this->phone_number,
+                'role'=>$this->role->role,
+                'status'=>$this->status,
+                'age'=>$this->privateLearner->age ?? '',
+                'gender'=>$this->privateLearner->gender ?? '',
+                'school'=>$this->privateLearner->school ?? '',
+                'level'=>$this->privateLearner->level ?? ''
+            ];
+
+        return [
+            'id'=>$this->id,
+            'first_name'=>$this->first_name,
+            'last_name'=>$this->last_name,
+            'middle_name'=>$this->middle_name,
+            'fullname'=>$this->fullname(),
+            'email'=>$this->email,
+            'phone_number'=>$this->phone_number,
+            'role'=>$this->role->role,
+            'status'=>$this->status
+        ];
+    }
+
+//    public function sendPasswordResetNotification($token)
+//    {
+//        $this->notify(new PasswordResetNotification($token, $this->email));
+//    }
 }

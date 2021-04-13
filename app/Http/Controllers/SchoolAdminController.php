@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class SchoolAdminController extends Controller
 {
+    public function index(){
+        return view('schools');
+    }
+
     public function dashboard(){
         $schoolAdminId = Auth::id();
         $schoolAdmin = SchoolAdmin::where('user_id', $schoolAdminId)->first();

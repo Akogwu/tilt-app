@@ -13,7 +13,7 @@
         <script src="https://use.fontawesome.com/2cf7cdc790.js"></script>
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/tailwind.css') }}">
-        @yield('styles')
+        @stack('styles')
         @livewireStyles
         <!-- Scripts -->
         <script src="{{ mix('js/bundle.js') }}" defer></script>

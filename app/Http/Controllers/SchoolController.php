@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Resources\SchoolDetailResource;
 use App\Http\Resources\StudentResource;
+use App\Models\Country;
 use App\Models\School;
 use App\Models\SchoolAdmin;
 use App\Models\Student;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
+
     public function updateSchool(Request $request, $schoolId){
         $rules = [
             'school_name'=>'nullable|string',
@@ -40,7 +42,7 @@ class SchoolController extends Controller
         ];
 
         $school->update($data);
-        return response()->json(['status'=>true, 'message'=>'Update Successful'], 201);
+        return redirect()->route('schools.edit',$school);
     }
 
     public function getStudents($schoolId, $row=10){
@@ -48,12 +50,17 @@ class SchoolController extends Controller
         return StudentResource::collection($students);
     }
 
+    public function editSchool(School $school){
+        $countries = Country::all();
+        return view('pages.school.edit',compact('school','countries'));
+    }
+
     public function get($schoolId){
         $school = School::find($schoolId);
         if ($school == null)
             return response()->json(['status'=>false, 'message'=>'School Id '.$schoolId.' not found'], 404);
 
-        return new SchoolDetailResource($school);
+        return view('schools');
     }
 
     public function delete($schoolId){
@@ -77,6 +84,6 @@ class SchoolController extends Controller
         if ($schoolAdminUserId !=null)
             User::whereIn('id', $schoolAdminUserId)->delete();
         $school->delete();
-        return response()->json(['status'=>true, 'message'=>'action successful'], 201);
+        return redirect()->route('schools.index');
     }
 }

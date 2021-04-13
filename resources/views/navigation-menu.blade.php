@@ -50,7 +50,7 @@
                                         {{ __('Admin Accounts') }}
                                     </x-jet-dropdown-link>
 
-                                    <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                    <x-jet-dropdown-link href="{{ route('schools.index') }}">
                                         {{ __('School Accounts') }}
                                     </x-jet-dropdown-link>
 

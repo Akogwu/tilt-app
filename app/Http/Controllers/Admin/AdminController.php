@@ -85,9 +85,12 @@ class AdminController extends Controller
         return UsersResource::collection($users);
     }
 
+    public function createSchool(Request $request){
+
+    }
     public function getAllSchool(){
-        $school = School::orderBy('name','asc')->get();
-        return SchoolDetailResource::collection($school);
+        $schools = School::orderBy('name','asc')->get();
+        return view('pages.school.schools',compact('schools'));
     }
 
     public function userManagementDashboard(){
