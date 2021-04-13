@@ -76,7 +76,7 @@
                                         {{ $school->total_student??'N/A' }}
                                     </td>
                                     <td class="px-6 py-4 inline-flex justify-content-around whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-2">View</a>
+                                        <a href="{{ route('schools.show.school',$school) }}" class="text-blue-600 hover:text-blue-900 mr-2">View</a>
                                         <a href="{{ route('schools.edit',$school) }}" class="text-purple-600 hover:text-purple-900 mr-2">Edit</a>
 {{--                                        <a href="#" data-id="{{ $school->id }}"  class="delete-school text-red-600 hover:text-red-900">Delete</a>--}}
                                         <form class="inline-block" action="{{ route('school-delete', $school->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">

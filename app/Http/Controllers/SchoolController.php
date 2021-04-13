@@ -55,12 +55,10 @@ class SchoolController extends Controller
         return view('pages.school.edit',compact('school','countries'));
     }
 
-    public function get($schoolId){
-        $school = School::find($schoolId);
+    public function get(School $school){
         if ($school == null)
-            return response()->json(['status'=>false, 'message'=>'School Id '.$schoolId.' not found'], 404);
-
-        return view('schools');
+            return redirect()->route('schools.index')->with(['warning' => 'School not found']);
+        return view('pages.school.show',compact('school'));
     }
 
     public function delete($schoolId){
