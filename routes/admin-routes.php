@@ -1,5 +1,5 @@
 <?php
- $router->group(['prefix' => 'admin', 'middleware' => ['auth','admin'] ], function () use ($router) {
+ $router->group(['prefix' => 'admin', 'middleware' => ['auth'] ], function () use ($router) {
      $router->get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class,'dashboard']);
      $router->get('/settings', [\App\Http\Controllers\SettingsController::class,'getAll']);
      $router->post('/settings', [\App\Http\Controllers\SettingsController::class,'update']);

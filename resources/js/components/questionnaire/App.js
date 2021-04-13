@@ -38,6 +38,7 @@ const App = () => {
     return (
         <Fragment>
             {openAlert && <AlertMessage open={openAlert} handleCloseSnack={handleCloseAlert} message={`Please select a section before adding question`} severity={`warning`}/>}
+            {openQuestionAddModal && <QuestionAddModal open={openQuestionAddModal} handleClose={handleCloseAddQuestionModal}/>}
             <div className="py-6">
                 <div className="flex w-full min-w-full divide-y divide-gray-200">
                     <div onClick={ () => setOpenGroupModal(true) } style={{ backgroundColor:'#e5f3fe', cursor:'pointer' }}   className="p-3 w-1/4 button font-bold" >
@@ -55,7 +56,6 @@ const App = () => {
                 <div className="flex w-full min-w-full divide-y divide-gray-200">
                     <GroupAddModal open={openGroupModal} handleClose={handleCloseGroupModal}/>
                     <SectionAddModal open={openSectionAddForm} handleClose={handleCloseAddSectionForm}/>
-                    {openQuestionAddModal && <QuestionAddModal open={openQuestionAddModal} handleClose={handleCloseAddQuestionModal}/>}
                     <Groups/>
                     <div className="p-3 w-1/4">
                         <Sections/>

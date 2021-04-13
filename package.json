@@ -49,6 +49,8 @@
         "react-bootstrap": "^1.5.2",
         "react-content-loader": "^6.0.2",
         "react-loader-spinner": "^4.0.0",
-        "react-reveal": "^1.2.2"
+        "react-reveal": "^1.2.2",
+        "react-router": "^5.2.0",
+        "react-router-dom": "^5.2.0"
     }
 }

@@ -9,7 +9,7 @@
 Route::group(['prefix'=>'test'],function (){
     Route::post('/new-session',[\App\Http\Controllers\TakeTestController::class,'createSession']);
     Route::get('/get-questions',[\App\Http\Controllers\TakeTestController::class,'getAllQuestions']);
-    Route::get('/submit',[\App\Http\Controllers\TakeTestController::class,'submitTest']);
+    Route::post('/submit',[\App\Http\Controllers\TakeTestController::class,'submitTest']);
     Route::get('/{sessionId}/answers',[\App\Http\Controllers\TakeTestController::class,'getAllSessionAnswers']);
 });
 //$router->group(['prefix' => 'tests'], function () use ($router) {

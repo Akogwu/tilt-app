@@ -4,12 +4,12 @@
 namespace App\Util;
 
 
-use App\Group;
-use App\Questionnaire;
-use App\QuestionnaireWeightPoint;
-use App\Section;
-use App\TestRecord;
-use App\TestResult;
+use App\Models\Group;
+use App\Models\Questionnaire;
+use App\Models\QuestionnaireWeightPoint;
+use App\Models\Section;
+use App\Models\TestRecord;
+use App\Models\TestResult;
 
 class TestResultCalculator
 {

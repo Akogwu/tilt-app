@@ -13,6 +13,7 @@ import {QuestionContext} from "./QuestionContext";
 import useForm from "./useForm";
 import validate from "./validateInfo";
 import QuestionDeleteModal from "./QuestionDeleteModal";
+import AlertMessage from "../../Alert";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +58,12 @@ const useStyles = makeStyles((theme) => ({
 
 const  QuestionPanel = ({question,index}) => {
     const classes = useStyles();
-    const {state,handleChanges, handleChangeRemark,handleAddRemark,handleUpdateQuestion, errors, handleSubmit} = useForm(validate,false,false, question);
+    const handleSuccess = ($success = true) => {
+        setSuccess($success);
+    }
+    const {state,handleChanges, handleChangeRemark,handleAddRemark,handleUpdateQuestion, errors, handleSubmit} = useForm(validate,handleSuccess,false, question);
     const [openDeleteModal,setOpenDeleteModal] = useState(false);
+    const [success,setSuccess] = useState(false);
 
     const closeDeleteModal = () => {
         setOpenDeleteModal(false);
@@ -68,6 +73,7 @@ const  QuestionPanel = ({question,index}) => {
     return (
         <Fragment>
             { openDeleteModal && <QuestionDeleteModal open={openDeleteModal} handleClose={closeDeleteModal} question_id={question.id}/> }
+            { success && <AlertMessage open={success} severity={'success'} message={'question updated successfully'} handleCloseSnack={ () => setSuccess(false) }/> }
             <div className={classes.root}>
                 <Accordion className={`my-2`}>
                     <AccordionSummary

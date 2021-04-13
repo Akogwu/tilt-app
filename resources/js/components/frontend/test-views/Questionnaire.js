@@ -463,7 +463,7 @@ class Questionnaire extends Component {
 	submitQuestions = async (e) => {
 		e.preventDefault();
 		this.setState({ isLoading: true });
-		localStorage.removeItem("@detailedResults");
+		//localStorage.removeItem("@detailedResults");
 
 		if (this.state.completeAnsweredQuestions.length === 0) {
 			alert("You did not answer any Questionnaire");
@@ -478,7 +478,7 @@ class Questionnaire extends Component {
 		}
 
 		let testSession = {};
-		testSession.session_id = localStorage.getItem("@TstS3ssion");
+		testSession.session_id = localStorage.getItem("session_id");
 		testSession.questionnaire = this.state.completeAnsweredQuestions;
 
 		await axios
@@ -492,19 +492,11 @@ class Questionnaire extends Component {
 				} else {
 					this.setState({ loading: false });
 					alert("Could not submit test, Please reload");
-					// this.setOpentMessage(
-					// 	"error",
-					// 	"Could not submit test, Please reload."
-					// );
 				}
 			})
 			.catch((err) => {
 				this.setState({ isLoading: false });
 				alert("Error submitting Test, check your network connectivity");
-				// this.setOpentMessage(
-				// 	"error",
-				// 	"Error submitting Test, check your network connectivity"
-				// );
 			});
 	};
 

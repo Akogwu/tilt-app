@@ -11,6 +11,7 @@ use App\Models\TestRecord;
 use App\Models\User;
 use App\Util\TestResultCalculator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class TakeTestController extends Controller

@@ -68,7 +68,7 @@ const QuestionAddModal = ({open,handleClose}) => {
 
     return (
         <Fragment>
-            <AlertMessage open={success} severity={`success`} message={`Question created successfully`} handleCloseSnack={closeAlert}/>
+
             <Dialog
                 open={!!open}
                 TransitionComponent={Transition}

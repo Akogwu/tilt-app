@@ -16,11 +16,12 @@
                     <h2 class="md:text-base mb-0 text-orange">Patiently answer every question honestly.</h2>
                     <p>Ask your teacher or guardian to explain any question you do not clearly understand</p>
                     <div class="mt-4 mt-lg-5 mb-5 mb-lg-0">
-                        <a href="{{ route('questions') }}" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
-                            <span class="btn-inner-text">
-                                Begin the test <i class="fas fa-arrow-right ml-2"></i>
-                            </span>
-                        </a>
+                        <div id="test-button-component"></div>
+{{--                        <a href="{{ route('questions') }}" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">--}}
+{{--                            <span class="btn-inner-text">--}}
+{{--                                Begin the test <i class="fas fa-arrow-right ml-2"></i>--}}
+{{--                            </span>--}}
+{{--                        </a>--}}
                     </div>
                 </div>
                 <div class="col-4 col-md-5 col-lg-6 order-lg-1">
@@ -69,12 +70,24 @@
                 </div>
             </div>
             <div class="mt-4 mt-lg-5 mb-5 mb-lg-0 text-center">
-                <a href="{{ route('questions') }}" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
-                    <span class="btn-inner-text">
-                        Begin the test <i class="fas fa-arrow-right ml-2"></i>
-                    </span>
-                </a>
+{{--                <a href="{{ route('questions') }}" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">--}}
+{{--                    <span class="btn-inner-text">--}}
+{{--                        Begin the test <i class="fas fa-arrow-right ml-2"></i>--}}
+{{--                    </span>--}}
+{{--                </a>--}}
             </div>
         </div>
     </section>
 @endsection
+@push('scripts')
+    @if(\Illuminate\Support\Facades\Auth::check()))
+        <script>
+            let user = "{{ \Illuminate\Support\Facades\Auth::id() }}";
+            window.localStorage.setItem('user_id',user);
+        </script>
+    @else
+        <script>
+            window.localStorage.removeItem('user_id');
+        </script>
+    @endif
+@endpush

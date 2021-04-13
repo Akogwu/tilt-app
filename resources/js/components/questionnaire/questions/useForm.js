@@ -55,7 +55,7 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
 
     const handleChanges = e => {
         const {name,value} = e.target;
-        setState({...state,[name]:value.trim()})
+        setState({...state,[name]:value})
     }
 
     const handleChangeRemark = e => {
@@ -77,27 +77,33 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
 
     const handleSubmit = e =>{
         e.preventDefault();
-        setLoading(true);
         setErrors(validate(state));
-        if (Object.keys(validate(state)).length <= 0)
+
+        if (Object.keys(validate(state)).length <= 0){
             console.log(newData);
-        apiPost(newData,'questionnaire').then( () => {
-            apiGet(`sections/${sectionId}/questionnaires`).then( questions => {
-                setQuestions(questions);
-            } )
-            handleSuccess();
-            setTimeout(function (){
-                setLoading(false);
-                handleClose();
-            },1500)
-        });
+            setLoading(true);
+            apiPost(newData,'questionnaire').then( () => {
+                apiGet(`sections/${sectionId}/questionnaires`).then( questions => {
+                    setQuestions(questions);
+                });
+                handleSuccess();
+                setTimeout(function (){
+                    setLoading(false);
+                    handleClose();
+                },1500)
+            });
+        }
+
     }
 
     const handleUpdateQuestion = async e => {
         e.preventDefault();
-        setLoading(true);
+        setErrors(validate(state));
+        if (Object.keys(validate(state)).length <= 0)
+            setLoading(true);
         await apiUpdate(data,`questionnaire/${state.question_id}`).then( () => {
             setLoading(false);
+            handleSuccess();
             setSectionId(state.section_id);
         })
     };

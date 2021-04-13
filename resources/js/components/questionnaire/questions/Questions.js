@@ -26,9 +26,6 @@ const Questions = () => {
             <rect x="-1" y="247" rx="3" ry="3" width="380" height="6" />
             <rect x="0" y="184" rx="0" ry="0" width="407" height="38" />
         </ContentLoader>
-
-
-
     )
 
     return (

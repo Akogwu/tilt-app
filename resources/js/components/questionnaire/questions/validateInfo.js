@@ -3,8 +3,6 @@ export default function validateInfo(values){
 
     if (!values.question.trim())
         errors.question = 'Question is required';
-    if (!values.section_id)
-        errors.section_id = 'Section is required';
 
     return errors;
 }
