@@ -61,8 +61,10 @@ return [
     |
     */
 
+
     'home' => RouteServiceProvider::HOME,
     'school' => RouteServiceProvider::SCHOOL,
+    'private' => RouteServiceProvider::Private,
 
     /*
     |--------------------------------------------------------------------------

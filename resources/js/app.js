@@ -18,3 +18,5 @@ require('./components/questionnaire/Questionnaire');
 require('./components/frontend/test-views/Questionnaire');
 require('./components/dashboard/Dashboard');
 require('./components/TestButton');
+require('./components/frontend/profile/App');
+

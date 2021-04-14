@@ -17,6 +17,7 @@ class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
 
+
     /**
      * Create a newly registered user.
      *
@@ -44,6 +45,15 @@ class CreateNewUser implements CreatesNewUsers
                 'role_id' => $input['role_id'],
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
+
+                if ($input['role_id'] == 'PRIVATE_LEARNER'){
+                    PrivateLearner::createNewOrUpdate($input,$user);
+                }
+                if (($input['role_id'] == 'SCHOOL_ADMIN')){
+                    $school = School::createNew($input);
+                    SchoolAdmin::createNew($user->id, $school->id);
+                }
+
 //                if ($input['role_id'] == 'PRIVATE_LEARNER'):
 //                    PrivateLearner::createNewOrUpdate($input,$user);
 //                elseif ($input['role_id'] == 'SCHOOL_ADMIN'):

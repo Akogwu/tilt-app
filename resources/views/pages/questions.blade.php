@@ -9,5 +9,5 @@
     <div class="">
         <div id="question-component"></div>
     </div>
-
 @endsection
+
