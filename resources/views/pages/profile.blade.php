@@ -56,28 +56,33 @@
                     <div class="tab-content mt-4 mt-lg-5" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-causes" role="tabpanel" aria-labelledby="nav-causes-tab">
                             <div class="row justify-content-between">
-                                <div class="col-12 col-lg-7">
-                                    <h1 class="text-gray-700 font-bold">Test History</h1>
+                                <div class="col-12 col-lg-8 card shadow-sm border-soft">
+                                    <div class="card-body">
+                                        <h1 class="text-gray-700 font-bold">Test History</h1>
+                                        <div class="flex justify-content-between my-3">
+                                            <table class="table">
+                                                <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <th><span class="">Test Date</span></th>
+                                                        <th><span class="">Average Score</span></th>
+                                                        <th><span class="">Total Score</span></th>
+                                                        <th><span class="">Obtainable Score</span></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>20/04/2021</td>
+                                                        <td>80%</td>
+                                                        <td>300</td>
+                                                        <td>400</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
 
-                                    <div class="bg-gray-100 shadow-lg rounded p-3 flex justify-content-between my-3">
-                                        <div class="border-r-2 border-gray-200">
-                                            <span class="font-bold px-2">Test Date</span>
-                                        </div>
-                                        <div class="border-r-2 border-gray-200">
-                                            <span class="font-bold px-2">Average Score</span>
-                                        </div>
-                                        <div class="border-r-2 border-gray-200">
-                                            <span class="font-bold px-2">Total Score</span>
-                                        </div>
-                                        <div class="">
-                                            <span class="font-bold px-2">Obtainable Score</span>
+                                            </table>
                                         </div>
                                     </div>
-
-                                    <div class="bg-white shadow-lg rounded w-full p-4 ">
-
-                                    </div>
-
                                 </div>
                                 <aside class="col-12 col-lg-4 mt-3 mt-lg-0 d-none d-lg-block z-2">
                                     <div class="card shadow-sm border-soft p-3">

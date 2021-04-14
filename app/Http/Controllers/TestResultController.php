@@ -24,11 +24,11 @@ class TestResultController extends Controller
     }
     public function getTestResultSummary($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();
+        $payment_status = $testResult->payment_status;
         if ($testResult == null )
-            return response()->json(['status'=>false, 'data'=>[], 'message'=>'No record found'], 404);
+            abort(404);
+        return view('pages.results.summary',compact('testResult','payment_status'));
 
-        return response()->json(['status'=>true, 'data'=>$testResult->getResult($sessionId), 'payment_status'=> $testResult->payment_status,
-        ], 200);
     }
 
 

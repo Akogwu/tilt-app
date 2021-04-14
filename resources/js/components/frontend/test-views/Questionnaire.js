@@ -11,12 +11,11 @@ import PageButtonIconLeft from "./snippets/PageButtonIconLeft";
 import PageButtonSubmit from "./snippets/PageButtonSubmit";
 import axios from "axios";
 import config from "./helpers/Config";
-import {apiGet} from "../../utils/ConnectApi";
-import {QuestionContext} from "./QuestionContext";
 import AlertMessage from "./Alert";
 
 import isEmpty from "./utils/is-empty";
 import ReactDOM from "react-dom";
+import {apiPost} from "../../utils/ConnectApi";
 
 
 const Helpers = require("./helpers/Helpers");
@@ -416,14 +415,14 @@ class Questionnaire extends Component {
                 id="next-button"
                 icon={"fa-arrow-right"}
                 text={"Next"}
-                color={this.state.currentColor || "text-gray-700"}
+                color={this.state.currentColor || "gray"}
                 onClick={(e) => this.handleNext(e)}
             />
         ) : (
             <PageButtonIconRight
                 icon={"fa-arrow-right"}
                 text={"Next"}
-                color={this.state.currentColor || "text-gray-700"}
+                color={this.state.currentColor || "gray"}
                 onClick={(e) =>
                     this.setOpentMessage(
                         "warning",
@@ -478,26 +477,32 @@ class Questionnaire extends Component {
         }
 
         let testSession = {};
-        testSession.session_id = localStorage.getItem("session_id");
+        const sessionId = localStorage.getItem("session_id");
+        testSession.session_id = sessionId;
         testSession.questionnaire = this.state.completeAnsweredQuestions;
-
-        await axios
-            .post(config.apiBaseUrl + "test/submit", testSession)
-            .then((res) => {
-                if (res.status) {
-                    this.setState({ isLoading: false });
-                    this.props.history.replace("/test/summary-result", {
-                        sessionId: testSession.session_id,
-                    });
-                } else {
-                    this.setState({ loading: false });
-                    alert("Could not submit test, Please reload");
-                }
-            })
-            .catch((err) => {
+        await apiPost(testSession,'test/submit').then(res => {
+            if (res.status){
                 this.setState({ isLoading: false });
-                alert("Error submitting Test, check your network connectivity");
-            });
+                window.location.href = `/test/result/${sessionId}/summary`;
+            }
+        });
+
+        // await axios.post(config.apiBaseUrl + "test/submit", testSession)
+        //     .then((res) => {
+        //         console.log(res);
+        //         // if (res.status) {
+        //         //     this.setState({ isLoading: false });
+        //         //     this.props.history.replace("/test/summary-result", {
+        //         //         sessionId: testSession.session_id,
+        //         //     });
+        //         // } else {
+        //         //     this.setState({ loading: false });
+        //         //     alert("Could not submit test, Please reload");
+        //         // }
+        //     }).catch((err) => {
+        //         this.setState({ isLoading: false });
+        //         alert("Error submitting Test, check your network connectivity");
+        //     });
     };
 
     handleNext = async (e) => {
