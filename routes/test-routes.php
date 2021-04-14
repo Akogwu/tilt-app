@@ -15,7 +15,7 @@ Route::group(['prefix'=>'test'],function (){
 Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
         //get detail result
     Route::post('/results/{sessionId}',[\App\Http\Controllers\TestResultController::class,'getTestResult']);
-    //Route::post('/{userId}',[\App\Http\Controllers\TestResultController::class,'getMyTestResults']);
+    Route::post('/{userId}',[\App\Http\Controllers\TestResultController::class,'getMyTestResults']);
     Route::post('details/{userId}',[\App\Http\Controllers\TestResultController::class,'getTestDetails']);
     });
 
