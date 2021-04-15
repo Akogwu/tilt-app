@@ -56,7 +56,9 @@ Route::group(['prefix' => 'school-admin', 'middleware' => ['auth','school_admin'
     Route::get('/request-delete/{studentId}', [\App\Http\Controllers\SchoolAdminController::class,'requestDelete']);
 });
 
-
+Route::get('/complete',function (){
+    return view('pages.school.complete');
+});
 
 Route::get('logout',function (){
     \Illuminate\Support\Facades\Auth::logout();
