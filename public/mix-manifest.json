@@ -3,7 +3,9 @@
     "/js/bundle.js": "/js/bundle.js",
     "/css/main.css": "/css/main.css",
     "/css/app.css": "/css/app.css",
-    "/css/tailwind.css": "/css/tailwind.css",
+    "/css/print-custom.css": "/css/print-custom.css",
+    "/css/results.css": "/css/results.css",
     "/css/login.css": "/css/login.css",
-    "/css/custom.css": "/css/custom.css"
+    "/css/custom.css": "/css/custom.css",
+    "/css/tailwind.css": "/css/tailwind.css"
 }

@@ -108,7 +108,7 @@ class Questionnaire extends Component {
                 currentSectionIndex > 0 //
                     ? currentGroup.sections[currentSectionIndex - 1] //// gets previous section
                     : null;
-            currentSectionQuestions = currentSection.questions; // gets current questions from current section
+            currentSectionQuestions = currentSection?.questions; // gets current questions from current section
             currentColor = currentGroup.color;
             isLoading = false;
             activeQuestion = currentSectionQuestions[0];
@@ -475,7 +475,6 @@ class Questionnaire extends Component {
             this.setState({ isLoading: false });
             return;
         }
-
         let testSession = {};
         const sessionId = localStorage.getItem("session_id");
         testSession.session_id = sessionId;

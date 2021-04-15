@@ -24,10 +24,15 @@ class TestResultController extends Controller
     }
     public function getTestResultSummary($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();
-        $payment_status = $testResult->payment_status;
+
         if ($testResult == null )
             abort(404);
-        return view('pages.results.summary',compact('testResult','payment_status'));
+
+        $payment_status = $testResult->payment_status;
+        $user = $testResult->session->user;
+        $testResult = $testResult->getResult($sessionId);
+
+        return view('pages.results.summary',compact('testResult','payment_status','user'));
 
     }
 

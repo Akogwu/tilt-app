@@ -1,0 +1,92 @@
+.row.summary-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+
+    .pricing-card{
+        p{
+            padding: 2.5rem 1rem;
+            &:last-child{
+                border: none !important;
+            }
+        }
+    }
+}
+
+.detailed-page{
+    width: 100%;
+    .result-heading.group{
+        border-width: 3px;
+        header{
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            width: 88%;
+            margin: 0 auto;
+
+            .icon-title{
+                h1{
+                    display: inline;
+                    margin-right: 0.8rem;
+                    font-size: 28px !important;
+                }
+                flex: 1;
+                text-align: left;
+
+            }
+            .description{
+                flex: 2;
+                text-align: left;
+                margin-left: 2.784rem;
+                font-size: 1.1rem;
+            }
+        }
+
+
+
+        i{
+            width: 2rem;
+        }
+        h1{
+            font-size: 4rem;
+            font-weight: bolder;
+            color: #0D0A0A;
+        }
+    }
+
+    .recommendations{
+        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+
+        .card{
+            border-style: solid;
+            border-width: 3px;
+            width: 100%;
+
+            p{
+                padding: 10px 0;
+            }
+
+            p:last-of-type{
+                border: none !important;
+            }
+        }
+        margin-bottom: 4rem;
+    }
+}
+
+.pay-btn{
+    margin: 0 auto;
+}
+
+.simple-loader{
+    padding: 4rem;
+    margin: 0 auto;
+    width: 100%;
+    align-content: center;
+    vertical-align: center;
+}
+
