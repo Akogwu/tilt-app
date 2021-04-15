@@ -21,6 +21,17 @@ class TestResultRepository
         //TestResult::where('session_id')
         return $sessionWithResult->get();
     }
+    public function getTestResultSummary($sessionId){
+        $testResult = TestResult::where('session_id', $sessionId)->first();
+        if ($testResult == null )
+            return [];
+        $user = $testResult->session->user->fullname() ?? '';
+        return [
+             'data'=>$testResult->getResult($sessionId),
+            'payment_status'=> $testResult->payment_status,
+            'user_name'=>$user
+        ];
+    }
 
     public function getTestDetails($userId){
         $session = Session::where('user_id', $userId);
