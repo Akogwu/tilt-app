@@ -71,13 +71,22 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                @if(!is_null($testResults))
+                                                @foreach($testResults as $result)
                                                     <tr>
-                                                        <td>20/04/2021</td>
-                                                        <td>80%</td>
-                                                        <td>300</td>
-                                                        <td>400</td>
+                                                        <td>{{$result['created_at']}}</td>
+                                                        <td>{{$result->testResult->avg_score}}%</td>
+                                                        <td>{{$result->testResult->total_score}}</td>
+                                                        <td>{{$result->testResult->obtainable_score}}</td>
                                                         <td></td>
                                                     </tr>
+                                                @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="5" class="text-muted">No record found</td>
+
+                                                    </tr>
+                                                @endif
                                                 </tbody>
 
                                             </table>

@@ -16,16 +16,16 @@ Route::group(['prefix'=>'test'],function (){
 Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
         //get detail result
     Route::post('/results/{sessionId}',[\App\Http\Controllers\TestResultController::class,'getTestResult']);
-    //Route::post('/{userId}',[\App\Http\Controllers\TestResultController::class,'getMyTestResults']);
+    Route::post('/{userId}',[\App\Http\Controllers\TestResultController::class,'getMyTestResults']);
     Route::post('details/{userId}',[\App\Http\Controllers\TestResultController::class,'getTestDetails']);
 });
 
-$router->group(['prefix' => 'tests'], function () use ($router) {
-    $router->group(['middleware'=>'auth'], function () use ($router) {
-        //get detail result
-        $router->get('/results/{sessionId}', 'TestResultController@getTestResult');
-        $router->get('/{userId}', 'TestResultController@getMyTestResults');
-        $router->get('details/{userId}', 'TestResultController@getTestDetails');
-    });
-    $router->get('/results/{sessionId}/download', 'XTestController@downloadResult');
-});
+//$router->group(['prefix' => 'tests'], function () use ($router) {
+//    $router->group(['middleware'=>'auth'], function () use ($router) {
+//        //get detail result
+//        $router->get('/results/{sessionId}', 'TestResultController@getTestResult');
+//        $router->get('/{userId}', 'TestResultController@getMyTestResults');
+//        $router->get('details/{userId}', 'TestResultController@getTestDetails');
+//    });
+//    $router->get('/results/{sessionId}/download', 'XTestController@downloadResult');
+//});
