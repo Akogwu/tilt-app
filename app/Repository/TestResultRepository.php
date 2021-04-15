@@ -21,6 +21,25 @@ class TestResultRepository
         //TestResult::where('session_id')
         return $sessionWithResult->get();
     }
+
+    public function getTestResult($sessionId){
+        $testResult = TestResult::where('session_id', $sessionId)->first();
+        if ($testResult == null )
+            return [];
+
+        //check for payment
+        if (!$testResult->payment_status)
+            return [
+                'data'=>[],
+                'payment_status'=> $testResult->payment_status,
+            ];
+
+
+        return [
+            'data'=>$testResult->getResult($sessionId, true),
+            'payment_status'=> $testResult->payment_status,
+        ];
+    }
     public function getTestResultSummary($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();
         if ($testResult == null )
