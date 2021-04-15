@@ -67,7 +67,7 @@
                                                         <th><span class="">Average Score</span></th>
                                                         <th><span class="">Total Score</span></th>
                                                         <th><span class="">Obtainable Score</span></th>
-                                                        <th></th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -78,7 +78,7 @@
                                                         <td>{{$result->testResult->avg_score}}%</td>
                                                         <td>{{$result->testResult->total_score}}</td>
                                                         <td>{{$result->testResult->obtainable_score}}</td>
-                                                        <td></td>
+                                                        <td><a href="{{route('result.getResult',$result->testResult->session_id )}}"> view result</a></td>
                                                     </tr>
                                                 @endforeach
                                                 @else
