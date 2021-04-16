@@ -57,7 +57,7 @@ Route::group(['prefix' => 'school-admin', 'middleware' => ['auth','school_admin'
 });
 
 Route::get('/complete',function (){
-    return view('pages.school.complete');
+    return view('pages.results.complete');
 });
 
 Route::get('logout',function (){

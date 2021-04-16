@@ -33,8 +33,7 @@ class TestResultController extends Controller
 
             $testResult = $result['data'];
 
-
-        return view('pages.results.result', compact('testResult'));
+        return view('pages.results.complete', compact('testResult'));
     }
     public function getTestResultSummary($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();

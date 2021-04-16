@@ -78,7 +78,14 @@
                                                         <td>{{$result->testResult->avg_score}}%</td>
                                                         <td>{{$result->testResult->total_score}}</td>
                                                         <td>{{$result->testResult->obtainable_score}}</td>
-                                                        <td><a href="{{route('result.getResult',$result->testResult->session_id )}}"> view result</a></td>
+                                                        <td>
+                                                            <a href="{{route('result.summary',$result->testResult->session_id )}}" class="pr-1 text-tertiary" title="view summary result"><i class="fa fa-eye"></i></a>
+                                                            @if($result->testResult->payment_status ==1)
+                                                                <a href="{{route('result.getResult',$result->testResult->session_id )}}"><i class="fa fa-print"></i></a>
+                                                            @else
+                                                                <i class="fa fa-print" disabled="">
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                                 @else

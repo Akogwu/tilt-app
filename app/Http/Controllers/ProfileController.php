@@ -14,6 +14,7 @@ class ProfileController extends Controller
         $testResultRepo = new TestResultRepository();
         $testResults = $testResultRepo->getMyTestResults($user->id);
         $testDetail = $testResultRepo->getTestDetails($user->id);
+
         return view('pages.profile', compact('user','testResults','testDetail'));
     }
 }
