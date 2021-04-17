@@ -36,7 +36,7 @@
                         @foreach($testResult as $result)
                             <div class="bg-white flex flex-col align-items-center mb-4">
                                 <div class="flex flex-col align-items-center border w-full border-1 border-{{ $result['color'] }} p-2 mb-2">
-                                    <i class="fa fa-brain fa-3x icon-{{$result['color']}}"></i>
+                                    <i class="fa fa-{{  $result['icon'] }} fa-3x icon-{{$result['color']}}"></i>
                                     <div class="text-gray-900 font-bold text-xl mb-1">{{ $result['group_name'] }}</div>
                                     <p>{{ $result['description'] }}</p>
                                 </div>
@@ -47,7 +47,7 @@
                                         <div class="h-48 lg:h-auto flex align-items-baseline lg:min-w-10 bg-{{ $result['color'] }} flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" title="">
                                             <span class="text-white w-full  transform rotate-0 sm:rotate-0  md:-rotate-90 align-self-center ">{{ $section['name'] }}</span>
                                         </div>
-                                        <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                                        <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col flex-start justify-between leading-normal">
                                             <div class="mb-3 flex flex-col sm:flex-col md:flex-row">
                                                 <div class="description border-b border-{{ $result['color'] }} border-opacity-50 mb-3">
                                                     <p class="text-{{ $result['color'] }} text-base mb-0 py-2 pr-2 border-success border-1">
@@ -58,7 +58,7 @@
 
                                             @foreach($section['answer_recommendations'] as $recommendation)
                                                 @if(!is_null($recommendation['recommendation']) && !empty($recommendation['recommendation']))
-                                                <div class="mb-2">
+                                                <div class="mb-2 align-items-start">
                                                     <p class="text-gray-700 text-sm">{{ $recommendation['recommendation'] }}</p>
                                                 </div>
                                                 @endif
