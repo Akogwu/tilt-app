@@ -65,6 +65,10 @@ Route::get('logout',function (){
     return redirect('/');
 });
 
+
+// print complete result route
+Route::get('/print-result',[\App\Http\Controllers\PDFController::class,'generateResult'])->name('print-result');
+
 require_once 'test-routes.php';
 require_once 'group-routes.php';
 require_once 'questionnaire-routes.php';
