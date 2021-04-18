@@ -27,7 +27,6 @@ class TestResultController extends Controller
             }
 
             if ((int)$result['payment_status'] != 1){
-
                 abort('403','This result has not been paid for');
             }
 
@@ -35,6 +34,7 @@ class TestResultController extends Controller
 
         return view('pages.results.complete', compact('testResult'));
     }
+
     public function getTestResultSummary($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();
 
