@@ -2,16 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\TestResultRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use PDF;
-// use Knp\Snappy\Pdf;
+
 
 class PDFController extends Controller
 {
-    function generateResult(){
+    private $testResultRepository;
+    public function __construct(TestResultRepository $testResultRepository)
+    {
+        $this->testResultRepository = $testResultRepository;
+    }
 
-        $testResult = [];
+    function generateResult($sessionId = '0d35113f-5a4e-4a38-a2de-bcec80f37595'){
+
+
+        $result = $this->testResultRepository->getTestResult($sessionId);
+
+        if (is_null($result) || empty($result)){
+            abort('404','Result not found for this session');
+        }
+
+        if ((int)$result['payment_status'] != 1){
+            abort('403','This result has not been paid for');
+        }
+
+        $testResult = $result['data'];
 
         return PDF::loadView('pages.results.complete2', ['testResult' => $testResult])
         ->setOptions([

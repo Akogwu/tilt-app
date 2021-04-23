@@ -16,7 +16,6 @@ class SummaryResult extends Component
      */
     public function __construct($payment_status,$user,$testResult)
     {
-        dd($payment_status);
 
         $this->payment_status = $payment_status;
         $this->user           = $user;
