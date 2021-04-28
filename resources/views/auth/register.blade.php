@@ -111,6 +111,7 @@
                                 {{ __('Register') }}
                             </x-jet-button>
                         </div>
+                        <input type="hidden" name="session_id" id="session_id" value="">
                     </form>
                 </div>
 
@@ -192,4 +193,18 @@
         </div>
 
     </x-jet-authentication-card>
+    @push('scripts')
+        <script>
+            let sessionId;
+
+            sessionId = window.localStorage.getItem('session_id');
+            if (sessionId !=null){
+
+                document.getElementById('session_id').setAttribute('value', sessionId);
+            }
+
+        </script>
+    @endpush
 </x-guest-layout>
+
+

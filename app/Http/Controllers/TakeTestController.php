@@ -39,7 +39,7 @@ class TakeTestController extends Controller
         }
     //create session
         $session = Session::createNew($userId);
-        return response()->json(['status'=>true, 'message'=>"Session created successfully", 'session_id'=>$session->id],201);
+        return response()->json(['status'=>true, 'message'=>"Session created successfully", 'session_id'=>$session->id]);
     }
     //submit Test
     public function submitTest(Request $request){

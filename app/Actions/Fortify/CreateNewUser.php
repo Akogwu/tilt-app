@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Models\PrivateLearner;
 use App\Models\School;
 use App\Models\SchoolAdmin;
+use App\Models\Session;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -46,8 +47,22 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => Hash::make($input['password']),
             ]), function (User $user) use ($input) {
 
+                //PRIVATE_LEARNER
                 if ($input['role_id'] == 'PRIVATE_LEARNER'){
-                    PrivateLearner::createNewOrUpdate($input,$user);
+
+                    $privateLearner = PrivateLearner::createNewOrUpdate($input,$user);
+                    //check for session
+                    $sessionId = $input['session_id'] ?? null;
+
+                    if ($sessionId){
+                        //update users session
+                        $session = Session::where('id', $sessionId)->first();
+                        if ($session ==null)
+                            throw new \Exception('Session id '.$sessionId.' is not valid');
+                        //update user
+                        $session->update(['user_id'=>$user->id]);
+                    }
+
                 }
                 if (($input['role_id'] == 'SCHOOL_ADMIN')){
                     $school = School::createNew($input);
