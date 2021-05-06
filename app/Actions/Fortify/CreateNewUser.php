@@ -57,10 +57,10 @@ class CreateNewUser implements CreatesNewUsers
                     if ($sessionId){
                         //update users session
                         $session = Session::where('id', $sessionId)->first();
-                        if ($session ==null)
-                            throw new \Exception('Session id '.$sessionId.' is not valid');
-                        //update user
-                        $session->update(['user_id'=>$user->id]);
+                        //session is not null and session is valid
+                        if ($session !=null && $session->valid)
+                            $session->update(['user_id'=>$user->id,'valid'=>false]);
+                        //else do nothing
                     }
 
                 }

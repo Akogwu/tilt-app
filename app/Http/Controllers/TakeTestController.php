@@ -27,6 +27,7 @@ class TakeTestController extends Controller
     //create session
     public function createSession(Request $request){
         $userId = "";
+        $isAnonymous =false;
         if ($request->user_id){
             $user = User::find($request->user_id);
             if ($user == null)
@@ -36,9 +37,10 @@ class TakeTestController extends Controller
             $role = Role::where('role', "ANONYMOUS")->first();
             $user = User::where('role_id', $role->id)->first();
             $userId = $user->id;
+            $isAnonymous=true;
         }
     //create session
-        $session = Session::createNew($userId);
+        $session = Session::createNew($userId, $isAnonymous);
         return response()->json(['status'=>true, 'message'=>"Session created successfully", 'session_id'=>$session->id]);
     }
     //submit Test

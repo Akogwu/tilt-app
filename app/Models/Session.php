@@ -28,8 +28,8 @@ class Session extends Model
         });
     }
 
-    public static function createNew($userId){
-        $new = self::create(['user_id'=>$userId]);
+    public static function createNew($userId, $valid){
+        $new = self::create(['user_id'=>$userId,'valid'=>$valid]);
         return $new;
     }
 
