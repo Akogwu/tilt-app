@@ -19,7 +19,7 @@
                     <p class="lead text-gray-500 mt-4"><span class="font-bold">The Intentional Learning Testing Platform</span> is a unique technology that tests for and identifies the causes of learning difficulties and offers expert guidance to help learners improve in their learning outcomes in record time.<br
                             class="d-none d-lg-inline"><span class="font-bold text-primary">TILT</span> is designed based on learning psychology.</p>
                     <div class="mt-4 mt-lg-5 mb-5 mb-lg-0">
-                        <a href="#" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
+                        <a href="/test" class="btn btn-md btn-facebook btn-pill animate-up-2 mr-3">
                             <span class="btn-inner-text">
                                 Take the test <i class="fas fa-arrow-right ml-2"></i>
                             </span>

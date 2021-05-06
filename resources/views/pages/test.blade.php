@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-4 col-md-5 col-lg-6 order-lg-1">
-                    <img src="/images/student.svg" class="img-fluid mb-lg-6 mb-0" alt="Banner illustration">
+                    <img src="/images/Student.svg" class="img-fluid mb-lg-6 mb-0" alt="Banner illustration">
                 </div>
             </div>
         </div>
