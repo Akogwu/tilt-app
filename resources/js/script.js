@@ -16,10 +16,10 @@
 */
 import Headroom from "headroom.js";
 
+
 "use strict";
 $(document).ready(function () {
     // options
-
     var breakpoints = {
         sm: 540,
         md: 720,
@@ -674,6 +674,13 @@ $(document).ready(function () {
               }
           });
     }
+
+    $("#profile-btn").on('click',function(){
+      $("#profile-menu").toggleClass("d-none").on("blur",function(){
+        $(this).toggleClass("d-none");
+      });
+    })
+   
 
     $('.current-year').text(new Date().getFullYear());
 

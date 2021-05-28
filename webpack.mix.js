@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/main.css','public/css',[
         require('autoprefixer'),
     ])
+    mix.js("resources/js/script.js","public/js")
     .postCss('resources/css/tailwind.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),

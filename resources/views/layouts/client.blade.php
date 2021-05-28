@@ -99,18 +99,18 @@
                     </li>
                 </ul>
             </div>
-            <div class="d-none d-lg-block">
+            <div class="d-none d-lg-flex">
                 @if(auth()->check())
-                <div class="relative">
-                    <button class="block w-8 h-8 rounded-full overflow-hidden">
-                        <img class="object-cover h-full w-full " src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=aa3a807e1bbdfd4364d1f449eaa96d82" alt="" aria-hidden="true">
-                    </button>
-                    <div class=" mt-2 w-48 bg-white rounded-lg py-2 shadow-md">
-                        <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 ">Profile</a>
-                        <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 ">Logout</a>
+                    <div class="relative d-inline-flex">
+                        <button class="block w-8 h-8 rounded-full overflow-hidden" id="profile-btn">
+                            <img class="object-cover h-full w-full " src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=aa3a807e1bbdfd4364d1f449eaa96d82" alt="" aria-hidden="true">
+                        </button>
+                        <div class="mt-2 w-48 bg-white rounded-lg py-2 shadow-md d-none profile-menu mt-50" id="profile-menu">
+                            <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 ">Profile</a>
+                            <a href="/logout" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 ">Logout</a>
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
                 @guest()
                 <a href="/login" role="button" class="btn btn-sm btn-tertiary btn-pill animate-up-2">
@@ -119,7 +119,7 @@
                 @endguest
 
 
-                <a href="/test" role="button" class="btn btn-sm btn-pill btn-facebook animate-up-2 ml-3">
+                <a href="/test" role="button" class="btn btn-sm btn-pill btn-facebook animate-up-2 ml-3 d-inline-flex">
                     <i class="fas fa-book-reader mr-2"></i> Take Test
                 </a>
             </div>
@@ -218,6 +218,7 @@
 
 @livewireScripts
 <script src="/js/app.js"></script>
+<script src="/js/script.js"></script>
 @stack('scripts')
 
 </body>

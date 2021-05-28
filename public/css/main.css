@@ -31502,3 +31502,7 @@ ol, p, ul {
   border-top: 0;
 }
 
+.profile-menu{
+  position: absolute;
+  z-index: 1000;
+}

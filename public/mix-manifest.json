@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/bundle.js": "/js/bundle.js",
+    "/js/script.js": "/js/script.js",
     "/css/main.css": "/css/main.css",
     "/css/app.css": "/css/app.css",
     "/css/print-custom.css": "/css/print-custom.css",

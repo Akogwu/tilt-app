@@ -84,7 +84,7 @@
                             </label>
                         </div>
 
-                        <x-jet-button class="ml-4">
+                        <x-jet-button>
                             {{ __('Login to your account') }}
                         </x-jet-button>
                     </form>

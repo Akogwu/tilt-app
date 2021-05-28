@@ -15,6 +15,14 @@
                 </div>
             </div>
 
+            <table >
+                
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+            </table>
             <div class="p-4 md:p-6">
                 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-5">
                 @if($testResult)
