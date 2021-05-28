@@ -155,29 +155,30 @@
                                 <div class="card-body">
                                     <div class="e-profile">
                                         <div class="row">
-                                            <div class="col-12 col-sm-auto mb-3">
-                                                <div class="mx-auto" style="width: 140px;">
+                                            <div class="col-12  col-sm-auto mb-3 p-2">
+                                                <div class="mx-auto relative" style="width: 140px;">
+                                                    <i class="fa fa-fw fa-close reset-thumbnail text-red-500 absolute d-none"></i>
                                                     <div class="d-flex justify-content-center align-items-center rounded" 
                                                     style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                    <img src="/images/thumbnail.png" alt="">
+                                                    <img src="/images/thumbnail.png" alt="" id="preview-thumbnail">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                            <div class="col  d-flex flex-column flex-sm-row justify-content-between mb-3">
                                                 <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
-                                                    <p class="mb-0">@johnny.s</p>
+                                                    <h4 class="pt-sm-2 pb-1 mb-0 text-wrap text-sm">{{ $user->name }}</h4>
+                                                    <p class="mb-0">{{ $user->email }}</p>
                                                     <div class="text-muted"><small>Last seen 2 hours ago</small></div>
                                                     <div class="mt-2">
-                                                        <button class="btn btn-primary p-1" type="button">
+                                                        <button class="btn btn-primary p-1" type="button" id="change-photo">
                                                             <i class="fa fa-fw fa-camera"></i>
                                                             <span style="font-size: 0.656rem">Change Photo</span>
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="text-center text-sm-right">
-                                                    <span class="badge badge-secondary">administrator</span>
-                                                    <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                                                    <span class="badge badge-secondary">{{ $user->role_id }}</span>
+                                                    <div class="text-muted"><small>Joined {{ $user->created_at->format("d-m-Y") }}</small></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -190,17 +191,17 @@
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group">
-                                                                        <label>Full Name</label>
-                                                                        <input class="form-control" type="text" name="name"
-                                                                            placeholder="John Smith" value="John Smith">
+                                                                        <label>First Name</label>
+                                                                        <input class="form-control" type="text" name="first_name"
+                                                                            placeholder="First name" value="">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
                                                                     <div class="form-group">
-                                                                        <label>Username</label>
+                                                                        <label>Last Name</label>
                                                                         <input class="form-control" type="text"
-                                                                            name="username" placeholder="johnny.s"
-                                                                            value="johnny.s">
+                                                                            name="last_name" placeholder="Last name"
+                                                                            value="">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -208,8 +209,8 @@
                                                                 <div class="col">
                                                                     <div class="form-group">
                                                                         <label>Email</label>
-                                                                        <input class="form-control" type="text"
-                                                                            placeholder="user@example.com">
+                                                                        <input class="form-control" type="email" value="{{ $user->email }}"
+                                                                            placeholder="Email address" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -233,8 +234,7 @@
                                                                 <div class="col">
                                                                     <div class="form-group">
                                                                         <label>New Password</label>
-                                                                        <input class="form-control" type="password"
-                                                                            placeholder="••••••">
+                                                                        <input class="form-control" name="password" type="password" placeholder="••••••">
                                                                     </div>
                                                                 </div>
 
@@ -242,8 +242,7 @@
                                                                     <div class="form-group">
                                                                         <label>Confirm <span
                                                                                 class="d-none d-xl-inline">Password</span></label>
-                                                                        <input class="form-control" type="password"
-                                                                            placeholder="••••••">
+                                                                        <input class="form-control" name="confirmPassword" type="password" placeholder="••••••">
                                                                     </div>
                                                                 </div>
                                                             </div>

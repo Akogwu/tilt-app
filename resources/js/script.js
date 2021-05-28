@@ -681,6 +681,22 @@ $(document).ready(function () {
       });
     })
    
+    $("#change-photo").on("click",function(){
+      $("#profile-img").click().on("change",function(){
+        const [file] = this.files;
+        if(file){
+          $("#preview-thumbnail").attr("src", URL.createObjectURL(file));
+          $(".reset-thumbnail").removeClass("d-none");
+        }
+      });
+    });
+
+    $(".reset-thumbnail").on("click",function(){
+      $("#profile-img").val('');
+      $("#preview-thumbnail").attr("src", "/images/thumbnail.png");
+      $(".reset-thumbnail").addClass("d-none");
+    });
+    
 
     $('.current-year').text(new Date().getFullYear());
 

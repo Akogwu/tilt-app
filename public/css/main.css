@@ -31506,3 +31506,12 @@ ol, p, ul {
   position: absolute;
   z-index: 1000;
 }
+
+#profile-img{
+  display: none;
+}
+
+.reset-thumbnail:hover{
+  cursor: pointer;
+}
+
