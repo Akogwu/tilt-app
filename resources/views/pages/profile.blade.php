@@ -157,10 +157,9 @@
                                         <div class="row">
                                             <div class="col-12 col-sm-auto mb-3">
                                                 <div class="mx-auto" style="width: 140px;">
-                                                    <div class="d-flex justify-content-center align-items-center rounded"
-                                                        style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                        <span
-                                                            style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                                                    <div class="d-flex justify-content-center align-items-center rounded" 
+                                                    style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                    <img src="/images/thumbnail.png" alt="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -172,7 +171,7 @@
                                                     <div class="mt-2">
                                                         <button class="btn btn-primary p-1" type="button">
                                                             <i class="fa fa-fw fa-camera"></i>
-                                                            <span class="text-sm">Change Photo</span>
+                                                            <span style="font-size: 0.656rem">Change Photo</span>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -257,6 +256,7 @@
                                                                 Changes</button>
                                                         </div>
                                                     </div>
+                                                    <input type="file" name="" id="profile-img">
                                                 </form>
 
                                             </div>
