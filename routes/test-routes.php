@@ -12,6 +12,9 @@ Route::group(['prefix'=>'test'],function (){
     Route::post('/submit',[\App\Http\Controllers\TakeTestController::class,'submitTest']);
     Route::get('/{sessionId}/answers',[\App\Http\Controllers\TakeTestController::class,'getAllSessionAnswers']);
     Route::get('/result/{sessionId}/summary', [\App\Http\Controllers\TestResultController::class,'getTestResultSummary'])->name('result.summary');
+    //mockdata
+    Route::get('/mock-result', [\App\Http\Controllers\TestResultController::class,'mockResult'])->name('result.summary');
+
 });
 Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
         //get detail result
