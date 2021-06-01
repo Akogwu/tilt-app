@@ -24,10 +24,10 @@
                             </div>
 
                             <div class="px-4 py-5 bg-white sm:p-6">
-                                <label for="address" class="block font-medium text-sm text-gray-700">School Address</label>
-                                <input type="text" name="address" id="address" class="form-input 2xl:focus-within:bg-gray-100 rounded-md shadow-sm mt-1 block w-full"
-                                       value="{{ old('address', '') }}" />
-                                @error('address')
+                                <label for="school_address" class="block font-medium text-sm text-gray-700">School Address</label>
+                                <input type="text" name="school_address" id="school_address" class="form-input 2xl:focus-within:bg-gray-100 rounded-md shadow-sm mt-1 block w-full"
+                                       value="{{ old('school_address', '') }}" />
+                                @error('school_address')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
-});
+Route::get('/', [\App\Http\Controllers\PublicController::class,'home']);
+
 Route::get('/about', function () {
     return view('pages.about');
 });

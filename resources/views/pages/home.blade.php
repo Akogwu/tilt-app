@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="text-left">
                                     <h2 class="text-gray mb-0">
-                                        <span class="counter display-3 mr-2">318</span>
+                                        <span class="counter display-3 mr-2">{{$totalCompletedTest}}</span>
                                     </h2>
                                     <span class="text-center text-muted mb-0">Test Completed</span>
                                 </div>
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="text-left">
                                     <h2 class="text-gray mb-0">
-                                        <span class="counter display-3 mr-2">14</span>
+                                        <span class="counter display-3 mr-2">{{$totalRegisteredSchool}}</span>
                                     </h2>
                                     <span class="text-center text-muted mb-0">Schools Registered</span>
                                 </div>
@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="text-left">
                                     <h2 class="text-gray mb-0">
-                                        <span class="counter display-3 mr-2">127</span>
+                                        <span class="counter display-3 mr-2">{{$totalTestedLearners}}</span>
                                     </h2>
                                     <span class="text-center text-muted mb-0">Learners Tested</span>
                                 </div>

@@ -121,6 +121,15 @@ class TestResultRepository
 
     }
 
+    public static function getCountCompletedTest(){
+        return Session::where('completed', true)->count();
+    }
+
+    public static function getCountUniqueLearnerCompletedTest(){
+
+        return Session::where('completed', true)->distinct('user_id')->count();
+    }
+
 
     private function convertToPercentage($numerator, $denominator){
         if ($numerator == 0)

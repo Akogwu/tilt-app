@@ -113,7 +113,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 'last_name' => $request->last_name,
                 'middle_name' => $request->middle_name,
                 'role_id' => $request->role_id,
-                'phone_number' => $request->phone_number,
+                'phone' => $request->phone_number,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]

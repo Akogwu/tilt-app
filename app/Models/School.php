@@ -36,6 +36,15 @@ class School extends Model
         return $this->hasMany(Student::class, 'school_id');
     }
 
+    public function stateProvince()
+    {
+        return $this->belongsTo(StateProvince::class,'state');
+    }
+    public function countryRelation()
+    {
+        return $this->belongsTo(Country::class,'country');
+    }
+
     public static function createNew($input){
         $school = self::create(
             [

@@ -31,8 +31,8 @@
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $school->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $school->address }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $school->country }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $school->state }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $school->countryRelation->name ?? '' }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $school->stateProvince->name ?? '' }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $school->city }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $school->zipcode }}</td>
                                     </tr>
@@ -61,10 +61,10 @@
                                 <tbody>
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $school->created_at->format('d/m/Y') }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->total_student }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->number_left }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->admin->name??'' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->phone }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->student->count() }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->getRemainingCapacity() }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->schoolAdmin->user->name ?? '' }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">{{ $school->schoolAdmin->user->phone }}</td>
                                 </tr>
                                 </tbody>
                             </table>
