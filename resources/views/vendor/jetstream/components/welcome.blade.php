@@ -5,7 +5,6 @@
     <div>
         <x-jet-application-logo class="block h-12 w-auto" />
     </div>
-    {{-- <div id="dashboard-component"></div> --}}
     <div class="grid grid-cols-12 gap-6 mt-5">
         <div
             class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-green-400 via-green-500 to-green-700">
@@ -14,8 +13,7 @@
                     <div class="flex">
                         <img src="/images/graduation.svg" height="24px" width="24px" alt="" />
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0
-                    </div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{ $data['total_students'] }}</div>
                     <div class="text-base text-gray-600 mt-1">Students Registered</div>
                 </div>
             </div>
@@ -26,9 +24,8 @@
                 <div class="box p-5">
                     <div class="flex">
                         <img src="/images/school.svg" height="24px" width="24px" alt="" />
-
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$data['total_school']}}</div>
                     <div class="text-base text-gray-600 mt-1">School Enrolled</div>
                 </div>
             </div>
@@ -40,7 +37,7 @@
                     <div class="flex">
                         <img src="/images/test.svg" height="24px" width="24px" alt="" />
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$data['total_test_taken']}}</div>
                     <div class="text-base text-gray-600 mt-1 text-white">Total Test Taken</div>
                 </div>
             </div>
@@ -52,7 +49,7 @@
                     <div class="flex">
                         <img src="/images/credit-card.svg" height="24px" width="24px" alt="" />
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{ $data['successful_transaction'] }}</div>
                     <div class="text-base text-gray-600 mt-1">Successful Transactions</div>
                 </div>
             </div>
@@ -88,42 +85,52 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="flex-shrink-0 h-10 w-10">
-                                                    <img class="h-10 w-10 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
-                                                        alt="" />
-                                                </div>
-                                                <div class="ml-4">
-                                                    <div class="text-sm font-medium text-gray-900">
-                                                        Anonymous
+                                    @foreach($data['latest_test'] as $test)
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0 h-10 w-10">
+                                                        <img class="h-10 w-10 rounded-full"
+                                                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60"
+                                                            alt="" />
+                                                    </div>
+                                                    <div class="ml-4">
+                                                        <div class="text-sm font-medium text-gray-900">
+                                                            {{ $test['name']  }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="flex items-center">
-                                                <div class="ml-4">
-                                                    <div class="text-sm text-gray-500">
-                                                        0%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center">
+                                                    <div class="ml-4">
+                                                        <div class="text-sm text-gray-500">
+                                                            {{$test['percentage']}}%
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm text-gray-900">02/10/2020</div>
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                Active
-                                            </span>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="text-sm text-gray-900">{{$test['date']}}</div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                    Active
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <tfoot class="bg-gray-50">
+                                    <tr class="pb-4">
+                                        <td class="px-5">
+                                            {{$data['latest_test']->withPath('/dashboard')}}
                                         </td>
                                     </tr>
-
-                                </tbody>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -150,6 +157,7 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach($data['schools'] as $school)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
@@ -168,6 +176,7 @@
 
                                     </td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

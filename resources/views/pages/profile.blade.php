@@ -27,8 +27,7 @@
                                 </div>
                             </figcaption>
                             <button class="rounded-full w-5 h-5 text-tertiary" title="Edit Profile"><i
-                                    class="fas fa-edit fa-2x" data-toggle="modal"
-                                    data-target="#profileEditModal"></i></button>
+                                    class="fas fa-edit fa-2x" data-toggle="modal" data-target="#profileEditModal"></i></button>
                         </div>
                     </figure>
                 </div>
@@ -158,7 +157,7 @@
                                             <div class="col-12  col-sm-auto mb-3 p-2">
                                                 <div class="mx-auto relative" style="width: 140px;">
                                                     <i class="fa fa-fw fa-close reset-thumbnail text-red-500 absolute d-none"></i>
-                                                    <div class="d-flex justify-content-center align-items-center rounded" 
+                                                    <div class="d-flex justify-content-center align-items-center rounded"
                                                     style="height: 140px; background-color: rgb(233, 236, 239);">
                                                     <img src="/images/thumbnail.png" alt="" id="preview-thumbnail">
                                                     </div>
@@ -225,7 +224,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="row">
                                                         <div class="col-12 col-sm-12 mb-3">
                                                             <div class="mb-2"><b>Change Password</b></div>
@@ -257,7 +255,6 @@
                                                     </div>
                                                     <input type="file" name="" id="profile-img">
                                                 </form>
-
                                             </div>
                                         </div>
                                     </div>

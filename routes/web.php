@@ -42,9 +42,7 @@ $router->group(['prefix' => 'countries'], function () use ($router) {
     $router->get('/{countryId}/states', [\App\Http\Controllers\CountryController::class,'getState'])->name('country.states');
 });
 
-Route::middleware(['auth:sanctum', 'verified','admin'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified','admin'])->get('/dashboard',[\App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');
 
 Route::group(['prefix'=>'admin', 'middleware' => ['auth:sanctum','verified']],function (){
     Route::get('questionnaire',[\App\Http\Controllers\QuestionnaireController::class,'index'])->name('questionnaire');

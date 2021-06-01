@@ -1,8 +1,8 @@
 <?php
 
-$router->group(['prefix' => 'admin', 'middleware' => ['auth'] ], function () use ($router) {
-    $router->get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'dashboard']);
-});
+//$router->group(['prefix' => 'admin', 'middleware' => ['auth'] ], function () use ($router) {
+//    $router->get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'dashboard']);
+//});
 
 $router->group(['prefix' => 'school-management',  'middleware' => ['auth','admin']], function () use ($router) {
     //$router->group(['middleware' => 'admin'], function () use ($router){

@@ -30,7 +30,6 @@
                 <div class="text">
                     <h2></h2>
                     <div class="banner">
-
                     </div>
                 </div>
 

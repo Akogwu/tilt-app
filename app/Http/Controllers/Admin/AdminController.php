@@ -14,7 +14,11 @@ use App\Models\TestResult;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+
 
 class AdminController extends Controller
 {
@@ -34,16 +38,23 @@ class AdminController extends Controller
         }
 
         $bestPerformingSchool = $this->getBestPerformingSchool();
-
-        return [
+        $data = [
             'total_students'=>$totalStudents,
             'total_school'=>$totalSchools,
             'total_test_taken'=>$totalTestTaken,
-            'latest_test'=>$latestTestData,
+            'latest_test'=>  $this->paginate($latestTestData),
             'schools'=>$bestPerformingSchool,
             'successful_transaction'=>$successfulTransaction
         ];
+        return view('dashboard',compact('data'));
     }
+
+    public function paginate($items, $perPage = 5, $page = null, $options = []){
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
     private function getBestPerformingSchool(){
         //get performing schools
         $students = DB::table('schools')

@@ -36,7 +36,7 @@
         <div class="container">
             <div class="grid lg:grid-cols-3 gap-5 mt-n9">
                 <div class="mb-5 d-flex">
-                    <a class="card animate-up-3 rounded-t-2xl shadow-md border-soft" href="html/pages/our-mission.html">
+                    <a class="card animate-up-3 rounded-t-2xl shadow-md border-soft" href="#">
                         <div class="px-5 bg-gray-100 border-t border-blue-500 rounded-t-md pt-4 pb-5">
                             <span class="badge badge-secondary badge-pill mb-2">Survey</span>
                             <h5 class="mb-3">Complete our Questionnaire</h5>
@@ -48,7 +48,7 @@
                     </a>
                 </div>
                 <div class=" mb-5 d-flex">
-                    <a class="card animate-up-3 rounded-t-2xl shadow-md border-soft" href="html/pages/our-mission.html">
+                    <a class="card animate-up-3 rounded-t-2xl shadow-md border-soft" href="#">
                         <div class="px-5 bg-gray-100 border-t border-green-500 rounded-t-md  pt-4 pb-5">
                             <span class="badge badge-primary badge-pill mb-2">Result</span>
                             <h5 class="mb-3">Get the result of the test</h5>
@@ -60,7 +60,7 @@
                     </a>
                 </div>
                 <div class=" mb-5 d-flex">
-                    <a class="card animate-up-3 rounded-t-2xl   shadow-md border-soft" href="html/pages/our-mission.html">
+                    <a class="card animate-up-3 rounded-t-2xl   shadow-md border-soft" href="#">
                         <div class="px-5 bg-gray-100 border-t border-orange rounded-t-md pt-4 pb-3">
                             <span class="badge badge-tertiary badge-pill mb-2">Recommendations</span>
                             <h5 class="mb-3">Follow our expert Recommendations</h5>
