@@ -80,75 +80,242 @@ class TestResultController extends Controller
                     'sections'=>[
                         [
                             'section_name'=>'Ability to Read',
-                            'scores'=>[20,30,40,50],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Listening Skills',
-                            'scores'=>[20,30,40,50],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Ability to write',
-                            'scores'=>[40,10,],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Fluency of Language of Instruction',
-                            'scores'=>[40],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Memorization/ Cramming',
-                            'scores'=>[40],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
                         ],
                     ]
                 ],
                 [
                     'group_name'=>'Puter',
-                    'goroup_icon'=>'fas fa-download',
+                    'goroup_icon'=>'fas fa-laptop',
                     'group_color'=>'primary',
                     'description'=> 'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non',
                     'sections'=>[
                         [
                             'section_name'=>'Asking Question',
-                            'scores'=>[20,30,40],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Objective Thinking',
-                            'scores'=>[40,50],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Research and Experiment',
-                            'scores'=>[40,20],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'Aliquam elementum augue sit amet ipsum viverra, eu dictum est rutrum.'
                         ],
                     ]
                 ],
                 [
                     'group_name'=>'Banky',
-                    'goroup_icon'=>'fas fa-user-graduate',
+                    'goroup_icon'=>'fas fa-download',
                     'group_color'=>'primary',
                     'description'=> 'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non',
                     'sections'=>[
                         [
                             'section_name'=>'Asking Question',
-                            'scores'=>[20,30,40],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#333333'],
+                                ['score'=>30,'color'=>'#000000'],
+                                ['score'=>40,'color'=>'#ffffff'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Objective Thinking',
-                            'scores'=>[40,50],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
                         ],
                         [
                             'section_name'=>'Research and Experiment',
-                            'scores'=>[40,20],
+                            'labels'=>[
+                                ['score'=>20,'color'=>'#000000'],
+                                ['score'=>30,'color'=>'#333333'],
+                                ['score'=>40,'color'=>'#FFFFFF'],
+                                ['score'=>50,'color'=>'#009900'],
+                            ],
                             'recommendation'=>'Aliquam elementum augue sit amet ipsum viverra, eu dictum est rutrum.'
                         ],
+                    ]
+                ],
+                [
+                    'group_name'=>'Jack',
+                    'goroup_icon'=>'user-secret',
+                    'group_color'=>'secondary',
+                    'description'=> 'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non',
+                    'sections'=>[
+                        [
+                            'section_name'=>'Practice',
+                            'labels'=>[
+                                ['score'=>10,'color'=>'#333333'],
+                                ['score'=>17,'color'=>'#000000'],
+                                ['score'=>20,'color'=>'#ffffff'],
+                                ['score'=>40,'color'=>'#009900'],
+                            ],
+                            'recommendation'=>'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non. lorem ipsum dolor'
+                        ],
+                        [
+                            'section_name'=>'Imagination',
+                            'labels'=>[
+                                ['score'=>15,'color'=>'#000000'],
+                                ['score'=>20,'color'=>'#333333'],
+                            ],
+                            'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
+                        ],
+                        [
+                            'section_name'=>'Competition',
+                            'labels'=>[
+                                ['score'=>10,'color'=>'#FFFFFF'],
+                                ['score'=>40,'color'=>'#009900'],
+                            ],
+                            'recommendation'=>'Aliquam elementum augue sit amet ipsum viverra, eu dictum est rutrum.'
+                        ],
+                    ]
+                ],
+                [
+                    'group_name'=>'Temperate',
+                    'goroup_icon'=>'fas fa-temperature-high',
+                    'group_color'=>'primary',
+                    'description'=> 'Temperate represents a group of learning behaviours that helps a learner to regulate their learning behaviours. This essentially provides balance, intensity and continuity in the masterful and intentional use of the learning skills.',
+                    'sections'=>[
+                        [
+                            'section_name'=>'Humility',
+                            'labels'=>[
+                               ['score'=>15,'color'=>'#ffffff'],
+                                ['score'=>20,'color'=>'#009900'],
+                            ],
+                            'recommendation'=>'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non. lorem ipsum dolor'
+                        ],
+                        [
+                            'section_name'=>'Ability to admit and correct mistake',
+                            'labels'=>[
+                                ['score'=>10,'color'=>'#333333'],
+                                ['score'=>15,'color'=>'#000000'],
+                                ['score'=>17,'color'=>'#ffffff'],
+                                ['score'=>20,'color'=>'#009900'],
+                                ['score'=>40,'color'=>'#000000'],
+                            ],
+                            'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
+                        ],
+                        [
+                            'section_name'=>'Self-Discipline',
+                            'labels'=>[
+                                ['score'=>10,'color'=>'#009900'],
+                            ],
+                            'recommendation'=>'Aliquam elementum augue sit amet ipsum viverra, eu dictum est rutrum.'
+                        ],
+                    ]
+                ],
+                [
+                    'group_name'=>'Level of Readiness',
+                    'goroup_icon'=>'fas fa-temperature-high',
+                    'group_color'=>'primary',
+                    'description'=>'This represents a set of salient requirements that ensures that a learner is mentally, emotionally, socially and physically adjusted and therefore ready to receive learning instructions.',
+                    'sections'=>[
+                        [
+                            'section_name'=>'Distraction',
+                            'labels'=>[
+                                ['score'=>15,'color'=>'#ffffff'],
+                                ['score'=>20,'color'=>'#009900'],
+                            ],
+                            'recommendation'=>'Cras tempus ligula ligula, vitae lacinia lacus vestibulum non. lorem ipsum dolor'
+                        ],
+                        [
+                            'section_name'=>'Demotivation',
+                            'labels'=>[
+                                ['score'=>10,'color'=>'#333333'],
+                                ['score'=>15,'color'=>'#000000'],
+                                ['score'=>17,'color'=>'#ffffff'],
+                                ['score'=>20,'color'=>'#009900'],
+                                ['score'=>40,'color'=>'#000000'],
+                            ],
+                            'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
+                        ],
+                        [
+                            'section_name'=>'Sport and Games',
+                            'labels'=>[
+                                ['score'=>15,'color'=>'#009900'],
+                            ],
+                            'recommendation'=>'Aliquam elementum augue sit amet ipsum viverra, eu dictum est rutrum.'
+                        ],
+                        [
+                            'section_name'=>'Music and Dance',
+                            'labels'=>[
+                                ['score'=>10,'color'=>'#333333'],
+                                ['score'=>17,'color'=>'#ffffff'],
+                                ['score'=>20,'color'=>'#009900'],
+                                ['score'=>40,'color'=>'#000000'],
+                            ],
+                            'recommendation'=>'lorem ipsum dolor. lorem ipsum dolor'
+                        ]
                     ]
                 ]
             ]

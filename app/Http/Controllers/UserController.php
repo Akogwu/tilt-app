@@ -53,14 +53,13 @@ class UserController extends Controller
 
     }
     //change email
-    public function updateProfile(Request $request, $userId=null){
+    public function updateProfile(Request $request, $userId){
+        //dd($request->all());
         $userRules = [
             'first_name'=>'nullable|string',
             'last_name'=>'nullable|string',
             'middle_name'=>'nullable|string',
-            'email'=>'nullable|email',
             'phone_number'=>'nullable|regex:/^([0-9\s\-\+\(\)]*)$/',
-            'password'=>'nullable',
         ];
         $privateLearner = [
             'age'=>'nullable|string',
@@ -74,27 +73,26 @@ class UserController extends Controller
                 return response()->json(['status'=>false, 'message'=>'user not found'], 404);
         }else
             $user = Auth::user();
+        //if image
+        if ($request->hasFile('profile_image')){
+            //upload then replace
+            //dd($request->profile_image);
+            $imageUrl = $this->upload($request->profile_image, $user->name);
 
+            $user->update(['image_url'=>$imageUrl]);
+
+        }
         try {
             $validator = validator($request->all(), $userRules)->validate();
-            if ($request->has('email')){
-                //check if email already exists
-                $checkEmail = User::where([
-                    ['email', $request->email],
-                    ['id','!=', $user->id]
-                    ])->count();
-                if ($checkEmail > 0)
-                    return response()->json(['status'=>false, 'message'=> "Email already exist"],409);
-            }
-            if ($request->has('password')){
-                $password = Hash::make($request->password);
-                $validator['password'] = $password;
-            }
 
             //Check if private learner
             if ($user->role->role =="PRIVATE_LEARNER"){
                 $privateLearnerValidator = validator($request->all(), $privateLearner)->validate();
-                PrivateLearner::createNewOrUpdate((object)$privateLearnerValidator, $user->id);
+
+                $privateLearner = PrivateLearner::where('user_id', $user->id)->first();
+
+                if (!is_null($privateLearner))
+                    $privateLearner->update($privateLearnerValidator);
             }
             $user->update($validator);
 
@@ -102,7 +100,7 @@ class UserController extends Controller
             return response()->json(['status'=>false, 'message'=> $exception->getMessage()],422);
         }
 
-        return response()->json(['status'=>true, 'message'=>'Update successful'],201);
+        return redirect()->route('user.profile');
     }
     //update profile picture
     public function updateProfileImage(Request $request){
@@ -135,6 +133,17 @@ class UserController extends Controller
     public function getAllStudent(){
 
        return StudentResource::collection(Student::all());
+
+    }
+
+    public function upload($image,$file_name){
+            $ext = $image->getClientOriginalExtension();
+            $file_name = str_replace(' ', '_', strtolower($file_name));
+            $new_name = $file_name.time().'.'.$ext;
+
+            $path= $image->storeAs('images/profile',$new_name,'uploads');
+        return $path;
+
 
     }
 

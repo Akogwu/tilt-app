@@ -1,8 +1,14 @@
 <?php
 
-//$router->group(['prefix' => 'admin', 'middleware' => ['auth'] ], function () use ($router) {
-//    $router->get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'dashboard']);
-//});
+Route::middleware(['auth:sanctum', 'verified','admin'])->get('/dashboard',[\App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');
+
+$router->group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function () use ($router) {
+
+    $router->get('/transactions', [\App\Http\Controllers\Admin\AdminController::class,'getTransaction'])->name('admin.transaction');
+    $router->get('/private-learners', [\App\Http\Controllers\Admin\AdminController::class,'getAllPrivateLearner'])->name('admin.private-learner');
+    $router->get('/admin-accounts', [\App\Http\Controllers\Admin\AdminController::class,'getAllAdmin'])->name('admin.account');
+
+});
 
 $router->group(['prefix' => 'school-management',  'middleware' => ['auth','admin']], function () use ($router) {
     //$router->group(['middleware' => 'admin'], function () use ($router){

@@ -8,10 +8,11 @@
 
                     @php
                         //default image
-                        $image = '/images/profile.jpg';
+                        $image = '/images/profile2.png';
                         if (!is_null($user->image_url)) {
                             $image = $user->image_url;
                         }
+                        $age = $user->privateLearner->age;
                     @endphp
 
                     <figure class=" rounded-xl  md:p-0">
@@ -153,38 +154,41 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="e-profile">
-                                        <div class="row">
-                                            <div class="col-12  col-sm-auto mb-3 p-2">
-                                                <div class="mx-auto relative" style="width: 140px;">
-                                                    <i class="fa fa-fw fa-close reset-thumbnail text-red-500 absolute d-none"></i>
-                                                    <div class="d-flex justify-content-center align-items-center rounded"
-                                                    style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                    <img src="/images/thumbnail.png" alt="" id="preview-thumbnail">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col  d-flex flex-column flex-sm-row justify-content-between mb-3">
-                                                <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                                    <h4 class="pt-sm-2 pb-1 mb-0 text-wrap text-sm">{{ $user->name }}</h4>
-                                                    <p class="mb-0">{{ $user->email }}</p>
-                                                    <div class="text-muted"><small>Last seen 2 hours ago</small></div>
-                                                    <div class="mt-2">
-                                                        <button class="btn btn-primary p-1" type="button" id="change-photo">
-                                                            <i class="fa fa-fw fa-camera"></i>
-                                                            <span style="font-size: 0.656rem">Change Photo</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center text-sm-right">
-                                                    <span class="badge badge-secondary">{{ $user->role_id }}</span>
-                                                    <div class="text-muted"><small>Joined {{ $user->created_at->format("d-m-Y") }}</small></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <form class="form" novalidate="" action="{{route('update.privateLearner', $user->id)}}" enctype="multipart/form-data" method="post" name="update_profile">
 
-                                        <div class="tab-content pt-3">
-                                            <div class="tab-pane active">
-                                                <form class="form" novalidate="">
+                                            <div class="row">
+                                                <div class="col-12  col-sm-auto mb-3 p-2">
+                                                    <div class="mx-auto relative" style="width: 140px;">
+                                                        <i class="fa fa-fw fa-close reset-thumbnail text-red-500 absolute d-none"></i>
+                                                        <div class="d-flex justify-content-center align-items-center rounded"
+                                                        style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                        <img src="{{$image}}" alt="" id="preview-thumbnail">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col  d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                        <h4 class="pt-sm-2 pb-1 mb-0 text-wrap text-sm">{{ $user->name }}</h4>
+                                                        <p class="mb-0">{{ $user->email }}</p>
+                                                        <input type="hidden" id="image-url" value="{{$image}}">
+                                                        {{--<div class="text-muted"><small>Last seen 2 hours ago</small></div>--}}
+                                                        <div class="mt-2">
+                                                            <button class="btn btn-primary p-1" type="button" id="change-photo">
+                                                                <i class="fa fa-fw fa-camera"></i>
+                                                                <span style="font-size: 0.656rem">Change Photo</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center text-sm-right">
+                                                        <span class="badge badge-secondary">{{ $user->role_id }}</span>
+                                                        <div class="text-muted"><small>Joined {{ $user->created_at->format("d-m-Y") }}</small></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-content pt-3">
+                                                <div class="tab-pane active">
+                                                    @csrf
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
@@ -192,7 +196,7 @@
                                                                     <div class="form-group">
                                                                         <label>First Name</label>
                                                                         <input class="form-control" type="text" name="first_name"
-                                                                            placeholder="First name" value="">
+                                                                            placeholder="First name" value="{{$user->first_name}}">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col">
@@ -200,7 +204,7 @@
                                                                         <label>Last Name</label>
                                                                         <input class="form-control" type="text"
                                                                             name="last_name" placeholder="Last name"
-                                                                            value="">
+                                                                            value="{{$user->last_name}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -214,11 +218,35 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Age</label>
+                                                                        <select name="age" id="age" class="block mt-1 w-full border-gray-200" required>
+                                                                            <option value="">Select Age Range</option>
+                                                                            <option value="5-12" {{($age =='5-12') ? 'selected' : ''}}>5 - 12 yrs</option>
+                                                                            <option value="12-20" {{($age =='12-20') ? 'selected' : ''}}>12 - 20 yrs</option>
+                                                                            <option value="20-35" {{($age =='20-35') ? 'selected' : ''}}>20 - 35 yrs</option>
+                                                                            <option value="35-55" {{($age =='35-55') ? 'selected' : ''}}>35 - 55 yrs</option>
+                                                                        </select>
+                                                                        {{--<input class="form-control" type="text" name="age"
+                                                                               placeholder="Age" value="{{}}">--}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Level</label>
+                                                                        <input class="form-control" type="text"
+                                                                               name="level" placeholder="Class"
+                                                                               value="{{$user->privateLearner->level}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
                                                                 <div class="col mb-3">
                                                                     <div class="form-group">
-                                                                        <label>About</label>
-                                                                        <textarea class="form-control" rows="5"
-                                                                            placeholder="My Bio"></textarea>
+                                                                        <label>School</label>
+                                                                        <input class="form-control" type="text" value="{{ $user->privateLearner->school }}"
+                                                                               placeholder="School">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -253,10 +281,11 @@
                                                                 Changes</button>
                                                         </div>
                                                     </div>
-                                                    <input type="file" name="" id="profile-img">
-                                                </form>
+                                                    <input type="file" name="profile_image" id="profile-img">
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>

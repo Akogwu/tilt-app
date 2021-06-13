@@ -8,15 +8,19 @@ class PrivateLearner extends Model
 {
     protected $guarded = [];
     public $timestamps = false;
-    public static function createNewOrUpdate($input, $user){
+    public static function createNewOrUpdate($input, $userId){
         $new = self::updateOrCreate([
-                'user_id'=>$user->id
+                'user_id'=>$userId
             ],[
                 'age'=>$input['age'],
                 'level'=>$input['level'] ?? null,
-                'gender'=>$input['gender'],
+                //'gender'=>$input['gender'],
                 'school'=>$input['school'] ?? null,
             ]);
         return $new;
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

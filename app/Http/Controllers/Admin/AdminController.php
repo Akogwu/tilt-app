@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SchoolDetailResource;
 use App\Http\Resources\UsersResource;
+use App\Models\PrivateLearner;
 use App\Models\Role;
 use App\Models\School;
 use App\Models\SchoolAdmin;
@@ -13,6 +14,7 @@ use App\Models\TestRecord;
 use App\Models\TestResult;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Util\GeneralUtil;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -31,9 +33,10 @@ class AdminController extends Controller
         $latestTestData = [];
         foreach ($latestTests as $latestTest){
             $latestTestData[] = [
-              'name'=>$latestTest->session->user->fullname() ?? '',
+                'name'=>$latestTest->session->user->fullname() ?? '',
                 'percentage'=>$latestTest->avg_score,
                 'date'=>$latestTest->created_at->diffForHumans(),
+                'image'=>$latestTest->session->user->image_url ?? GeneralUtil::DEFAULT_IMAGE_PLACEHOLDER_URL,
             ];
         }
 
@@ -46,7 +49,7 @@ class AdminController extends Controller
             'schools'=>$bestPerformingSchool,
             'successful_transaction'=>$successfulTransaction
         ];
-        return view('dashboard',compact('data'));
+        return view('pages.admin.dashboard',compact('data'));
     }
 
     public function paginate($items, $perPage = 5, $page = null, $options = []){
@@ -85,20 +88,33 @@ class AdminController extends Controller
     public function getAllAdmin(){
         $row= 10;
         $role = Role::where('role', 'ADMIN')->first();
-        $users = User::where('role_id', $role->id)->paginate($row);
-        return UsersResource::collection($users);
+        $admins = User::where('role_id', $role->id)->paginate($row);
+
+        return view('pages.admin.admin', compact('admins'));
+
+        //return UsersResource::collection($users);
     }
 
     public function getAllPrivateLearner(){
         $row= 10;
         $role = Role::where('role', 'PRIVATE_LEARNER')->first();
-        $users = User::where('role_id', $role->id)->paginate($row);
-        return UsersResource::collection($users);
+        $privateLearners = PrivateLearner::join('users','private_learners.user_id','=','users.id')
+            ->where('users.status', 1)->orderBy('users.name', 'asc')
+        ->paginate($row);
+
+        return view('pages.admin.private-learner', compact('privateLearners'));
     }
 
-    public function createSchool(Request $request){
-
+    public function getTransaction(){
+        $data=[
+            "total"=>0,
+            "failed"=>0,
+            "success"=>0,
+            "total_funds"=>'0.00'
+            ];
+        return view('pages.admin.transaction', compact('data'));
     }
+
     public function getAllSchool(){
         $schools = School::orderBy('name','asc')->get();
         return view('pages.school.schools',compact('schools'));
