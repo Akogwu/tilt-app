@@ -60,7 +60,7 @@ class TestResultController extends Controller
                 'class'=>'Jss 3',
                 'state/provice'=>'Imo state',
                 'country'=>'Nigeria',
-                'image_url'=>'www.googl.com/image'
+                'image_url'=> url('/images/roman-reigns.jpg')
             ],
             'summary_result'=>[
                 ['group_name'=>"Brainy",'score'=>85],
