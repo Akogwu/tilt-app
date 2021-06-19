@@ -5,12 +5,12 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-5">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <!-- Cards -->
-            <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
+            <div class="grid gap-6 mb-5 md:grid-cols-2 xl:grid-cols-3">
                 <!-- Card -->
                 <div class="flex items-center p-3 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                     <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
@@ -23,7 +23,7 @@
                             Total Students
                         </p>
                         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            0
+                            {{$data['total_students']}}
                         </p>
                     </div>
                 </div>
@@ -62,8 +62,8 @@
                 </div>
             </div>
 
-            <div class="pb-4">
-                <h2 class="text-muted">Most recent students</h2>
+            <div class="">
+                <h3 class="text-muted">Most recent students</h3>
             </div>
             <!-- New Table -->
             <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -79,37 +79,43 @@
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
-                        <tr>
-                            <td colspan="6" class="text-center py-3"> No record found </td>
-                        </tr>
-                        {{--<tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3">
-                                <p class="font-semibold">1</p>
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                3456
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                rty66
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                7s
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                69.95
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                6/10/2020
-                            </td>
-                        </tr>--}}
+
+                        @if(count($data['students']) > 0)
+                            @foreach($data['students'] as $student)
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-4 py-3">
+                                        <p class="font-semibold">{{$student->user->name}}</p>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        {{$student->user->email}}
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        {{$student->user->phone}}
+                                    </td>
+                                    <td class="px-4 py-3 text-sm">
+                                        {{$student->created_at->diffForHumans()}}
+                                    </td>
+{{--                                    <td class="px-4 py-3 text-sm">--}}
+{{--                                        69.95--}}
+{{--                                    </td>--}}
+{{--                                    <td class="px-4 py-3 text-sm">--}}
+{{--                                        6/10/2020--}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="6" class="text-center py-3"> No record found </td>
+                            </tr>
+                        @endif
 
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="py-4">
-                <h2 class="text-md text-gray-500">Most recent Transactions</h2>
+            <div class="py-5">
+                <h3 class="text-muted">Most recent Transactions</h3>
             </div>
             <!-- New Table -->
             <div class="w-full overflow-hidden rounded-lg shadow-xs">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use App\Models\SchoolAdmin;
 use App\Models\Session;
 use App\Models\Student;
@@ -32,18 +33,17 @@ class SchoolAdminController extends Controller
         $studentIds = $schoolAdmin->school->student->pluck('user_id');
         $sessionCount = Session::whereIn('user_id', $studentIds)->count();
         $transaction = Transaction::where([['payment_type','school_capacity'],'payment_for'=>$schoolAdmin->school_id],['status'=>true])->count();
-        $students = Student::whereIn('user_id', $studentIds)->get();
+        $students = Student::where('school_id', $schoolAdmin->school->id);
 
-        if ($students !=null)
-            $students = $students->map(function ($student){
-                return $student->schema();
-            });
         $data = [
             'school'=>$schoolAdmin->school->schema(),
             'total_test'=> $sessionCount,
             'total_transactions'=> $transaction,
-            'students'=>$students,
+            'students'=>$students->latest()->limit(10)->get(),
+            'total_students'=>$students->count(),
         ];
+
+
         return view('pages.school.admin.dashboard',compact('data'));
     }
 
@@ -69,8 +69,15 @@ class SchoolAdminController extends Controller
         $schoolAdmin = Auth::user()->schoolAdmin;
         $schoolName = $schoolAdmin->school->name;
         $schoolId = $schoolAdmin->school_id;
+        $students = Student::where('school_id',$schoolAdmin->school->id)->paginate(10);
 
-        return view('pages.school.admin.student', compact('schoolName'));
+        return view('pages.school.admin.student',
+            compact(
+                'schoolName',
+                'schoolId',
+            'students'
+            )
+        );
     }
 
     public function requestDelete(Request $request, $studentId){

@@ -120,6 +120,7 @@ class RegistrationController extends Controller
 
 
     public function student(Request $request){
+
         $this->validate($request, [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -128,6 +129,7 @@ class RegistrationController extends Controller
             'age' => 'required',
             'level' => 'required',
             'gender' => 'required',
+            'school_id' => 'required|exists:schools,id'
         ]);
 
         if ($this->emailExist($request->email))

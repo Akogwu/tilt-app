@@ -13,8 +13,10 @@
         <script src="https://use.fontawesome.com/2cf7cdc790.js"></script>
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/tailwind.css') }}">
-        @stack('styles')
         @livewireStyles
+        <link rel="stylesheet" href="/css/main.css">
+
+    @stack('styles')
         <!-- Scripts -->
         <script src="{{ mix('js/bundle.js') }}" defer></script>
     </head>
@@ -26,8 +28,8 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="bg-white shadow" style="height: 75px">
+                    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Util\GeneralUtil;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Hash;
@@ -55,6 +56,7 @@ class School extends Model
                 'state' => $input['school_state'] ?? null,
                 'city' => $input['school_city'] ?? null,
                 'zipcode' => $input['school_zipcode'] ?? null,
+                'school_capacity'=> GeneralUtil::DEFAULT_SCHOOL_CAPACITY
             ]
         );
         return $school;

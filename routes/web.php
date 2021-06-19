@@ -66,6 +66,6 @@ require_once 'questionnaire-routes.php';
 require_once 'section-routes.php';
 require_once 'subscription-routes.php';
 require_once 'admin-routes.php';
-require_once 'school-routes.php';
+require_once 'registration-routes.php';
 require_once 'user-routes.php';
 require_once 'school-admin-routes.php';

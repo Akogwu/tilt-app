@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 $router->group(['prefix' => 'registration'], function () use ($router) {
     $router->post('/admin', [\App\Http\Controllers\RegistrationController::class,'admin']);
     $router->get('/school',[\App\Http\Controllers\RegistrationController::class,'createSchool'])->name('create.school');
-    $router->post('/school', [\App\Http\Controllers\RegistrationController::class,'school'])->name('register.school');
+    $router->post('/schools', [\App\Http\Controllers\RegistrationController::class,'school'])->name('school.register');
     $router->post('/learner', [\App\Http\Controllers\RegistrationController::class,'privateLeaner']);
-    $router->post('/student', [\App\Http\Controllers\RegistrationController::class,'student']);
+    $router->post('/students', [\App\Http\Controllers\RegistrationController::class,'student'])->name('student.register');
 });
