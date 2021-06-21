@@ -148,7 +148,9 @@ $user = (array)$user;
     </style>
 
 </head>
-
+  <img id="person-image" src="{{ $user["image_url1"] ?? "/images/no-image-profile.jpg"}}"
+                    style="width: 100px;height: 100px;border-radius: 100%;border: 2px solid #0b4875; display: none" />
+              
 <body id="result-summary">
 
     <!-- SUMMARY CONTAINER STARTS -->
@@ -161,8 +163,8 @@ $user = (array)$user;
         </div>
         <div style="margin-top: 80px;">
             <div style="width: 100px;height: 100px;margin: auto;">
-                <img src="{{ $user["image_url1"] ?? "https://nanoguard.in/wp-content/uploads/2019/09/pic.jpg"}}"
-                    style="width: 100px;height: 100px;border-radius: 100%;border: 2px solid #0b4875;" />
+                <canvas id="person-image-canvas" 
+                    style="width: 100px;height: 100px;border-radius: 100%;border: 2px solid #0b4875" ></canvas>
             </div>
             <div class="col-12 details-p-1">
                 <p class="details-p"><b>Full names:</b> {{ $user["name"] }} </p>
@@ -259,46 +261,31 @@ $user = (array)$user;
 
     <!-- RECOMMENDATIONS ENDS -->
 
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    -->
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc.1/dist/chartjs-plugin-datalabels.min.js" integrity="sha256-Oq8QGQ+hs3Sw1AeP0WhZB7nkjx6F1LxsX6dCAsyAiA4=" crossorigin="anonymous"></script>
-    <!-- <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script> -->
 
     <script>
-
-        const generatePDF = () => {
+      
+      const generatePDF = () => {
+            const sections = document.getElementsByClassName("page-break")
             const downloadBtn = document.getElementById("download-btn")
             downloadBtn.innerHTML = "<i class=\"fas fa-spinner fa-spin\"></i>";
             downloadBtn.disabled = true;
             window.scrollTo(0,0)
-
             setTimeout(() => {
-                
                 var pdf = new jsPDF('p', 'pt', 'letter');
-                const sections = document.getElementsByClassName("page-break")
                 var pageCount = 0;
                 var loop = 0;
                 for(var quotes of sections){
                     html2canvas(quotes, {
-                        scale: 1,
                         onrendered: (canvas) => {
-    
+                            
                             const mainWidth = canvas.width;
                             const mainHeight =  1200;
                             for (var i = 0; i <= quotes.clientHeight/mainHeight; i++) {
@@ -319,23 +306,24 @@ $user = (array)$user;
                                 // details on this usage of this function: 
                                 ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
                                 // document.body.appendChild(canvas);
-                                var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
+                                var canvasDataURL = onePageCanvas.toDataURL("image/png", 1);
                                 var width         = onePageCanvas.width;
                                 var height        = onePageCanvas.clientHeight;
                                 //! If we're on anything other than the first page,
                                 // add another page
+
+                                const a4  = { width: 612, height: 791 }
                                 if (i > 0) {
-                                    pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                                    pdf.addPage(a4.width, a4.height); //8.5" x 11" in pts (in*72)
                                 }
                                 //! now we declare that we're working on that page
                                 pdf.setPage(pageCount+1);
                                 pageCount++;
                                 //! now we add content to that page!
-                                pdf.addImage(canvasDataURL, 'PNG', -(width - width * .65)/4, 0, (width*.65), (height*0.65));
+                                pdf.addImage(canvasDataURL, 'PNG', -(width*.65 - a4.width)/2, 0, (width*.65), (height*0.65));
                             }
     
                             if(loop >= sections.length - 1){
-    
                                 pdf.save('Test.pdf');
                                 downloadBtn.innerHTML = "<i class=\"fas fa-check\"></i>";
     
@@ -343,17 +331,16 @@ $user = (array)$user;
                                     downloadBtn.innerHTML = "<i class=\"fas fa-download\"></i>";
                                     downloadBtn.disabled = false;
                                 }, 3000);
-    
                             }else{
                                 if(pageCount > 0){
                                     pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
                                 }
                                 pdf.setPage(pageCount);
                                 console.log("Page Added"+pageCount)
-    
                             }
     
                             loop++;
+
                         }
                     })
                 }
@@ -363,115 +350,18 @@ $user = (array)$user;
 
         }
 
-        const makePDF = () => {
-            const downloadBtn = document.getElementById("download-btn")
-            downloadBtn.innerHTML = "<i class=\"fas fa-spinner fa-spin\"></i>";
-            downloadBtn.disabled = true;
-            window.scrollTo(0,0)
+    document.addEventListener("DOMContentLoaded", function(){
 
-       setTimeout(() => {
-           var quotes = document.getElementById('result-summary');
-       html2canvas(quotes, {
-        scale: 1,   
-        onrendered: (canvas) => {
-           //! MAKE YOUR PDF
+    
+        // src="{{ $user["image_url1"] ?? "/images/no-image-profile.jpg"}}"
+        var canvas = document.getElementById("person-image-canvas");
+        var ctx = canvas.getContext("2d");
+        var img = document.createElement("img");
+        img.src = "<?php echo $user["image_url1"] ?? "/images/no-image-profile.jpg"; ?>";
+        img.width = 100;
+        img.height = 100;
+        ctx.drawImage(img, 0, 0, 300, 150);
 
-            var pdf = new jsPDF('p', 'pt', 'letter');
-            // var pdf = new jsPDF({
-            //             unit: 'px',
-            //             format: 'a4'
-            //         });
-
-            const mainWidth = canvas.width;
-            const mainHeight =  1200;//canvas.width * 1.29248366013;
-
-            for (var i = 0; i <= quotes.clientHeight/mainHeight; i++) {
-                //! This is all just html2canvas stuff
-                var srcImg  = canvas;
-                var sX      = 0;
-                var sY      = mainHeight * i; // start 980 pixels down for every new page
-                var sWidth  = mainWidth;
-                var sHeight = mainHeight;
-                var dX      = 0;
-                var dY      = 0;
-                var dWidth  = mainWidth;
-                var dHeight = mainHeight;
-
-                window.onePageCanvas = document.createElement("canvas");
-                onePageCanvas.setAttribute('width', mainWidth);
-                onePageCanvas.setAttribute('height', mainHeight);
-                var ctx = onePageCanvas.getContext('2d');
-                // details on this usage of this function: 
-                // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Using_images#Slicing
-                ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
-
-                // document.body.appendChild(canvas);
-                var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
-
-                var width         = onePageCanvas.width;
-                var height        = onePageCanvas.clientHeight;
-
-                //! If we're on anything other than the first page,
-                // add another page
-                if (i > 0) {
-                    pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
-                }
-                //! now we declare that we're working on that page
-                pdf.setPage(i+1);
-                //! now we add content to that page!
-                pdf.addImage(canvasDataURL, 'PNG', -(width - width * .65)/4, 0, (width*.65), (height*0.65));
-
-            }
-            //! after the for loop is finished running, we save the pdf.
-            pdf.save('Test.pdf');
-            downloadBtn.innerHTML = "<i class=\"fas fa-check\"></i>";
-
-            setTimeout(() => {
-                
-                downloadBtn.innerHTML = "<i class=\"fas fa-download\"></i>";
-                downloadBtn.disabled = false;
-                
-            }, 3000);
-       }})
-       }, 1000);
-    }
-
-        const  download = () => {
-
-            // html2canvas(document.body,{
-            // onrendered:function(canvas){
-
-            // var img=canvas.toDataURL("image/png");
-            // var doc = new jsPDF({  
-            //          unit: 'px',  
-            //          format: 'a4'  
-            //      });
-            // doc.addImage(img,'JPEG',1,0, 2480/4, 4008/4);
-            // doc.addImage(img,'JPEG',1,1, 2480/4, 4008/4);
-            // doc.addImage(img,'JPEG',1,2, 2480/4, 4008/4);
-            // doc.save('test.pdf');
-            
-            // }});
-
-
-            let pdf = new jsPDF();
-            let section=document.getElementById("result-summary");
-
-            let page= function() {
-                pdf.save("<?php echo str_replace(" ", "-", strtolower($user["name"]))."-".date("Y-m-d-H-i-s"); ?>.pdf");
-            };
-            
-            // pdf.addImage()
-
-            pdf.addHTML(section, page);
-
-            // const doc = new window.jspdf.jsPDF();
-            // var source = window.document.getElementsByTagName("html")[0];
-            // doc.html(section)
-            // doc.output("dataurlnewwindow");
-            // doc.save()
-        }
-        
         // Draw Summary Chart
         <?php
             $labels = [];
@@ -527,6 +417,9 @@ $user = (array)$user;
                 }
             }
         });
+    });
+
+   
     </script>
 
 @foreach($recommendations as $recommendation)
@@ -540,7 +433,8 @@ $user = (array)$user;
 
     // Your code to run since DOM is loaded and ready
 
-
+    document.addEventListener("DOMContentLoaded", function(){
+        
    <?php
             $labels = [];
             $values = [];
@@ -665,12 +559,12 @@ var myChart2 = new Chart(stack, {
     },
   },
   plugins: [ChartDataLabels],
-//   options: {
-//       color: "#000"
-//   }
+
 });
 
 
+
+    });
 
 </script>
 @endforeach
