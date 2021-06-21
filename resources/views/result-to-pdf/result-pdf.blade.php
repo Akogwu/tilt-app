@@ -174,8 +174,8 @@ $user = (array)$user;
             <div style="margin-top: 10px; height: 2px;  background-color: #969ba0; width: 100%;"></div>
         </div>
     </div>
-    <div style="max-width: 100%; width: 350px; height: 350px; margin: auto; margin-top: 40px; margin-bottom: 20px;"><canvas
-            id="general-chart" width="350" height="400"></canvas></div>
+    <div style="max-width: 100%; width: 400px; height: 400px; margin: auto; margin-top: 40px; margin-bottom: 20px;"><canvas
+            id="general-chart" width="400" height="400"></canvas></div>
     <p class="summary-text"><b>Description of the generallearning behaviorgraph:</b> Lorem ipsum dolor sit amet,
         consectetuer adipiscing elit. Aenean
         commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
@@ -196,7 +196,7 @@ $user = (array)$user;
     <div class="section-title border border-{{$recommendation->group_color}}">
     <i class="fas {{ $recommendation->goroup_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>   {{ $recommendation->group_name }}</div>
     </div>
-    <div style="width: 350px; height: 350px; margin: auto; margin-top: 40px; margin-bottom: 20px; "><canvas id="{{ $recommendation->group_name }}-chart" width="400" height="400"></canvas></div>
+    <div style="width: 400px; height: 400px; margin: auto; margin-top: 40px; margin-bottom: 20px; "><canvas id="{{ $recommendation->group_name }}-chart" width="400" height="400"></canvas></div>
     <p style="padding: 10px; width: 400px;margin: auto;margin-top: 50px;border: 2px solid #f8cd40; font-size: 12px;">
         {{$recommendation->description}}
     </p>
@@ -293,8 +293,8 @@ $user = (array)$user;
             //         });
 
 
-            const mainWidth = 990;
-            const mainHeight = 1100;// mainWidth * 1.29248366013;
+            const mainWidth = canvas.width;
+            const mainHeight =  1200;//canvas.width * 1.29248366013;
 
             for (var i = 0; i <= quotes.clientHeight/mainHeight; i++) {
                 //! This is all just html2canvas stuff
@@ -330,7 +330,7 @@ $user = (array)$user;
                 //! now we declare that we're working on that page
                 pdf.setPage(i+1);
                 //! now we add content to that page!
-                pdf.addImage(canvasDataURL, 'PNG', 0, 0, (width*.62), (height*.62));
+                pdf.addImage(canvasDataURL, 'PNG', -(width - width * .65)/4, 0, (width*.65), (height*0.65));
 
             }
             //! after the for loop is finished running, we save the pdf.
@@ -342,7 +342,7 @@ $user = (array)$user;
                 downloadBtn.innerHTML = "<i class=\"fas fa-download\"></i>";
                 downloadBtn.disabled = false;
                 
-            }, 2000);
+            }, 3000);
        }})
        }, 1000);
     }
@@ -357,9 +357,9 @@ $user = (array)$user;
             //          unit: 'px',  
             //          format: 'a4'  
             //      });
-            // doc.addImage(img,'JPEG',1,0, 2480/4, 3508/4);
-            // doc.addImage(img,'JPEG',1,1, 2480/4, 3508/4);
-            // doc.addImage(img,'JPEG',1,2, 2480/4, 3508/4);
+            // doc.addImage(img,'JPEG',1,0, 2480/4, 4008/4);
+            // doc.addImage(img,'JPEG',1,1, 2480/4, 4008/4);
+            // doc.addImage(img,'JPEG',1,2, 2480/4, 4008/4);
             // doc.save('test.pdf');
             
             // }});
