@@ -140,6 +140,11 @@ $user = (array)$user;
         }
 
 
+.footer.border.p-3.m-5.text-center {
+	margin-left: 14% !important;
+	margin-right: 14% !important;
+}
+
     </style>
 
 </head>
@@ -147,6 +152,7 @@ $user = (array)$user;
 <body id="result-summary">
 
     <!-- SUMMARY CONTAINER STARTS -->
+    <div class="page-break">
     <div class="container-fluid summary-container">
         <div style="flex-direction: row;display: flex;width: max-content;float: right;">
             <h4>About Study Materials</h4> <img style="width: 50px; height: 50px; margin-left: 100px"
@@ -181,6 +187,7 @@ $user = (array)$user;
         commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
         ridiculus mus.</p>
     </div>
+    </div>
 
     <p style="page-break-after: always;">&nbsp;</p>
     <!-- SUMMARY CONTAINER ENDS -->
@@ -188,9 +195,11 @@ $user = (array)$user;
     <!-- RECOMMENDATIONS STARTS -->
 
     <div class="container-fluid pt-5">
-         <h2 class="text-center">Recommendations</h2> 
-    @foreach($recommendations as $recommendation)
-
+        @foreach($recommendations as $key => $recommendation)
+        <div class="page-break ">
+        @if($key == 0)
+        <h2 class="text-center">Recommendations</h2> 
+        @endif
     <div class="section-box p-5">
     <div style="margin: auto; width: max-content">
     <div class="section-title border border-{{$recommendation->group_color}}">
@@ -219,12 +228,12 @@ $user = (array)$user;
 
     <p style="page-break-after: always;">&nbsp;</p>
 
-
+    </div>
 
     @endforeach
     </div>
 
-    <div class="container-fluid p-5">
+    <div class="page-break container-fluid p-5">
         <div class="footer border p-3 m-5 text-center">
             <p>What you do with the tilt.ng result can dramatically transform your learning outcome henceforth.</p>
             <h3 class="text-danger">The Learning Revolutions!</h3>
@@ -244,7 +253,7 @@ $user = (array)$user;
 
     </div>
 
-<button id="download-btn" type="button" class="btn btn-primary btn-floating" onclick="makePDF()">
+<button id="download-btn" type="button" class="btn btn-primary btn-floating" onclick="generatePDF()">
   <i class="fas fa-download"></i>
 </button>
 
@@ -273,6 +282,87 @@ $user = (array)$user;
 
     <script>
 
+        const generatePDF = () => {
+            const downloadBtn = document.getElementById("download-btn")
+            downloadBtn.innerHTML = "<i class=\"fas fa-spinner fa-spin\"></i>";
+            downloadBtn.disabled = true;
+            window.scrollTo(0,0)
+
+            setTimeout(() => {
+                
+                var pdf = new jsPDF('p', 'pt', 'letter');
+                const sections = document.getElementsByClassName("page-break")
+                var pageCount = 0;
+                var loop = 0;
+                for(var quotes of sections){
+                    html2canvas(quotes, {
+                        scale: 1,
+                        onrendered: (canvas) => {
+    
+                            const mainWidth = canvas.width;
+                            const mainHeight =  1200;
+                            for (var i = 0; i <= quotes.clientHeight/mainHeight; i++) {
+                                var srcImg  = canvas;
+                                var sX      = 0;
+                                var sY      = mainHeight * i; // start 980 pixels down for every new page
+                                var sWidth  = mainWidth;
+                                var sHeight = mainHeight;
+                                var dX      = 0;
+                                var dY      = 0;
+                                var dWidth  = mainWidth;
+                                var dHeight = mainHeight;
+    
+                                 window.onePageCanvas = document.createElement("canvas");
+                                onePageCanvas.setAttribute('width', mainWidth);
+                                onePageCanvas.setAttribute('height', mainHeight);
+                                var ctx = onePageCanvas.getContext('2d');
+                                // details on this usage of this function: 
+                                ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
+                                // document.body.appendChild(canvas);
+                                var canvasDataURL = onePageCanvas.toDataURL("image/png", 1.0);
+                                var width         = onePageCanvas.width;
+                                var height        = onePageCanvas.clientHeight;
+                                //! If we're on anything other than the first page,
+                                // add another page
+                                if (i > 0) {
+                                    pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                                }
+                                //! now we declare that we're working on that page
+                                pdf.setPage(pageCount+1);
+                                pageCount++;
+                                //! now we add content to that page!
+                                pdf.addImage(canvasDataURL, 'PNG', -(width - width * .65)/4, 0, (width*.65), (height*0.65));
+                            }
+    
+                            if(loop >= sections.length - 1){
+    
+                                pdf.save('Test.pdf');
+                                downloadBtn.innerHTML = "<i class=\"fas fa-check\"></i>";
+    
+                                setTimeout(() => {
+                                    downloadBtn.innerHTML = "<i class=\"fas fa-download\"></i>";
+                                    downloadBtn.disabled = false;
+                                }, 3000);
+    
+                            }else{
+                                if(pageCount > 0){
+                                    pdf.addPage(612, 791); //8.5" x 11" in pts (in*72)
+                                }
+                                pdf.setPage(pageCount);
+                                console.log("Page Added"+pageCount)
+    
+                            }
+    
+                            loop++;
+                        }
+                    })
+                }
+            }, 1000);
+
+            
+
+        }
+
         const makePDF = () => {
             const downloadBtn = document.getElementById("download-btn")
             downloadBtn.innerHTML = "<i class=\"fas fa-spinner fa-spin\"></i>";
@@ -291,7 +381,6 @@ $user = (array)$user;
             //             unit: 'px',
             //             format: 'a4'
             //         });
-
 
             const mainWidth = canvas.width;
             const mainHeight =  1200;//canvas.width * 1.29248366013;
