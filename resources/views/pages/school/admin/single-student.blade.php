@@ -177,7 +177,7 @@
 
                     <div class="col-8">
                         <div class="py-5">
-                            <h3>Create Student</h3>
+                            <h3>Update Student</h3>
                             <div class="row text-danger px-3" id="errorMessage"></div>
                             <div class="row text-success px-3" id="successMessage"></div>
                             <div class="row">
@@ -324,105 +324,12 @@
                     });
             });
 
-            //submit form
-                $('#addStudentForm').on('submit', function (e){
-                    e.preventDefault();
 
-                    axios({
-                        method: 'post',
-                        url: $(this).attr('action'),
-                        data: $(this).serialize()
-                    }).then(function (response){
-                        try {
-                            //response.data
-                            $('#successMessage').html(response.data.message);
-                            //reload
-
-                            setTimeout(function(){
-                                location.reload();
-                                }, 2500);
-
-                        }catch (error){
-                            console.error(error)
-                        }
-                    }).catch(function (error) {
-                        if (error.response) {
-                            console.log(error.response.data);
-                            $('#errorMessage').html(error.response.data.message);
-
-                        } else if (error.request) {
-
-                            console.log(error.request);
-                        } else {
-                            // Something happened in setting up the request that triggered an Error
-                            console.log('Error', error.message);
-                            $('#errorMessage').html('Error occurred, please try again');
-
-                        }
-                        //console.log(error.config);
-                    });
-
-                });
 
             function capitalize(word) {
                 const loweredCase = word.toLowerCase();
                 return word[0].toUpperCase() + loweredCase.slice(1);
             }
-
-
-
-
-            $('.request-delete').on('click', function (e){
-                let studentId = $(this).data('user_id');
-                let action = $(this).data('action');
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                })
-
-            swalWithBootstrapButtons.fire({
-                title: 'Request Delete?',
-                text: "This request will be sent to the administrator for consideration",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //request delete
-                    axios({
-                        method: 'post',
-                        url: '/school-admin/request-delete/'+studentId,
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "action": action
-                        }
-                    }).then(function (response){
-                        console.log(response.data);
-                    });
-                    swalWithBootstrapButtons.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Your imaginary file is safe :)',
-                        'error'
-                    )
-                }
-            })
-            })
-
 
 
         </script>

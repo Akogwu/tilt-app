@@ -12,6 +12,10 @@ use function GuzzleHttp\Promise\all;
 
 class StudentController extends Controller
 {
+    public function getSingle($userId){
+        $student = Student::where('user_id', $userId)->first();
+        return response()->json($student->detail());
+    }
 
     //change email
     public function updateProfile(Request $request, $userId){

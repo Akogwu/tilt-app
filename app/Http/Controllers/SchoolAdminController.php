@@ -65,23 +65,25 @@ class SchoolAdminController extends Controller
         return view('pages.school.admin.transaction', compact('transactionDetail','schoolName'));
     }
 
-    public function getStudent(){
+    public function getStudents(){
         $schoolAdmin = Auth::user()->schoolAdmin;
         $schoolName = $schoolAdmin->school->name;
         $schoolId = $schoolAdmin->school_id;
         $students = Student::where('school_id',$schoolAdmin->school->id)->paginate(10);
 
         return view('pages.school.admin.student',
-            compact(
-                'schoolName',
-                'schoolId',
-            'students'
-            )
+            compact('schoolName','schoolId','students')
         );
     }
 
+    public function getSingleStudent($userId){
+        $student = Student::where('user_id', $userId)->first();
+        return view('pages.school.admin.single-student');
+    }
+
     public function requestDelete(Request $request, $studentId){
-        $action = $request->query('action');
+        $action = $request->action;
+
         //validate query param
         if (is_null($action) || !in_array($action, [1,0]))
             return response()->json(['status'=>false, 'message'=>'action query parameter is required'], 400);
