@@ -21,6 +21,7 @@ Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
     Route::get('/results/{sessionId}',[\App\Http\Controllers\TestResultController::class,'getTestResult'])->name('result.getResult');
     Route::post('/{userId}',[\App\Http\Controllers\TestResultController::class,'getMyTestResults']);
     Route::post('details/{userId}',[\App\Http\Controllers\TestResultController::class,'getTestDetails']);
+    Route::get("/result-view", [\App\Http\Controllers\TestResultController::class,'viewTestResult']);
 });
 
 //$router->group(['prefix' => 'tests'], function () use ($router) {

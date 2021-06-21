@@ -324,4 +324,9 @@ class TestResultController extends Controller
 
         return response()->json($data);
     }
+
+    public function viewTestResult(){
+        $data = $this->mockResult();
+        return view("result-to-pdf/result-pdf", $data);
+    }
 }
