@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\User;
+use App\Repository\TestResultRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,9 +13,22 @@ use function GuzzleHttp\Promise\all;
 
 class StudentController extends Controller
 {
+    //ajax request
     public function getSingle($userId){
         $student = Student::where('user_id', $userId)->first();
         return response()->json($student->detail());
+    }
+
+    public function getSingleStudent($userId){
+        $user = User::find($userId);
+        if (!$user)
+            abort(404);
+        $testResultRepo = new TestResultRepository();
+        $testResults = $testResultRepo->getMyTestResults($user->id);
+        $testDetail = $testResultRepo->getTestDetails($user->id);
+
+        return view('pages.school.admin.single-student', compact('user','testResults','testDetail'));
+
     }
 
     //change email

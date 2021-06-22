@@ -7,6 +7,8 @@ use App\Models\SchoolAdmin;
 use App\Models\Session;
 use App\Models\Student;
 use App\Models\Transaction;
+use App\Models\User;
+use App\Repository\TestResultRepository;
 use App\Repository\TransactionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,11 +76,6 @@ class SchoolAdminController extends Controller
         return view('pages.school.admin.student',
             compact('schoolName','schoolId','students')
         );
-    }
-
-    public function getSingleStudent($userId){
-        $student = Student::where('user_id', $userId)->first();
-        return view('pages.school.admin.single-student');
     }
 
     public function requestDelete(Request $request, $studentId){

@@ -1,338 +1,310 @@
-@push('styles')
-{{--    <link rel="stylesheet" href="/css/custom.css">--}}
-{{--    <link rel="stylesheet" href="/dist/slick/slick/slick.css">--}}
-{{--    <link rel="stylesheet" href="/dist/slick/slick/slick-theme.css">--}}
-    <style>
-        /*add full-width input fields*/
-        .form-control {
-             border: 1px solid #ccc;
-             box-sizing: border-box;
-         }
-        .swal2-actions btn{
-            margin-right: 3px;
-        }
-          /*set a style for all buttons*/
-            .add-student {
-                float: right;
-            }
-        /*set styles for the cancel button*/
-        .cancelbtn {
-            padding: 14px 20px;
-            background-color: #FF2E00;
-        }
-        /*float cancel and signup buttons and add an equal width*/
-        .cancelbtn,
-        .signupbtn {
-            float: left;
-            width: 50%
-        }
 
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-        }
-        /*define the modal-content background*/
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 0 auto 5% auto;
-            border: 1px solid #888;
-            width: 80%;
-            padding-bottom: 40px;
-        }
-        /*define the close button*/
-
-        .close {
-            position: absolute;
-            right: 35px;
-            top: 5px;
-            color: #000;
-            font-size: 40px;
-            font-weight: bold;
-        }
-        /*define the close hover and focus effects*/
-
-        .close:hover,
-        .close:focus {
-            color: red;
-            cursor: pointer;
-        }
-
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-        .fa{
-            font-size: 23px;
-            padding-right: 10px;
-        }
-
-        @media screen and (max-width: 300px) {
-            .cancelbtn,
-            .signupbtn {
-                width: 100%;
-            }
-        }
-    </style>
-
-@endpush
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __($schoolName) }}
+            {{ __($user->student->school->name) }}
         </h2>
     </x-slot>
 
-    <div class="py-5">
+    <section class="section bg-gray-200 overlay-gray-100 text-white" data-background="">
+        <div class="container">
+            <div class="row justify-content-center pt-5">
+                <div class="col-10 mx-auto text-center">
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white">
-            <div class="py-4">
-                <h2 class="text-md text-gray-800">Students list</h2>
-                <img src="{{asset('images/icons-add.png')}}" onclick="document.getElementById('id01').style.display='block'" alt="" id="add-student">
-            </div>
-            <!-- New Table -->
-            <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                <div class="w-full overflow-x-auto">
-                    <table class="w-full whitespace-no-wrap">
-                        <thead>
-                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                            <th class="px-4 py-3">S/N</th>
-                            <th class="px-4 py-3">Name</th>
-                            <th class="px-4 py-3">Email</th>
-                            <th class="px-4 py-3">Phone Number </th>
-                            <th class="px-4 py-3">Date Enrolled</th>
-                            <th class="px-4 py-3">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                        @if(count($students) > 0)
-                            @foreach($students as $student)
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
-                                        {{($students->currentPage()-1) * $students->perpage() + $loop->index +1}}
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <p class="font-semibold">{{$student->user->name}}</p>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        {{$student->user->email}}
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        {{$student->user->phone}}
-                                    </td>
-                                    <td class="px-4 py-3 text-sm">
-                                        {{$student->created_at}}
-                                    </td>
-                                    <td>
-                                        <span>
-                                            <a href="{{$student->user_id}}"> <i class="fa fa-eye"></i> </a>
-                                        </span>
-                                        <span><i class="fa fa-edit link" data-user_id="{{$student->user_id}}"></i></span>
-                                        @if($student->request_delete != 1)
-                                            <span><i class="fa fa-trash-o text-danger request-delete" data-user_id="{{$student->user_id}}" data-action="1" title="Request delete"></i></span>
-                                        @else
-                                            <span><i class="fa fa-refresh text-success request-delete" data-user_id="{{$student->user_id}}" data-action="0" title="Request delete"></i></span>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="6" class="text-center py-3"> No record found </td>
-                            </tr>
-                        @endif
+                    @php
+                        //default image
+                        $image = '/images/profile2.png';
+                        if (!is_null($user->image_url)) {
+                            $image = $user->image_url;
+                        }
+                        $age = $user->student->age;
+                    @endphp
 
-
-                        </tbody>
-                    </table>
+                    <figure class=" rounded-xl  md:p-0">
+                        <img class="w-32 h-32 md:w-48 md:h-auto  rounded-full mx-auto" src="{{ $image }}" alt=""
+                             width="384" height="512">
+                        <div class="pt-2 md:p-8 text-center md:text-left ">
+                            <figcaption class="font-medium">
+                                <div class="font-bold text-blue-900">
+                                    {{ $user->name }}
+                                </div>
+                                <div class="text-gray-500">
+                                    {{ $user->role_id }}
+                                </div>
+                            </figcaption>
+                            <button class="rounded-full w-5 h-5 text-tertiary" title="Edit Profile"><i
+                                    class="fas fa-edit fa-2x" data-toggle="modal" data-target="#profileEditModal"></i></button>
+                        </div>
+                    </figure>
                 </div>
             </div>
-
         </div>
-
-    </div>
-
-
-    </div>
-    <div class="container-fluid">
-
-        <div id="id01" class="modal">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-
-            <form class="modal-content animate" id="addStudentForm" method="post" action="{{ route('student.register') }}">
-                <div class="container">
-                @csrf
-                <div class="row justify-content-center">
-
-                    <div class="col-8">
-                        <div class="py-5">
-                            <h3>Update Student</h3>
-                            <div class="row text-danger px-3" id="errorMessage"></div>
-                            <div class="row text-success px-3" id="successMessage"></div>
-                            <div class="row">
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="first_name" class="">First Name</label>
-                                        <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" required />
-                                        <small class="text-danger" id="first_name_error"></small>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="middle_name" >Middle Name</label>
-                                        <input type="text" id="middle_name" name="middle_name" class="form-control" placeholder="Middle Name" />
-                                        <small class="text-danger" id="middle_name_error"></small>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="last_name" >Last Name</label>
-                                        <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name" required />
-                                        <small class="text-danger" id="last_name_error"></small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="email" class="" >Email Address</label>
-                                        <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required />
-                                        <small class="text-danger" id="email_error"></small>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="phone_number" class="" >Phone Number</label>
-                                        <input type="tel" id="phone_number" name="phone_number" class="form-control"  placeholder="Phone Number"/>
-                                        <small class="text-danger" id="phone_number_error"></small>
-                                    </div>
-                                </div>
-                            </div>
+    </section>
 
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="age" class="" >Age</label>
-                                        <input type="text" id="age" name="age" class="form-control" placeholder="Age" required />
-                                        <small class="text-danger" id="age_error"></small>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="gender" class="" >Gender</label>
-                                        <select class="form-control" name="gender" required>
-                                            <option value="">Select gender</option>
-                                            <option value="Male" >Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                        <small class="text-danger" id="gender_error"></small>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="age" class="" >Class/Level</label>
-                                        <input type="text" id="level" name="level" class="form-control" placeholder="Class/Level" required/>
-                                        <small class="text-danger" id="age_error"></small>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="password" class="" >Password</label>
-                                        <input type="tel" id="password" name="password" class="form-control" placeholder="Password" required/>
-                                        <small class="text-danger" id="password_error"></small>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="password" class="" >Confirm Password</label>
-                                        <input type="tel" id="confirm-password" name="confirm_password" class="form-control" placeholder="Confirm password" required/>
-                                        <small class="text-danger" id="confirm_password_error"></small>
-                                    </div>
-                                </div>
-                            </div>
+    <div class="section pt-0">
+        <div class="container mt-n5">
+            <div class="row">
+                <div class="col">
+                    <!-- Tab -->
+                    <nav>
+                        <div class="nav nav-tabs flex-column flex-md-row shadow-sm border-soft justify-content-around bg-white rounded mb-3 py-3"
+                             id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-evidence-tab" data-toggle="tab" href="#" role="tab"
+                               aria-controls="nav-evidence" aria-selected="true">
+                                <i class="fas fa-file-alt"></i>No. of test taken <span
+                                    class="badge badge-warning">{{ $testDetail['total_tests'] }}</span>
+                            </a>
 
                         </div>
-                        <input type="hidden" name="school_id" value="{{$schoolId}}">
-                        <div class="row">
-                            <button class="btn btn-danger add-student">Submit</button>
+                    </nav><!-- Tab -->
+
+                    <div class="tab-content mt-4 mt-lg-5" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-causes" role="tabpanel"
+                             aria-labelledby="nav-causes-tab">
+                            <div class="row justify-content-between">
+                                <div class="col-12 col-lg-8 card shadow-sm border-soft">
+                                    <div class="card-body">
+                                        <h1 class="text-gray-700 font-bold">Test History</h1>
+                                        <div class="flex justify-content-between my-3">
+                                            <table class="table">
+                                                <thead class="bg-gray-50">
+                                                <tr>
+                                                    <th><span class="">Test Date</span></th>
+                                                    <th><span class="">Average Score</span></th>
+                                                    <th><span class="">Total Score</span></th>
+                                                    <th><span class="">Obtainable Score</span></th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @if (!is_null($testResults))
+                                                    @foreach ($testResults as $result)
+                                                        <tr>
+                                                            <td>{{ $result['created_at'] }}</td>
+                                                            <td>{{ $result->testResult->avg_score }}%</td>
+                                                            <td>{{ $result->testResult->total_score }}</td>
+                                                            <td>{{ $result->testResult->obtainable_score }}</td>
+                                                            <td>
+                                                                <a href="{{ route('result.summary', $result->testResult->session_id) }}"
+                                                                   class="pr-1 text-tertiary"
+                                                                   title="view summary result"><i
+                                                                        class="fa fa-eye"></i></a>
+                                                                @if ($result->testResult->payment_status == 1)
+                                                                    <a
+                                                                        href="{{ route('result.getResult', $result->testResult->session_id) }}"><i
+                                                                            class="fa fa-print"></i></a>
+                                                                @else
+                                                                    <i class="fa fa-print" disabled="">
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="5" class="text-muted">No record found</td>
+
+                                                    </tr>
+                                                @endif
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--<aside class="col-12 col-lg-4 mt-3 mt-lg-0 d-none d-lg-block z-2">
+                                    <div class="card shadow-sm border-soft p-3">
+                                        <div class="card-body">
+                                            <h4 class="pb-3">We live in a Greenhouse</h4>
+                                            <p>Life on Earth depends on energy coming from the Sun. About half the light
+                                                reaching Earth's
+                                                atmosphere passes through the air and clouds to the surface, where it is
+                                                absorbed and then
+                                                radiated upward in the form of infrared heat. About 90 percent of this heat
+                                                is then absorbed
+                                                by the greenhouse gases and radiated back toward the surface.</p>
+                                        </div>
+                                    </div>
+                                </aside>--}}
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
-            </form>
-
+            </div>
         </div>
-
-
     </div>
-@push('scripts')
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileEditModalLabel">Edit your details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--Form-->
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="e-profile">
+                                        <form class="form" novalidate="" action="{{route('update.privateLearner', $user->id)}}" enctype="multipart/form-data" method="post" name="update_profile">
+
+                                            <div class="row">
+                                                <div class="col-12  col-sm-auto mb-3 p-2">
+                                                    <div class="mx-auto relative" style="width: 140px;">
+                                                        <i class="fa fa-fw fa-close reset-thumbnail text-red-500 absolute d-none"></i>
+                                                        <div class="d-flex justify-content-center align-items-center rounded"
+                                                             style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                            <img src="{{$image}}" alt="" id="preview-thumbnail">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col  d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                                    <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                        <h4 class="pt-sm-2 pb-1 mb-0 text-wrap text-sm">{{ $user->name }}</h4>
+                                                        <p class="mb-0">{{ $user->email }}</p>
+                                                        <input type="hidden" id="image-url" value="{{$image}}">
+                                                        {{--<div class="text-muted"><small>Last seen 2 hours ago</small></div>--}}
+                                                        <div class="mt-2">
+                                                            <button class="btn btn-primary p-1" type="button" id="change-photo">
+                                                                <i class="fa fa-fw fa-camera"></i>
+                                                                <span style="font-size: 0.656rem">Change Photo</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center text-sm-right">
+                                                        <span class="badge badge-secondary">{{ $user->role_id }}</span>
+                                                        <div class="text-muted"><small>Joined {{ $user->created_at->format("d-m-Y") }}</small></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-content pt-3">
+                                                <div class="tab-pane active">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>First Name</label>
+                                                                        <input class="form-control" type="text" name="first_name"
+                                                                               placeholder="First name" value="{{$user->first_name}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Last Name</label>
+                                                                        <input class="form-control" type="text"
+                                                                               name="last_name" placeholder="Last name"
+                                                                               value="{{$user->last_name}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Email</label>
+                                                                        <input class="form-control" type="email" value="{{ $user->email }}"
+                                                                               placeholder="Email address" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Age</label>
+                                                                        <select name="age" id="age" class="block mt-1 w-full border-gray-200" required>
+                                                                            <option value="">Select Age Range</option>
+                                                                            <option value="5-12" {{($age =='5-12') ? 'selected' : ''}}>5 - 12 yrs</option>
+                                                                            <option value="12-20" {{($age =='12-20') ? 'selected' : ''}}>12 - 20 yrs</option>
+                                                                            <option value="20-35" {{($age =='20-35') ? 'selected' : ''}}>20 - 35 yrs</option>
+                                                                            <option value="35-55" {{($age =='35-55') ? 'selected' : ''}}>35 - 55 yrs</option>
+                                                                        </select>
+                                                                        {{--<input class="form-control" type="text" name="age"
+                                                                               placeholder="Age" value="{{}}">--}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Level</label>
+                                                                        <input class="form-control" type="text"
+                                                                               name="level" placeholder="Class"
+                                                                               value="{{$user->student->level}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <div class="form-group">
+                                                                        <label>School</label>
+                                                                        <input class="form-control" type="text" value="{{ $user->student->school }}"
+                                                                               placeholder="School">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-12 mb-3">
+                                                            <div class="mb-2"><b>Change Password</b></div>
+
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>New Password</label>
+                                                                        <input class="form-control" name="password" type="password" placeholder="••••••">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Confirm <span
+                                                                                class="d-none d-xl-inline">Password</span></label>
+                                                                        <input class="form-control" name="confirmPassword" type="password" placeholder="••••••">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col d-flex justify-content-end">
+                                                            <button class="btn btn-primary" type="submit">Save
+                                                                Changes</button>
+                                                        </div>
+                                                    </div>
+                                                    <input type="file" name="profile_image" id="profile-img">
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--/Form-->
+            </div>
+
+
+
+
+        @push('scripts')
         <script src="/js/app.js"></script>
         <script src="/js/script.js"></script>
         <script src="/js/axios.min.js"></script>
-{{--        <script src="/dist/slick/slick/slick.js"></script>--}}
         <script src="/js/sweetalert2.all.min.js"></script>
-        <script>
-            var modal = document.getElementById('id01');
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
 
-            $('.link').on('click', function (e){
-                let userId = $(this).data('user_id');
-                axios({
-                    method: 'get',
-                    url: '/students/'+userId,
-                    responseType: 'stream'
-                }).then(function (response) {
-                    try {
-                        document.getElementById('id01').style.display='block';
-
-                        $('#first_name').val(response.data.first_name);
-                        $('#last_name').val(response.data.last_name);
-                        $('#middle_name').val(response.data.middle_name);
-                        $('#email').val(response.data.email);
-                        $('#phone_number').val(response.data.phone_number);
-                        $('#image_url').val(response.data.image_url);
-                        $('#age').val(response.data.age);
-                        $('#level').val(response.data.level);
-                        let gender = response.data.gender;
-                        $('option[value='+ capitalize(gender)+']').attr('selected', true);
-
-
-                    }catch (e) {
-
-                    }
-                    });
-            });
-
-
-
-            function capitalize(word) {
-                const loweredCase = word.toLowerCase();
-                return word[0].toUpperCase() + loweredCase.slice(1);
-            }
-
-
-        </script>
 
     @endpush
 </x-app-layout>

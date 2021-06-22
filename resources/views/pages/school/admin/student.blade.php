@@ -136,7 +136,7 @@
                                     </td>
                                     <td>
                                         <span>
-                                            <a href="{{$student->user_id}}"> <i class="fa fa-eye"></i> </a>
+                                            <a href="{{route('school-admin.getStudent', $student->user_id)}}"> <i class="fa fa-eye"></i> </a>
                                         </span>
                                         <span><i class="fa fa-edit link" data-user_id="{{$student->user_id}}"></i></span>
                                         @if($student->request_delete != 1)
