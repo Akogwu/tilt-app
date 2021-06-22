@@ -87,9 +87,9 @@ $user = (array)$user;
         }
 
         .section-title{
-            border-radius: 8px; 
-            font-size: 20px; 
-            padding: 5px 40px; 
+            border-radius: 8px;
+            font-size: 20px;
+            padding: 5px 40px;
             width: max-content;
             margin: auto;
             margin-top: 0px;
@@ -150,7 +150,7 @@ $user = (array)$user;
 </head>
   <img id="person-image" src="{{ $user["image_url1"] ?? "/images/no-image-profile.jpg"}}"
                     style="width: 100px;height: 100px;border-radius: 100%;border: 2px solid #0b4875; display: none" />
-              
+
 <body id="result-summary">
 
     <!-- SUMMARY CONTAINER STARTS -->
@@ -163,7 +163,7 @@ $user = (array)$user;
         </div>
         <div style="margin-top: 80px;">
             <div style="width: 100px;height: 100px;margin: auto;">
-                <canvas id="person-image-canvas" 
+                <canvas id="person-image-canvas"
                     style="width: 100px;height: 100px;border-radius: 100%;border: 2px solid #0b4875" ></canvas>
             </div>
             <div class="col-12 details-p-1">
@@ -198,9 +198,10 @@ $user = (array)$user;
 
     <div class="container-fluid pt-5">
         @foreach($recommendations as $key => $recommendation)
+            <?php $recommendation = (object)$recommendation; ?>
         <div class="page-break ">
         @if($key == 0)
-        <h2 class="text-center">Recommendations</h2> 
+        <h2 class="text-center">Recommendations</h2>
         @endif
     <div class="section-box p-5">
     <div style="margin: auto; width: max-content">
@@ -215,8 +216,9 @@ $user = (array)$user;
     <!-- Summary text -->
     <div class="container">
     <div class="row justify-content-center">
-        
+
         @foreach($recommendation->sections as $section)
+            <?php $section = (object)$section; ?>
             <div class="col-5 mb-4" style="padding: 0 3rem 0 3rem">
                 <div class="section-item border border-{{$recommendation->group_color}}">
                 <div class="section-item-head w-100 p-2 bg-{{$recommendation->group_color}} text-white text-center" style="text-transform: capitalize">{{ $section->section_name }}</div>
@@ -248,7 +250,7 @@ $user = (array)$user;
             <br/>
             ©{{ date("Y") }}. All rights reserved
             </p>
-        </div>  
+        </div>
     <div>
 
     </div>
@@ -271,7 +273,7 @@ $user = (array)$user;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 
     <script>
-      
+
       const generatePDF = () => {
             const sections = document.getElementsByClassName("page-break")
             const downloadBtn = document.getElementById("download-btn")
@@ -285,7 +287,7 @@ $user = (array)$user;
                 for(var quotes of sections){
                     html2canvas(quotes, {
                         onrendered: (canvas) => {
-                            
+
                             const mainWidth = canvas.width;
                             const mainHeight =  1200;
                             for (var i = 0; i <= quotes.clientHeight/mainHeight; i++) {
@@ -298,12 +300,12 @@ $user = (array)$user;
                                 var dY      = 0;
                                 var dWidth  = mainWidth;
                                 var dHeight = mainHeight;
-    
+
                                  window.onePageCanvas = document.createElement("canvas");
                                 onePageCanvas.setAttribute('width', mainWidth);
                                 onePageCanvas.setAttribute('height', mainHeight);
                                 var ctx = onePageCanvas.getContext('2d');
-                                // details on this usage of this function: 
+                                // details on this usage of this function:
                                 ctx.drawImage(srcImg,sX,sY,sWidth,sHeight,dX,dY,dWidth,dHeight);
                                 // document.body.appendChild(canvas);
                                 var canvasDataURL = onePageCanvas.toDataURL("image/png", 1);
@@ -322,11 +324,11 @@ $user = (array)$user;
                                 //! now we add content to that page!
                                 pdf.addImage(canvasDataURL, 'PNG', -(width*.65 - a4.width)/2, 0, (width*.65), (height*0.65));
                             }
-    
+
                             if(loop >= sections.length - 1){
                                 pdf.save('Test.pdf');
                                 downloadBtn.innerHTML = "<i class=\"fas fa-check\"></i>";
-    
+
                                 setTimeout(() => {
                                     downloadBtn.innerHTML = "<i class=\"fas fa-download\"></i>";
                                     downloadBtn.disabled = false;
@@ -338,7 +340,7 @@ $user = (array)$user;
                                 pdf.setPage(pageCount);
                                 console.log("Page Added"+pageCount)
                             }
-    
+
                             loop++;
 
                         }
@@ -346,13 +348,13 @@ $user = (array)$user;
                 }
             }, 1000);
 
-            
+
 
         }
 
     document.addEventListener("DOMContentLoaded", function(){
 
-    
+
         // src="{{ $user["image_url1"] ?? "/images/no-image-profile.jpg"}}"
         var canvas = document.getElementById("person-image-canvas");
         var ctx = canvas.getContext("2d");
@@ -368,6 +370,7 @@ $user = (array)$user;
             $values = [];
             $colors = ['#138267','#eb8612','#7a14b8','#07557c','#b71b18','#9a6515'];
             foreach ($summary_result as $group) {
+                $group = (object)$group;
                 $labels[] = $group->group_name;
                 $values[] = $group->score;
             }
@@ -419,12 +422,12 @@ $user = (array)$user;
         });
     });
 
-   
+
     </script>
 
 @foreach($recommendations as $recommendation)
 
-
+<?php $recommendation = (object)$recommendation; ?>
 
 
 
@@ -434,7 +437,7 @@ $user = (array)$user;
     // Your code to run since DOM is loaded and ready
 
     document.addEventListener("DOMContentLoaded", function(){
-        
+
    <?php
             $labels = [];
             $values = [];
@@ -448,24 +451,26 @@ $user = (array)$user;
             // Data cleansing
 
             foreach ($recommendation->sections as $k => $section) {
+                $section = (object)$section;
                 $labels[] = $section->section_name;
                 foreach ($section->labels as $key => $label) {
+                    $label = (object)$label;
                     $data[$k][] = $label->score;
                     $colors[$k][] = $label->color;
                     $length = count($data[$k]) > $length ? count($data[$k]) : $length;
                 }
             }
 
-            // Fill up missing spaces with 0 
+            // Fill up missing spaces with 0
             foreach ($data as $k => $row) {
                 if(count($row) < $length){
-                    for ($i=0; $i < $length - count($row); $i++) { 
+                    for ($i=0; $i < $length - count($row); $i++) {
                         $data[$k][] = 0;
                         $colors[$k][] = "";
                     }
                 }
             }
-          
+
             // Data transposition
             $_scores = [];
             $_colors = [];
@@ -476,7 +481,7 @@ $user = (array)$user;
                 }
             }
 
-            // Generate Dataset Array 
+            // Generate Dataset Array
             foreach ($_scores as $k => $score_row) {
                 foreach ($score_row as $j => $score) {
                     $datasets[$k]["data"][] = $score;

@@ -321,8 +321,8 @@ class TestResultController extends Controller
             ]
 
         ];
-
-        return response()->json($data);
+        return $data;
+        //return response()->json($data);
     }
 
     public function viewTestResult(){
