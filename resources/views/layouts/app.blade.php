@@ -14,8 +14,10 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/tailwind.css') }}">
         @livewireStyles
-        <link rel="stylesheet" href="/css/main.css">
+        @if(Auth::user()->role_id =="SCHOOL_ADMIN")
 
+         <link rel="stylesheet" href="/css/main.css"> 
+        @endif
     @stack('styles')
         <!-- Scripts -->
         <script src="{{ mix('js/bundle.js') }}" defer></script>

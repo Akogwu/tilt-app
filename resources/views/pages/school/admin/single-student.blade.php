@@ -6,66 +6,73 @@
         </h2>
     </x-slot>
 
-    <section class="section bg-gray-200 overlay-gray-100 text-white" data-background="">
-        <div class="container">
-            <div class="row justify-content-center pt-5">
-                <div class="col-10 mx-auto text-center">
-
-                    @php
-                        //default image
-                        $image = '/images/profile2.png';
-                        if (!is_null($user->image_url)) {
-                            $image = $user->image_url;
-                        }
-                        $age = $user->student->age;
-                    @endphp
-
-                    <figure class=" rounded-xl  md:p-0">
-                        <img class="w-32 h-32 md:w-48 md:h-auto  rounded-full mx-auto" src="{{ $image }}" alt=""
-                             width="384" height="512">
-                        <div class="pt-2 md:p-8 text-center md:text-left ">
-                            <figcaption class="font-medium">
-                                <div class="font-bold text-blue-900">
-                                    {{ $user->name }}
-                                </div>
-                                <div class="text-gray-500">
-                                    {{ $user->role_id }}
-                                </div>
-                            </figcaption>
-                            <button class="rounded-full w-5 h-5 text-tertiary" title="Edit Profile"><i
-                                    class="fas fa-edit fa-2x" data-toggle="modal" data-target="#profileEditModal"></i></button>
-                        </div>
-                    </figure>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="section pt-0">
+    <div class="section py-7">
         <div class="container mt-n5">
+        <div class="row">
+            <h3 class="pl-5">Student details</h3>
+        </div>
             <div class="row">
-                <div class="col">
-                    <!-- Tab -->
-                    <nav>
-                        <div class="nav nav-tabs flex-column flex-md-row shadow-sm border-soft justify-content-around bg-white rounded mb-3 py-3"
-                             id="nav-tab" role="tablist">
-                            <a class="nav-item nav-link active" id="nav-evidence-tab" data-toggle="tab" href="#" role="tab"
-                               aria-controls="nav-evidence" aria-selected="true">
-                                <i class="fas fa-file-alt"></i>No. of test taken <span
-                                    class="badge badge-warning">{{ $testDetail['total_tests'] }}</span>
-                            </a>
+                <div class="col-4">
+                    <div class="mx-auto" style="border:2px solid #bcbcbc">
 
-                        </div>
-                    </nav><!-- Tab -->
+                        @php
+                            //default image
+                            $image = '/images/profile2.png';
+                            if (!is_null($user->image_url)) {
+                                $image = $user->image_url;
+                            }
+                            $age = $user->student->age;
+                        @endphp
 
-                    <div class="tab-content mt-4 mt-lg-5" id="nav-tabContent">
+                        <figure class=" rounded-xl  md:p-4">
+                            <img class="w-32 h-32 md:w-48 md:h-auto  rounded-full mx-auto" src="{{asset($image) }}" alt=""
+                                 width="384" height="512">
+                            <div class="pt-2 md:p-8 text-md-left text-blue-700">
+                                <figcaption class="" style="font-size: 1.1rem;">
+                                    <div class="pt-3">
+                                        <strong class="font-bold">Full name: </strong> {{ $user->name }}
+                                    </div>
+
+                                    <div class="pt-1">
+                                        <strong class="font-bold">Email: </strong> {{ $user->email }}
+                                    </div>
+                                    <div class="pt-1">
+                                        <strong class="font-bold">Phone Number: </strong> {{ $user->phone_number ?? 'nill' }}
+                                    </div>
+                                    <div class="pt-1">
+                                        <strong class="font-bold">Gender: </strong>{{ $user->student->gender }}
+                                    </div>
+                                    <div class="pt-1">
+                                        <strong class="font-bold">Age: </strong>{{ $age }}
+                                    </div>
+                                    <div class="pt-1">
+                                        <strong class="font-bold">Class: </strong> {{ $user->student->level }}
+                                    </div>
+                                    <div class="pt-1">
+                                        <strong class="font-bold">State: </strong> {{ $user->student->level }}
+                                    </div>
+                                    <div class="pt-1">
+                                        <strong class="font-bold">Country: </strong> {{ $user->student->level }}
+                                    </div>
+                                </figcaption>
+                                <button class="rounded-full w-5 h-5 text-tertiary" title="Edit Profile"><i
+                                        class="fa fa-edit" data-toggle="modal" data-target="#profileEditModal" style="padding-top: 10px; font-size: 30px;"></i></button>
+                            </div>
+                        </figure>
+                    </div>
+
+
+                </div>
+
+                <div class="col-8">
+
+                    <div class="tab-content mt-4 mt-lg-5 pt-5" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-causes" role="tabpanel"
                              aria-labelledby="nav-causes-tab">
                             <div class="row justify-content-between">
-                                <div class="col-12 col-lg-8 card shadow-sm border-soft">
+                                <div class="col-12 col-lg-12 card shadow-sm border-soft">
                                     <div class="card-body">
-                                        <h1 class="text-gray-700 font-bold">Test History</h1>
+                                        <h1 class="text-gray-700 font-bold" style="font-size: 25px;">Test History <span class="badge badge-warning">{{ $testDetail['total_tests'] }}</span></h1>
                                         <div class="flex justify-content-between my-3">
                                             <table class="table">
                                                 <thead class="bg-gray-50">
@@ -91,11 +98,11 @@
                                                                    title="view summary result"><i
                                                                         class="fa fa-eye"></i></a>
                                                                 @if ($result->testResult->payment_status == 1)
-                                                                    <a
-                                                                        href="{{ route('result.getResult', $result->testResult->session_id) }}"><i
-                                                                            class="fa fa-print"></i></a>
+                                                                    <a href="{{ route('result.getResult', $result->testResult->session_id) }}" target='_blank'>
+                                                                        <i class="fa fa-print"></i>
+                                                                    </a>
                                                                 @else
-                                                                    <i class="fa fa-print" disabled="">
+                                                                    <i class="fa fa-print" disabled=""></i>
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -112,20 +119,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{--<aside class="col-12 col-lg-4 mt-3 mt-lg-0 d-none d-lg-block z-2">
-                                    <div class="card shadow-sm border-soft p-3">
-                                        <div class="card-body">
-                                            <h4 class="pb-3">We live in a Greenhouse</h4>
-                                            <p>Life on Earth depends on energy coming from the Sun. About half the light
-                                                reaching Earth's
-                                                atmosphere passes through the air and clouds to the surface, where it is
-                                                absorbed and then
-                                                radiated upward in the form of infrared heat. About 90 percent of this heat
-                                                is then absorbed
-                                                by the greenhouse gases and radiated back toward the surface.</p>
-                                        </div>
-                                    </div>
-                                </aside>--}}
+
                             </div>
                         </div>
                     </div>
@@ -140,7 +134,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="profileEditModalLabel">Edit your details</h5>
+                    <h5 class="modal-title" id="profileEditModalLabel">Edit Student details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -153,15 +147,16 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="e-profile">
-                                        <form class="form" novalidate="" action="{{route('update.privateLearner', $user->id)}}" enctype="multipart/form-data" method="post" name="update_profile">
-
+                                        <form class="form" novalidate="" action="{{route('school-admin.updateStudent', $user->id)}}" method="post" enctype="multipart/form-data" name="update_profile">
+                                            @method('PUT')
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-12  col-sm-auto mb-3 p-2">
                                                     <div class="mx-auto relative" style="width: 140px;">
                                                         <i class="fa fa-fw fa-close reset-thumbnail text-red-500 absolute d-none"></i>
                                                         <div class="d-flex justify-content-center align-items-center rounded"
                                                              style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                            <img src="{{$image}}" alt="" id="preview-thumbnail">
+                                                            <img src="{{asset($image)}}" alt="" id="preview-thumbnail">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -170,7 +165,6 @@
                                                         <h4 class="pt-sm-2 pb-1 mb-0 text-wrap text-sm">{{ $user->name }}</h4>
                                                         <p class="mb-0">{{ $user->email }}</p>
                                                         <input type="hidden" id="image-url" value="{{$image}}">
-                                                        {{--<div class="text-muted"><small>Last seen 2 hours ago</small></div>--}}
                                                         <div class="mt-2">
                                                             <button class="btn btn-primary p-1" type="button" id="change-photo">
                                                                 <i class="fa fa-fw fa-camera"></i>
@@ -187,7 +181,6 @@
 
                                             <div class="tab-content pt-3">
                                                 <div class="tab-pane active">
-                                                    @csrf
                                                     <div class="row">
                                                         <div class="col">
                                                             <div class="row">
@@ -200,13 +193,31 @@
                                                                 </div>
                                                                 <div class="col">
                                                                     <div class="form-group">
+                                                                        <label>Middle Name</label>
+                                                                        <input class="form-control" type="text"
+                                                                               name="middle_name" placeholder="Middle name"
+                                                                               value="{{$user->middle_name}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="form-group">
                                                                         <label>Last Name</label>
                                                                         <input class="form-control" type="text"
                                                                                name="last_name" placeholder="Last name"
                                                                                value="{{$user->last_name}}">
                                                                     </div>
                                                                 </div>
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <label>Phone Number</label>
+                                                                        <input class="form-control" type="text" value="{{ $user->phone }}"
+                                                                               placeholder="Phone Number">
+                                                                    </div>
+                                                                </div>
                                                             </div>
+
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group">
@@ -216,6 +227,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group">
@@ -240,26 +252,21 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col mb-3">
-                                                                    <div class="form-group">
-                                                                        <label>School</label>
-                                                                        <input class="form-control" type="text" value="{{ $user->student->school }}"
-                                                                               placeholder="School">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-12 col-sm-12 mb-3">
-                                                            <div class="mb-2"><b>Change Password</b></div>
+                                                            <div class="mb-2"><b>Change Password</b>
+                                                                <input type="checkbox" class="form-control" id="edit_password" name="edit_password"
+                                                                       style="width: 20px; height: 20px; border: 1px solid #ccc;">
+                                                            </div>
 
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="form-group">
                                                                         <label>New Password</label>
-                                                                        <input class="form-control" name="password" type="password" placeholder="••••••">
+                                                                        <input class="form-control password" name="password" type="password" placeholder="••••••" disabled>
                                                                     </div>
                                                                 </div>
 
@@ -267,7 +274,7 @@
                                                                     <div class="form-group">
                                                                         <label>Confirm <span
                                                                                 class="d-none d-xl-inline">Password</span></label>
-                                                                        <input class="form-control" name="confirmPassword" type="password" placeholder="••••••">
+                                                                        <input class="form-control password" name="confirmPassword" type="password" placeholder="••••••" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -304,7 +311,19 @@
         <script src="/js/script.js"></script>
         <script src="/js/axios.min.js"></script>
         <script src="/js/sweetalert2.all.min.js"></script>
+                <script>
+                    $('#edit_password').on('click',function (e){
+                        $('.password').val('');
+                        if($(this).prop('checked')){
+                            $('.password').attr('disabled', false)
+                        }else {
+                            $('.password').attr('disabled', true);
 
+                        }
+                    })
+
+                
+                </script>
 
     @endpush
 </x-app-layout>

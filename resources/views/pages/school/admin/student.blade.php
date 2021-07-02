@@ -132,13 +132,15 @@
                                         {{$student->user->phone}}
                                     </td>
                                     <td class="px-4 py-3 text-sm">
-                                        {{$student->created_at}}
+                                        {{$student->created_at->format('d-m-Y')}}
                                     </td>
                                     <td>
                                         <span>
-                                            <a href="{{route('school-admin.getStudent', $student->user_id)}}"> <i class="fa fa-eye"></i> </a>
+                                            <a href="#" class="takeTest" data-user_id="{{$student->user_id}}"> <i class="fa fa-puzzle-piece" title="Take test"></i> </a>
                                         </span>
-                                        <span><i class="fa fa-edit link" data-user_id="{{$student->user_id}}"></i></span>
+                                        <span>
+                                            <a href="{{route('school-admin.getStudent', $student->user_id)}}"> <i class="fa fa-eye" title="View"></i> </a>
+                                        </span>
                                         @if($student->request_delete != 1)
                                             <span><i class="fa fa-trash-o text-danger request-delete" data-user_id="{{$student->user_id}}" data-action="1" title="Request delete"></i></span>
                                         @else
@@ -296,34 +298,6 @@
                 }
             }
 
-            $('.link').on('click', function (e){
-                let userId = $(this).data('user_id');
-                axios({
-                    method: 'get',
-                    url: '/students/'+userId,
-                    responseType: 'stream'
-                }).then(function (response) {
-                    try {
-                        document.getElementById('id01').style.display='block';
-
-                        $('#first_name').val(response.data.first_name);
-                        $('#last_name').val(response.data.last_name);
-                        $('#middle_name').val(response.data.middle_name);
-                        $('#email').val(response.data.email);
-                        $('#phone_number').val(response.data.phone_number);
-                        $('#image_url').val(response.data.image_url);
-                        $('#age').val(response.data.age);
-                        $('#level').val(response.data.level);
-                        let gender = response.data.gender;
-                        $('option[value='+ capitalize(gender)+']').attr('selected', true);
-
-
-                    }catch (e) {
-
-                    }
-                    });
-            });
-
             //submit form
                 $('#addStudentForm').on('submit', function (e){
                     e.preventDefault();
@@ -403,27 +377,115 @@
                             "action": action
                         }
                     }).then(function (response){
-                        console.log(response.data);
-                    });
-                    swalWithBootstrapButtons.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
+                        swalWithBootstrapButtons.fire(
+                        'Success!',
+                        'Action successful.',
                         'success'
                     )
+                    setTimeout(function(){
+                        location.reload();                                
+                    }, 2000);
+
+                    });
+                    
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
                 ) {
                     swalWithBootstrapButtons.fire(
                         'Cancelled',
-                        'Your imaginary file is safe :)',
+                        'Action cancelled :)',
                         'error'
-                    )
+                    );
+                    setTimeout(function(){
+                        location.reload();                                
+                    }, 2000);
                 }
             })
             })
 
+            $('.takeTest').on('click', function(e){
+                e.preventDefault();
+                let studentId = $(this).data('user_id');
+                //'test.new-session'
 
+                Swal.fire({
+                    title: 'Take test?',
+                    text: "This process will redirect student to take test",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, take test!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        //redirect alert
+                        redirect(3400);
+                        axios({
+                        method: 'post',
+                        url: '{{route('test.new-session')}}',
+                        data: {user_id: studentId}
+                    }).then(function (response){
+                        try {
+                            let sessionId = response.data.session_id;
+                            if(sessionId !=''){
+                                localStorage.setItem("user_id", studentId);
+                            localStorage.setItem("session_id", response.data.session_id);
+                            setTimeout(function(){
+                                window.open("/take-test", "_blank");
+                                }, 2500);
+                            }else{
+                                Swal.fire(
+                                    'Error!',
+                                    'Error occured, please try again.',
+                                    'danger'
+                                    )
+                            }                           
+                            
+
+                        }catch (error){
+                            Swal.fire(
+                                    'Error!',
+                                    'Error occured, please try again.',
+                                    'danger'
+                                    )
+                            console.error(error)
+                        }
+                    })
+                    }
+                })
+
+            });
+
+            function redirect(setTime){
+                let timerInterval
+                Swal.fire({
+                title: 'Redirecting!',
+                html: 'This page will be redirected in <b></b> milliseconds.',
+                timer: setTime,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                    const content = Swal.getHtmlContainer()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                        b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+                })
+            }
 
         </script>
 

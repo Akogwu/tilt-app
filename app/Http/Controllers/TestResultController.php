@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 
 use App\Models\Session;
+use App\Models\Student;
 use App\Models\TestResult;
 
 use App\Repository\TestResultRepository;

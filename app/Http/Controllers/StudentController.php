@@ -40,8 +40,6 @@ class StudentController extends Controller
             'middle_name'=>'nullable|string',
             'email'=>'nullable|email',
             'phone_number'=>'nullable',
-            'password'=>'nullable',
-
         ];
         $studentRules = [
             'age'=>'nullable|string',
@@ -54,8 +52,16 @@ class StudentController extends Controller
 
 
         try {
-            $userValidator = $this->validateRequest($request->all(), $userRules);// validator($request->all(), $userRules)->validate();
-            $studentValidator = $this->validateRequest($request->all(), $studentRules); //validator($request->all(), $studentRules)->validate();
+            //if true
+            if ($request->edit_password){
+                $userRules = array_merge($userRules, [
+                    'password'=>'required|confirmed',
+                ]);
+            }else{
+
+            }
+            $userValidator = $this->validateRequest($request->all(), $userRules);
+            $studentValidator = $this->validateRequest($request->all(), $studentRules);
 
             if ($request->has('email')){
                 //check if email already exists
@@ -66,7 +72,7 @@ class StudentController extends Controller
                 if ($checkEmail > 0)
                     return response()->json(['status'=>false, 'message'=> "Email already exist"],409);
             }
-            if ($request->has('password')){
+            if ($request->edit_password){
                 $password = Hash::make($request->password);
                 $userValidator['password'] = $password;
             }
@@ -75,7 +81,7 @@ class StudentController extends Controller
             //update student
             $user->student->update($studentValidator);
         }catch (\Exception $exception){
-            return response()->json(['status'=>false, 'message'=> $exception->getMessage()],422);
+            return response()->json(['status'=>false, 'message'=> $exception->getMessage()]);
         }
 
         return response()->json(['status'=>true, 'message'=>'Update successful'],201);

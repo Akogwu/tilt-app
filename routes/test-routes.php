@@ -7,7 +7,7 @@
     //My tests
 });*/
 Route::group(['prefix'=>'test'],function (){
-    Route::post('/new-session',[\App\Http\Controllers\TakeTestController::class,'createSession']);
+    Route::post('/new-session',[\App\Http\Controllers\TakeTestController::class,'createSession'])->name('test.new-session');
     Route::get('/get-questions',[\App\Http\Controllers\TakeTestController::class,'getAllQuestions']);
     Route::post('/submit',[\App\Http\Controllers\TakeTestController::class,'submitTest']);
     Route::get('/{sessionId}/answers',[\App\Http\Controllers\TakeTestController::class,'getAllSessionAnswers']);

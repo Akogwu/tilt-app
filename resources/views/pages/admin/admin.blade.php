@@ -4,7 +4,7 @@
             {{ __('Admins') }}
         </h2>
     </x-slot>
-    <div class="py-12">
+    <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-12 lg:px-12">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
