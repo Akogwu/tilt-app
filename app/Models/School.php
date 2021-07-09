@@ -36,6 +36,10 @@ class School extends Model
     public function student(){
         return $this->hasMany(Student::class, 'school_id');
     }
+    public function requestDelete() : int{
+        $count  = Student::where([['school_id', $this->id],['request_delete',1]])->count();
+        return $count;
+    }
 
     public function stateProvince()
     {

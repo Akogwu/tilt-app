@@ -14,15 +14,15 @@ class AddCountryStateToStudentPrivateLearner extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-           $table->unsignedSmallInteger('state_id')->after('age')->nullable();
-           $table->unsignedSmallInteger('country_id')->after('state_id')->nullable();
+           $table->unsignedBigInteger('state_id')->after('age')->nullable();
+           $table->unsignedBigInteger('country_id')->after('state_id')->nullable();
 
            $table->foreign('state_id')->references('id')->on('states_provinces')->onUpdate('cascade');
            $table->foreign('country_id')->references('id')->on('countries')->onUpdate('cascade');
         });
         Schema::table('private_learners', function (Blueprint $table) {
-            $table->unsignedSmallInteger('state_id')->after('age');
-            $table->unsignedSmallInteger('country_id')->after('state_id');
+            $table->unsignedBigInteger('state_id')->after('age')->nullable();
+            $table->unsignedBigInteger('country_id')->after('state_id')->nullable();
 
             $table->foreign('state_id')->references('id')->on('states_provinces')->onUpdate('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onUpdate('cascade');

@@ -19,6 +19,14 @@ class Student extends Model
     public function school(){
         return $this->belongsTo(School::class, 'school_id');
     }
+    public function state()
+    {
+        return $this->belongsTo(StateProvince::class,'state_id');
+    }
+    public function country()
+    {
+        return $this->belongsTo(Country::class,'country_id');
+    }
     public static function createNew($userId, $schoolId, $request){
         $new= self::firstOrCreate(
             [

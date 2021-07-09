@@ -82,7 +82,7 @@ class SchoolAdminController extends Controller
         $action = $request->action;
 
         //validate query param
-        if (is_null($action) || !in_array($action, [1,0]))
+        if (is_null($action) || !in_array($action, [1,0,-1]))
             return response()->json(['status'=>false, 'message'=>'action query parameter is required'], 400);
         //validate student
         $student = Student::where('user_id', $studentId)->first();

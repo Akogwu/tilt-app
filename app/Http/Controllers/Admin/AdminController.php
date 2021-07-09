@@ -49,6 +49,7 @@ class AdminController extends Controller
             'schools'=>$bestPerformingSchool,
             'successful_transaction'=>$successfulTransaction
         ];
+        //dd($bestPerformingSchool);
         return view('pages.admin.dashboard',compact('data'));
     }
 
@@ -62,7 +63,7 @@ class AdminController extends Controller
         //get performing schools
         $students = DB::table('schools')
             ->join('students', 'students.school_id','=', 'schools.id')
-            ->join('sessions', 'students.user_id','=', 'sessions.user_id')
+            ->join('user_sessions AS sessions', 'students.user_id','=', 'sessions.user_id')
             ->join('test_results', 'test_results.session_id', '=', 'sessions.id')
             ->orderBy('schools.name')
             ->select('schools.name','schools.address','schools.state','schools.country', 'test_results.avg_score')

@@ -102,8 +102,8 @@
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Country
                                     </th>
-                                    
-                    
+
+
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Edit</span>
                                     </th>
@@ -133,14 +133,14 @@
                                                 <div class="text-sm text-gray-900">{{ $student->city }}</div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{ $student->state }}</div>
+                                                <div class="text-sm text-gray-900">{{ $student->state->name }}</div>
                                             </td>
-                                            
-                                            
+
+
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ $student->country }}
+                                                {{ $student->country->name }}
                                             </td>
-                                            
+
                                             <td class="px-6 py-4 inline-flex justify-content-around whitespace-nowrap text-right text-sm font-medium">
 {{--                                                <a href="#" class="text-blue-600 hover:text-blue-900 mr-2">View</a>--}}
 {{--                                                <a href="{{ route('schools.edit',$school) }}" class="text-purple-600 hover:text-purple-900 mr-2">Edit</a>--}}

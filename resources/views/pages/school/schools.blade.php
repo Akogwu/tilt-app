@@ -33,11 +33,12 @@
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        School Admin
-                                    </th>
+
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         No. of students
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-warning uppercase tracking-wider">
+                                        Request Delete
                                     </th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Edit</span>
@@ -69,12 +70,15 @@
                                       Active
                                     </span>
                                     </td>
+
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $school->admin->name??'N/A' }}
+                                        {{ $school->student->count() ?? '0' }}
                                     </td>
+
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $school->total_student??'N/A' }}
+                                        {{ $school->requestDelete() }}
                                     </td>
+
                                     <td class="px-6 py-4 inline-flex justify-content-around whitespace-nowrap text-right text-sm font-medium">
                                         <a href="{{ route('schools.show.school',$school) }}" class="text-blue-600 hover:text-blue-900 mr-2">View</a>
                                         <a href="{{ route('schools.edit',$school) }}" class="text-purple-600 hover:text-purple-900 mr-2">Edit</a>
