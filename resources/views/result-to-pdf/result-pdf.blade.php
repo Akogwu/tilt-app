@@ -497,7 +497,7 @@ $user = (array)$user;
             }
 
             // echo "console.log(\"Data Formated\");";
-            echo "console.log(".json_encode($datasets).");";
+            // echo "console.log(".json_encode($datasets).");";
 
             ?>
 
