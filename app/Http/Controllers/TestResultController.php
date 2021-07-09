@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Log;
 class TestResultController extends Controller
 {
     private $testResultRepository;
-    public function __construct(TestResultRepository $testResultRepository)
-    {
-        $this->testResultRepository = $testResultRepository;
-    }
+    // public function __construct(TestResultRepository $testResultRepository)
+    // {
+    //     $this->testResultRepository = $testResultRepository;
+    // }
 
     public function getTestResult($sessionId){
 

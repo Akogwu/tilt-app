@@ -3,6 +3,7 @@
 
 $user = (array)$user;
 
+
 ?>
 <html lang="en">
 
@@ -217,15 +218,19 @@ $user = (array)$user;
     <div class="container">
     <div class="row justify-content-center">
 
-        @foreach($recommendation->sections as $section)
-            <?php $section = (object)$section; ?>
-            <div class="col-5 mb-4" style="padding: 0 3rem 0 3rem">
-                <div class="section-item border border-{{$recommendation->group_color}}">
-                <div class="section-item-head w-100 p-2 bg-{{$recommendation->group_color}} text-white text-center" style="text-transform: capitalize">{{ $section->section_name }}</div>
-                <div class="w-100 p-2 bg-transparent" style="font-size: 13px">{{ $section->recommendation }}</div>
+       <div class="col-xl-7">
+                <div class="row">
+                @foreach($recommendation->sections as $section)
+                    <?php $section = (object)$section; ?>
+                    <div class="col-6 mb-4" style="padding: 0 1.5rem 0 1.5rem">
+                        <div class="section-item border border-{{$recommendation->group_color}}">
+                        <div class="section-item-head w-100 p-2 bg-{{$recommendation->group_color}} text-white text-center" style="text-transform: capitalize">{{ $section->section_name }}</div>
+                        <div class="w-100 p-2 bg-transparent" style="font-size: 13px">{{ $section->recommendation }}</div>
+                        </div>
+                    </div>
+                @endforeach
                 </div>
-            </div>
-        @endforeach
+       </div>
     </div>
     </div>
 </div>
@@ -237,7 +242,8 @@ $user = (array)$user;
     @endforeach
     </div>
 
-    <div class="page-break container-fluid p-5">
+    <div class="page-break container-fluid p-5 col-xl-9">
+    
         <div class="footer border p-3 m-5 text-center">
             <p>What you do with the tilt.ng result can dramatically transform your learning outcome henceforth.</p>
             <h3 class="text-danger">The Learning Revolutions!</h3>
@@ -484,13 +490,14 @@ $user = (array)$user;
             // Generate Dataset Array
             foreach ($_scores as $k => $score_row) {
                 foreach ($score_row as $j => $score) {
+                    $datasets[$k]["maxBarThickness"] = 50;
                     $datasets[$k]["data"][] = $score;
                     $datasets[$k]["backgroundColor"][] = $_colors[$k][$j];
                 }
             }
 
             // echo "console.log(\"Data Formated\");";
-            // echo "console.log(".json_encode($datasets).");";
+            echo "console.log(".json_encode($datasets).");";
 
             ?>
 

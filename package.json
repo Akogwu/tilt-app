@@ -44,6 +44,7 @@
         "@mdi/react": "^1.5.0",
         "animate.css": "^4.1.1",
         "core-util-is": "^1.0.2",
+        "electron-pdf": "^10.0.2",
         "headroom.js": "^0.12.0",
         "jquery": "^3.6.0",
         "prop-types": "^15.7.2",

@@ -24,6 +24,7 @@ Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
     Route::get("/result-view", [\App\Http\Controllers\TestResultController::class,'viewTestResult']);
 });
 
+
 //$router->group(['prefix' => 'tests'], function () use ($router) {
 //    $router->group(['middleware'=>'auth'], function () use ($router) {
 //        //get detail result
