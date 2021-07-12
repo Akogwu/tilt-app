@@ -14,6 +14,7 @@ Route::group(['prefix'=>'test'],function (){
     Route::get('/result/{sessionId}/summary', [\App\Http\Controllers\TestResultController::class,'getTestResultSummary'])->name('result.summary');
     //mockdata
     Route::get('/mock-result', [\App\Http\Controllers\TestResultController::class,'mockResult'])->name('result.summary');
+    Route::get("/result-view", [\App\Http\Controllers\TestResultController::class,'viewTestResult']);
 
 });
 Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {

@@ -27,8 +27,8 @@ $app = new Illuminate\Foundation\Application(
 */
 
 //Cloudinary
-class_alias('JD\Cloudder\Facades\Cloudder', 'Cloudder');
-$app->register(JD\Cloudder\CloudderServiceProvider::class);
+/*class_alias('JD\Cloudder\Facades\Cloudder', 'Cloudder');
+$app->register(JD\Cloudder\CloudderServiceProvider::class);*/
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,

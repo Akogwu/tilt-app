@@ -144,7 +144,7 @@
                                         @if($student->request_delete != 1)
                                             <span><i class="fa fa-trash-o text-danger request-delete" data-user_id="{{$student->user_id}}" data-action="1" title="Request delete"></i></span>
                                         @else
-                                            <span><i class="fa fa-refresh text-success request-delete" data-user_id="{{$student->user_id}}" data-action="0" title="Request delete"></i></span>
+                                            <span><i class="fa fa-refresh text-success request-delete" data-user_id="{{$student->user_id}}" data-action="0" title="Undo Request delete"></i></span>
                                         @endif
                                     </td>
                                 </tr>
@@ -349,7 +349,7 @@
             $('.request-delete').on('click', function (e){
                 let studentId = $(this).data('user_id');
                 let action = $(this).data('action');
-
+                let title = $(this).attr('title');
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -359,11 +359,11 @@
                 })
 
             swalWithBootstrapButtons.fire({
-                title: 'Request Delete?',
+                title: title + '?',
                 text: "This request will be sent to the administrator for consideration",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
+                confirmButtonText: 'Yes',
                 cancelButtonText: 'No, cancel!',
                 reverseButtons: true
             }).then((result) => {
@@ -383,11 +383,11 @@
                         'success'
                     )
                     setTimeout(function(){
-                        location.reload();                                
+                        location.reload();
                     }, 2000);
 
                     });
-                    
+
                 } else if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.cancel
@@ -398,7 +398,7 @@
                         'error'
                     );
                     setTimeout(function(){
-                        location.reload();                                
+                        location.reload();
                     }, 2000);
                 }
             })
@@ -440,8 +440,8 @@
                                     'Error occured, please try again.',
                                     'danger'
                                     )
-                            }                           
-                            
+                            }
+
 
                         }catch (error){
                             Swal.fire(

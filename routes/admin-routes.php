@@ -18,6 +18,8 @@ $router->group(['prefix' => 'school-management',  'middleware' => ['auth','admin
     $router->get('/schools/{school}/single', [\App\Http\Controllers\SchoolController::class,'get'])->name('schools.show.school');
     $router->delete('/schools/{schoolId}', [\App\Http\Controllers\SchoolController::class,'delete'])->name('school-delete');
     $router->put('/schools/{schoolId}', [\App\Http\Controllers\SchoolController::class,'updateSchool'])->name('schools.update');
-    //});
+    //admin manage student
+    Route::post('/request-delete/{studentId}', [\App\Http\Controllers\SchoolAdminController::class,'requestDelete']);
+
 
 });

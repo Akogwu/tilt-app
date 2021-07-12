@@ -31,7 +31,6 @@ $user = (array)$user;
 
         @media print {
             .page {
-                margin: 50px;
                 border: initial;
                 border-radius: initial;
                 width: initial;
@@ -243,7 +242,7 @@ $user = (array)$user;
     </div>
 
     <div class="page-break container-fluid p-5 col-xl-9">
-    
+
         <div class="footer border p-3 m-5 text-center">
             <p>What you do with the tilt.ng result can dramatically transform your learning outcome henceforth.</p>
             <h3 class="text-danger">The Learning Revolutions!</h3>

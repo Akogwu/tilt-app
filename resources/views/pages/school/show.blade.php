@@ -102,11 +102,11 @@
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Country
                                     </th>
-
-
-                                    <th scope="col" class="relative px-6 py-3">
-                                        <span class="sr-only">Edit</span>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Action
                                     </th>
+
+
                                 </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -142,14 +142,11 @@
                                             </td>
 
                                             <td class="px-6 py-4 inline-flex justify-content-around whitespace-nowrap text-right text-sm font-medium">
-{{--                                                <a href="#" class="text-blue-600 hover:text-blue-900 mr-2">View</a>--}}
-{{--                                                <a href="{{ route('schools.edit',$school) }}" class="text-purple-600 hover:text-purple-900 mr-2">Edit</a>--}}
-{{--                                                                                        <a href="#" data-id="{{ $school->id }}"  class="delete-school text-red-600 hover:text-red-900">Delete</a>--}}
-{{--                                                <form class="inline-block" action="{{ route('school-delete', $school->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">--}}
-{{--                                                    <input type="hidden" name="_method" value="DELETE">--}}
-{{--                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
-{{--                                                    <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Delete">--}}
-{{--                                                </form>--}}
+                                                @if($student->request_delete == 1)
+                                                    <span><i class="fa fa-check text-danger request-delete" data-user_id="{{$student->user_id}}" data-action="2" title="Approve Request delete"></i></span>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <span><i class="fa fa-ban text-success request-delete" data-user_id="{{$student->user_id}}" data-action="-1" title="Reject Request delete"></i></span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -168,5 +165,70 @@
 
         </div>
     </div>
+
+    @push('scripts')
+        <script src="/js/app.js"></script>
+        <script src="/js/script.js"></script>
+
+        <script src="/js/axios.min.js"></script>
+        <script src="/js/sweetalert2.all.min.js"></script>
+        <script>
+            $('.request-delete').on('click', function (e){
+                let studentId = $(this).data('user_id');
+                let action = $(this).data('action');
+                let title = $(this).attr('title');
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success',
+                        cancelButton: 'btn btn-danger'
+                    },
+                    buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                    title: title + '?',
+                    text: "This action can not be undo",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //request delete
+                        axios({
+                            method: 'post',
+                            url: '/school-management/request-delete/'+studentId,
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                "action": action
+                            }
+                        }).then(function (response){
+                            swalWithBootstrapButtons.fire(
+                                'Success!',
+                                'Action successful.',
+                                'success'
+                            )
+                            setTimeout(function(){
+                                location.reload();
+                            }, 2000);
+
+                        });
+
+                    } else if (
+                        /* Read more about handling dismissals below */
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            'Action cancelled :)',
+                            'error'
+                        );
+
+                    }
+                })
+            })
+        </script>
+    @endpush
 
 </x-app-layout>
