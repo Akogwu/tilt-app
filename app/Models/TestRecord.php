@@ -18,6 +18,9 @@ class TestRecord extends Model
     public function answer(){
         return $this->belongsTo(QuestionnaireWeightPoint::class, 'answer');
     }
+    public function weightPoint(){
+        return $this->belongsTo(QuestionnaireWeightPoint::class, 'answer');
+    }
     public static function createNew($session_id, $questionnaire_id, $answer){
         $new = self::firstOrCreate(
             [

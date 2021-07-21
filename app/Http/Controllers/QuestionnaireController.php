@@ -66,8 +66,14 @@ class QuestionnaireController extends Controller
         if ($request->weight_point){
             foreach ($request->weight_point as $item){
                 QuestionnaireWeightPoint::updateOrCreate(
-                    ['questionnaire_id' => $questionnaire->id, 'weight_point' => $item["weight_point"]],
-                    ['remark' => $item["remark"]]);
+                    [
+                        'questionnaire_id' => $questionnaire->id,
+                        'weight_point' => $item["weight_point"]
+                    ],
+                    [
+                        'grade_point' => $item['grade_point'] ?? 0,
+                        'remark' => $item["remark"]
+                    ]);
             }
         }
 

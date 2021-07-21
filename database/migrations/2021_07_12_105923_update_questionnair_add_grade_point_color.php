@@ -14,7 +14,7 @@ class UpdateQuestionnairAddGradePointColor extends Migration
     public function up()
     {
         Schema::table('questionnaire_weight_points', function (Blueprint $table){
-            $table->double('grade_point')->after('weight_point')->default(0);
+            $table->double('grade_point')->after('weight_point')->default(20);
             $table->string('colour_code')->after('grade_point')->default('#030303cc');
         });
     }

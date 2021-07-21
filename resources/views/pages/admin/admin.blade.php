@@ -1,4 +1,8 @@
 <x-app-layout>
+    @push('styles')
+
+
+    @endpush
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Admins') }}
@@ -57,7 +61,7 @@
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap">
                                                             <div class="text-sm text-gray-500">
-                                                                <select name="status" id="" class="form-control">
+                                                                <select name="status" id="" class="form-control" {{(auth()->user()->email == $admin->email) ? 'disabled' : ''}} >
                                                                     <option value="1" {{($admin->status ==1) ? 'selected': ''}}>Active</option>
                                                                     <option value="0" {{($admin->status ==0) ? 'selected': ''}}>Inactive</option>
                                                                 </select>

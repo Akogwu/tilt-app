@@ -19,7 +19,7 @@ class PDFController extends Controller
     function generateResult($sessionId = '0d35113f-5a4e-4a38-a2de-bcec80f37595'){
 
 
-        $result = $this->testResultRepository->getTestResult($sessionId);
+        $result = $this->testResultRepository->getCompleteResult($sessionId);
 
         if (is_null($result) || empty($result)){
             abort('404','Result not found for this session');

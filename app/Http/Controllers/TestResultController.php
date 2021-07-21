@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Log;
 class TestResultController extends Controller
 {
     private $testResultRepository;
-    // public function __construct(TestResultRepository $testResultRepository)
-    // {
-    //     $this->testResultRepository = $testResultRepository;
-    // }
+     public function __construct(TestResultRepository $testResultRepository)
+     {
+         $this->testResultRepository = $testResultRepository;
+     }
 
-    public function getTestResult($sessionId){
+/*    public function getTestResult($sessionId){
 
-            $result = $this->testResultRepository->getTestResult($sessionId);
+            $result = $this->testResultRepository->getCompleteResult($sessionId);
 
             if (is_null($result) || empty($result)){
                 abort('404','Result not found for this session');
@@ -34,9 +34,10 @@ class TestResultController extends Controller
             $testResult = $result['data'];
 
         return view('pages.results.complete', compact('testResult'));
-    }
+    }*/
 
     public function getTestResultSummary($sessionId){
+
         $testResult = TestResult::where('session_id', $sessionId)->first();
 
         if ($testResult == null )
@@ -46,7 +47,19 @@ class TestResultController extends Controller
         $user = $testResult->session->user;
         $testResult = $testResult->getResult($sessionId);
 
-        return view('pages.results.summary',compact('testResult','payment_status','user'));
+        return view('pages.results.summary',compact('testResult','payment_status','user','sessionId'));
+
+    }
+
+    public function getCompleteResult($sessionId)
+    {
+        try {
+
+            return $this->testResultRepository->getCompleteResult($sessionId);
+
+        }catch (\Exception $exception){
+            return [];
+        }
 
     }
 
@@ -326,8 +339,9 @@ class TestResultController extends Controller
         //return response()->json($data);
     }
 
-    public function viewTestResult(){
-        $data = $this->mockResult();
-        return view("result-to-pdf/result-pdf", $data);
+    public function viewTestResult($sessionId){
+        //TODO check for payment;
+        $data = $this->testResultRepository->getCompleteResult($sessionId);
+        return view("pages.results.result-pdf", $data);
     }
 }

@@ -22,24 +22,132 @@ class TestResultRepository
         return $sessionWithResult->get();
     }
 
-    public function getTestResult($sessionId){
+    public function getCompleteResult($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();
         if ($testResult == null )
             return [];
-
-        //check for payment
-        if (!$testResult->payment_status)
-            return [
-                'data'=>[],
-                'payment_status'=> $testResult->payment_status,
+        $role = $testResult->session->user->role->role;
+        $userData = [];
+        if ($role =="STUDENT"){
+            $user = $testResult->session->user;
+            $student = $testResult->session->user->student;
+            $userData = [
+                'name'=>$user->name,
+                'sex'=>$student->gender,
+                'age'=>$student->age,
+                'school'=>$student->school->name,
+                'class'=>$student->class,
+                'state'=>$student->state->name ?? '',
+                'country'=>$student->country->name ?? '',
+                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url)
             ];
+        }elseif ($role =="PRIVATE_LEARNER"){
+            $user = $testResult->session->user;
+            $privaterLearner = $testResult->session->user->privateLearner;
+            $userData = [
+                'name'=>$user->name,
+                'sex'=>$privaterLearner->gender,
+                'age'=>$privaterLearner->age,
+                'school'=>$privaterLearner->school,
+                'class'=>$privaterLearner->class,
+                'state'=>$privaterLearner->state->name ?? '',
+                'country'=>$privaterLearner->country->name ?? '',
+                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url)
+            ];
+        }else{//anonymous user viewing status
+            $user = $testResult->session->user;
+            $userData = [
+                'name'=>$user->name,
+                'sex'=>'Nil',
+                'age'=>'Nil',
+                'school'=>'Nil',
+                'class'=>'Nil',
+                'state'=>'Nil',
+                'country'=>'Nil',
+                'image_url'=> null
+            ];
+        }
+        $groupScores = collect($testResult->group_score_detail);
+        //return
+        $summaryResultData = $groupScores->map(function ($item){
+            $item = (object)$item;
+            return[
+                'group_name'=>Group::find($item->group_id)->name ?? '',
+                'score'=>$item->group_percentage
+            ];
+        });
 
 
         return [
-            'data'=>$testResult->getResult($sessionId, true),
-            'payment_status'=> $testResult->payment_status,
+            'user'=> $userData,
+            'summary_result' => $summaryResultData,
+            'recommendations' => $this->getRecommendations($sessionId)
         ];
     }
+
+    private function getRecommendations($sessionId){
+        $testResult = TestResult::where('session_id', $sessionId)->first();
+        $groups = Group::orderBy('name', 'asc')->get();
+
+        //get only groupids
+        $groupAnsweredIds = collect($testResult->group_score_detail)->map(function ($item){
+            $item = (object)$item;
+            return $item->group_id;
+        });
+        $sectionAnsweredIds = collect($testResult->section_score_detail)->map(function ($item){
+            $item = (object)$item;
+            return $item->section_id;
+        });
+
+        $data = array();
+        //loop groups
+        foreach ($groups as $group){
+            //get only the group ids available in the group-score-detail
+            if (in_array($group->id, $groupAnsweredIds->toArray())){
+
+                //sections
+                $groupSections = $group->sections;
+                $sectionData = array();
+                //get group sections
+                foreach ($groupSections as $groupSection){
+                    //get section details
+                    if (in_array($groupSection->id, $sectionAnsweredIds->toArray())){
+                        $labelData = $groupSection->questionnaires;//array();
+                        foreach ($groupSection->questionnaires as $question){
+                            //get test record for this question
+                            $testRecord = TestRecord::where([
+                                ['session_id',$sessionId],
+                                ['questionnaire_id', $question->id]
+                            ])->first();
+
+                            if ($testRecord){
+                                $labelData[]=[
+                                    'score'=>$testRecord->weightPoint->grade_point,
+                                    'color'=>$testRecord->weightPoint->colour_code ?? 0
+                                ];
+                            }
+                        }
+                        //get label data from the answers
+                        $sectionData[] = [
+                            'section_name'=>$groupSection->name,
+                            'labels'=>$labelData,
+                            'recommendation'=>$groupSection->recommendationMessage->question
+                        ];
+                    }
+                }
+            }
+            $data[] = [
+                'group_name'=>$group->name,
+                'goroup_icon'=>$group->icon,
+                'group_color'=>$group->color,
+                'description'=> $group->description,
+                'sections'=>$sectionData
+            ];
+        }
+
+        return $data;
+    }
+
     public function getTestResultSummary($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();
         if ($testResult == null )

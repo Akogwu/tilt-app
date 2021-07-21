@@ -11,7 +11,8 @@ class Group extends Model
     protected $guarded =[];
 
     public function sections(){
-        return $this->hasMany(Section::class, 'group_id');
+        return $this->hasMany(Section::class, 'group_id')
+            ->orderBy('name','asc');
     }
 
     public static function createNew($request){

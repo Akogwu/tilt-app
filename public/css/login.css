@@ -5,7 +5,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -95,6 +97,7 @@ body {
   position: relative;
   min-height: 50px;
 }
+
 .authentication .middle-color .content {
   position: absolute;
   top: -30px;
@@ -104,21 +107,25 @@ body {
   background: rgba(59, 89, 153, 0.9) url("/images/tilt-logo-invert.png") center center/50% 25% no-repeat;
   box-shadow: 0 0 50px -10px rgba(0, 0, 0, 0.25);
 }
+
 .authentication .middle-color .content .text {
   color: #fff !important;
   text-align: left;
   padding: 50px 40px 20px;
 }
+
 .authentication .middle-color .content .text h2 {
   font-family: "Nunito", sans-serif;
   margin-bottom: 10px;
   font-size: 2em;
 }
+
 .authentication .middle-color .content .text p {
   font-family: "Nunito", sans-serif;
   margin-bottom: 10px;
   font-size: 1.4em;
 }
+
 .authentication .middle-color .content .socials {
   position: absolute;
   left: 0;
@@ -127,16 +134,19 @@ body {
   padding: 40px;
   text-align: left;
 }
+
 .authentication .middle-color .content .socials a {
   color: #fff;
   text-decoration: none;
 }
+
 .authentication .action-pane {
   display: table;
   width: 350px;
   float: left;
   position: relative;
 }
+
 .authentication .action-pane .content {
   display: table-cell;
   text-align: left;
@@ -146,12 +156,17 @@ body {
   color: #c0c0c2;
   font-size: 13px;
 }
-.authentication .action-pane .content .highlighted, .authentication .action-pane .content .highlighted a {
+
+.authentication .action-pane .content .highlighted,
+.authentication .action-pane .content .highlighted a {
   font-weight: bold;
   color: #171a21;
   text-decoration: none;
 }
-.authentication .action-pane .content input:not([type=checkbox]), .authentication .action-pane .content button, .authentication .action-pane .content select {
+
+.authentication .action-pane .content input:not([type=checkbox]),
+.authentication .action-pane .content button,
+.authentication .action-pane .content select {
   border-radius: 3px;
   display: block;
   padding: 10px 15px;
@@ -159,6 +174,7 @@ body {
   font-size: 13px;
   width: 100%;
 }
+
 .authentication .action-pane .content label:not(.remember-me) {
   color: #666;
   font-size: 12px;
@@ -166,7 +182,8 @@ body {
   margin: 10px 0;
 }
 
-.authentication .action-pane .content input, .authentication .action-pane .content select {
+.authentication .action-pane .content input,
+.authentication .action-pane .content select {
   border: 1px solid #cfd5e1;
   font-family: "Nunito", sans-serif;
   box-sizing: border-box;
@@ -174,7 +191,8 @@ body {
   -webkit-box-sizing: border-box;
 }
 
-.authentication .action-pane .content input:focus, .authentication .action-pane .content select:focus {
+.authentication .action-pane .content input:focus,
+.authentication .action-pane .content select:focus {
   outline: 1px;
   background-color: #f1f1f1;
   border-color: #171a21;
@@ -363,6 +381,7 @@ body {
     padding: 20px;
   }
 }
+
 @media only screen and (max-width: 899px) {
   .authentication {
     width: 95%;
@@ -409,10 +428,12 @@ body {
     width: 100% !important;
   }
 
-  #step-us h3, #step-ng h3 {
+  #step-us h3,
+  #step-ng h3 {
     margin-top: 70px;
   }
 }
+
 #pswd_info {
   background: rgba(189, 195, 199, 0.25);
   border-radius: 3px;
@@ -425,7 +446,8 @@ body {
   margin-top: 0;
 }
 
-#pswd_info ul, #pswd_info li {
+#pswd_info ul,
+#pswd_info li {
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -447,8 +469,11 @@ body {
   background-size: 16px;
 }
 
-.register-authentication input:focus, .register-authentication select:focus {
+.register-authentication input:focus,
+.register-authentication select:focus {
   outline: 1px;
   background-color: #f1f1f1;
   border-color: #171a21;
 }
+
+

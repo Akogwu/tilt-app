@@ -16,13 +16,22 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         { weight_point : 100,  remark : "Perfect result"},
     ]);
 
+    const [gradePoint] = useState([
+        { grade_point : 20},
+        { grade_point : 40},
+        { grade_point : 60},
+        { grade_point : 80},
+        { grade_point : 100},
+    ]);
+
     const [state,setState] = useState({
         question:'',
         weight_points:[],
         weight_point:20,
         remark:'',
         section_id:'',
-        question_id:''
+        question_id:'',
+        grade_point:''
     });
 
     useEffect(()=>{
@@ -32,7 +41,8 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
             weight_points:question.weight_points,
             remark: question.weight_points.find( current_point => current_point.weight_point === initial_point ).remark,
             section_id: question.section_id,
-            question_id: question.id
+            question_id: question.id,
+            grade_point: question.grade_point
         });
     },[question]);
 
@@ -44,13 +54,15 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         weight_point:state.weight_points,
         remark:state.remark,
         section_id:state.section_id,
-        question_id:state.question_id
+        question_id:state.question_id,
+        grade_point: state.grade_point
     }
 
     const newData = {
         question:state.question,
         weight_point:weightPoints,
-        section_id:sectionId
+        section_id:sectionId,
+        grade_point: gradePoint
     }
 
     const handleChanges = e => {
