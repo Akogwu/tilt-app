@@ -133,6 +133,45 @@ $user = (array)$user;
             color: #fff !important
         }
 
+
+        /*secondary*/
+        .bg-secondary {
+            background-color: #005ad4 !important;
+        }
+        .text-secondary{
+            color: #005ad4 !important;
+        }
+        .bg-secondary{
+            background-color: #005ad4 !important;
+        }
+        .border-secondary{
+            border-color: #005ad4 !important;
+        }
+
+        /*tertiary*/
+        .bg-tertiary {
+            background-color: #de6926 !important;
+        }
+        .text-tertiary{
+            color: #de6926 !important;
+        }
+        .bg-tertiary{
+            background-color: #de6926 !important;
+        }
+        .border-tertiary{
+            border-color: #de6926 !important;
+        }
+
+        /*primary*/
+        .text-primary{
+            color: #11ab7c !important;
+        }
+        .bg-primary{
+            background-color: #11ab7c !important;
+        }
+        .border-primary{
+            border-color: #11ab7c !important;
+        }
         html {
         /* -moz-transform: scale(1.2, 1.2); */
         /* zoom: 1.2; */
@@ -184,7 +223,7 @@ $user = (array)$user;
     </div>
     <div style="max-width: 100%; width: 400px; height: 400px; margin: auto; margin-top: 40px; margin-bottom: 20px;"><canvas
             id="general-chart" width="400" height="400"></canvas></div>
-    <p class="summary-text"><b>Description of the generallearning behaviorgraph:</b> Lorem ipsum dolor sit amet,
+    <p class="summary-text"><b>Description of the general learning behavior graph:</b> Lorem ipsum dolor sit amet,
         consectetuer adipiscing elit. Aenean
         commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
         ridiculus mus.</p>
@@ -206,7 +245,7 @@ $user = (array)$user;
     <div class="section-box p-5">
     <div style="margin: auto; width: max-content">
     <div class="section-title border border-{{$recommendation->group_color}}">
-    <i class="fas {{ $recommendation->goroup_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>   {{ $recommendation->group_name }}</div>
+    <i class="{{ $recommendation->goroup_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>   {{ $recommendation->group_name }}</div>
     </div>
     <div style="width: 400px; height: 400px; margin: auto; margin-top: 40px; margin-bottom: 20px; "><canvas id="{{ $recommendation->group_name }}-chart" width="400" height="400"></canvas></div>
     <p style="padding: 10px; width: 400px;margin: auto;margin-top: 50px;border: 2px solid #f8cd40; font-size: 12px;">
