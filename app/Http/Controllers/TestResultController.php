@@ -19,23 +19,6 @@ class TestResultController extends Controller
          $this->testResultRepository = $testResultRepository;
      }
 
-/*    public function getTestResult($sessionId){
-
-            $result = $this->testResultRepository->getCompleteResult($sessionId);
-
-            if (is_null($result) || empty($result)){
-                abort('404','Result not found for this session');
-            }
-
-            if ((int)$result['payment_status'] != 1){
-                abort('403','This result has not been paid for');
-            }
-
-            $testResult = $result['data'];
-
-        return view('pages.results.complete', compact('testResult'));
-    }*/
-
     public function getTestResultSummary($sessionId){
 
         $testResult = TestResult::where('session_id', $sessionId)->first();
@@ -342,6 +325,7 @@ class TestResultController extends Controller
     public function viewTestResult($sessionId){
         //TODO check for payment;
         $data = $this->testResultRepository->getCompleteResult($sessionId);
+        //return $data;
         return view("pages.results.result-pdf", $data);
     }
 }

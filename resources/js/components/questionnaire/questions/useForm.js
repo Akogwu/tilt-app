@@ -16,13 +16,13 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         { weight_point : 100,  remark : "Perfect result"},
     ]);
 
-    const [gradePoint] = useState([
-        { grade_point : 20},
-        { grade_point : 40},
-        { grade_point : 60},
-        { grade_point : 80},
-        { grade_point : 100},
-    ]);
+    // const [gradePoint] = useState([
+    //     { grade_point : 20},
+    //     { grade_point : 40},
+    //     { grade_point : 60},
+    //     { grade_point : 80},
+    //     { grade_point : 100},
+    // ]);
 
     const [state,setState] = useState({
         question:'',
@@ -31,7 +31,10 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         remark:'',
         section_id:'',
         question_id:'',
-        grade_point:''
+        grade_point:'',
+        colour_code:''
+        // color_picker:'#fff',
+        // show_color_picker: false
     });
 
     useEffect(()=>{
@@ -42,7 +45,9 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
             remark: question.weight_points.find( current_point => current_point.weight_point === initial_point ).remark,
             section_id: question.section_id,
             question_id: question.id,
-            grade_point: question.grade_point
+            grade_point: question.grade_point,
+            colour_code: question.colour_code,
+        
         });
     },[question]);
 
@@ -55,14 +60,15 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         remark:state.remark,
         section_id:state.section_id,
         question_id:state.question_id,
-        grade_point: state.grade_point
+        grade_point: state.grade_point,
+        colour_code: state.colour_code
+
     }
 
     const newData = {
         question:state.question,
         weight_point:weightPoints,
-        section_id:sectionId,
-        grade_point: gradePoint
+        section_id:sectionId
     }
 
     const handleChanges = e => {
@@ -85,7 +91,11 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         state.weight_points[index].remark = setData.remark;
     };
 
-
+    const handleColorChanges = (colorCode) =>{
+        //console.log(colorCode);
+        setState({...state, colour_code:colorCode});
+        console.log(state.colour_code);
+    } 
 
     const handleSubmit = e =>{
         e.preventDefault();
@@ -128,7 +138,7 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         });
     }
 
-    return {state,handleChanges,handleChangeRemark,handleAddRemark,handleUpdateQuestion,errors,handleSubmit,loading}
+    return {state,handleChanges,handleChangeRemark,handleAddRemark,handleUpdateQuestion, handleColorChanges, errors,handleSubmit,loading}
 }
 
 export default useForm;

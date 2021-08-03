@@ -49,6 +49,7 @@
         "jquery": "^3.6.0",
         "prop-types": "^15.7.2",
         "react-bootstrap": "^1.5.2",
+        "react-color": "^2.19.3",
         "react-content-loader": "^6.0.2",
         "react-loader-spinner": "^4.0.0",
         "react-reveal": "^1.2.2",

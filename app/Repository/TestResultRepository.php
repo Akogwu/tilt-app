@@ -11,6 +11,7 @@ use App\Models\Section;
 use App\Models\Session;
 use App\Models\TestRecord;
 use App\Models\TestResult;
+use function PHPUnit\Framework\isEmpty;
 
 class TestResultRepository
 {
@@ -112,20 +113,22 @@ class TestResultRepository
                 foreach ($groupSections as $groupSection){
                     //get section details
                     if (in_array($groupSection->id, $sectionAnsweredIds->toArray())){
-                        $labelData = $groupSection->questionnaires;//array();
+                        $labelData =[];// $groupSection->questionnaires;//array();
                         foreach ($groupSection->questionnaires as $question){
                             //get test record for this question
                             $testRecord = TestRecord::where([
                                 ['session_id',$sessionId],
                                 ['questionnaire_id', $question->id]
                             ])->first();
-
-                            if ($testRecord){
-                                $labelData[]=[
-                                    'score'=>$testRecord->weightPoint->grade_point,
-                                    'color'=>$testRecord->weightPoint->colour_code ?? 0
-                                ];
+                            //check if answer has remark
+                            $score =0;
+                            if ($testRecord && !empty($testRecord->weightPoint->remark)){
+                                $score = $question->grade_point;
                             }
+                            $labelData[]=[
+                                'score'=>$score,
+                                'color'=>$question->colour_code ?? '#353535',
+                            ];
                         }
                         //get label data from the answers
                         $sectionData[] = [

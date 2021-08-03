@@ -14,8 +14,7 @@ import useForm from "./useForm";
 import validate from "./validateInfo";
 import QuestionDeleteModal from "./QuestionDeleteModal";
 import AlertMessage from "../../Alert";
-
-
+import { ChromePicker } from 'react-color';
 const useStyles = makeStyles((theme) => ({
     // root: {
     //     width: '100%',
@@ -61,7 +60,7 @@ const  QuestionPanel = ({question,index}) => {
     const handleSuccess = ($success = true) => {
         setSuccess($success);
     }
-    const {state,handleChanges, handleChangeRemark,handleAddRemark,handleUpdateQuestion, errors, handleSubmit} = useForm(validate,handleSuccess,false, question);
+    const {state,handleChanges, handleChangeRemark,handleAddRemark,handleUpdateQuestion, handleColorChanges, errors, handleSubmit} = useForm(validate,handleSuccess,false, question);
     const [openDeleteModal,setOpenDeleteModal] = useState(false);
     const [success,setSuccess] = useState(false);
 
@@ -69,6 +68,8 @@ const  QuestionPanel = ({question,index}) => {
         setOpenDeleteModal(false);
     }
 
+    const [colorPicker, setColorPicker] = useState('#fff');
+    const [showColorPicker, setShowColorPicker] = useState(false);
 
     return (
         <Fragment>
@@ -134,12 +135,40 @@ const  QuestionPanel = ({question,index}) => {
                                     value={state.grade_point || ""}
                                     name={"grade_point"}
                                     variant="outlined">
+                                    <MenuItem  value="8">8%</MenuItem>
+                                    <MenuItem  value="15">15%</MenuItem>
+                                    <MenuItem  value="17">17%</MenuItem>
                                     <MenuItem  value="20">20%</MenuItem>
                                     <MenuItem  value="40">40%</MenuItem>
                                     <MenuItem  value="60">60%</MenuItem>
-                                    <MenuItem  value="80">80%</MenuItem>
-                                    <MenuItem  value="100">100%</MenuItem>
                                 </TextField>
+          
+                            </div>
+                            <div>
+                                <TextField
+                                    name={"colour_code"}
+                                    fullWidth
+                                    margin="dense"
+                                    label="Color-code"
+                                    variant="outlined"
+                                    value ={state.colour_code || ""}
+                                    onChange={handleChanges} />
+
+                            </div>
+                            <div>
+                            <button type="button" onClick={()=>setShowColorPicker(showColorPicker => !showColorPicker)}>{'Select Color'}</button>
+                            {showColorPicker && (
+                                <ChromePicker 
+                                color={colorPicker}
+                                onChange = {
+                                    colorCode=>{
+                                        
+                                        setColorPicker(colorCode.hex);
+                                        handleColorChanges(colorCode.hex);
+                                    }
+                                }
+                                />
+                            )}
                             </div>
 
                             <Divider/>

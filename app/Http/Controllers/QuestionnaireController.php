@@ -24,7 +24,8 @@ class QuestionnaireController extends Controller
         $this->validate($request,[
             'section_id'=>"required | numeric",
             'question'=>"required",
-            //'weight_point'=>"required|array"
+            'grade_point'=>"required",
+            'colour_code'=>"required"
         ]);
         //check sectionid
         $section = Section::find($request->section_id);
@@ -45,6 +46,8 @@ class QuestionnaireController extends Controller
     public function update($id, Request $request){
         $this->validate($request,[
             'question'=>'required',
+            'grade_point'=>"required",
+            'colour_code'=>"required"
         ]);
         try {
             $questionnaire = Questionnaire::findOrFail($id);
@@ -61,7 +64,11 @@ class QuestionnaireController extends Controller
 
         //update question
         if ($request->question)
-        $questionnaire->update(["question"=>$request->question]);
+        $questionnaire->update([
+            "question"=>$request->question,
+            'grade_point'=>$request->grade_point,
+            'colour_code'=>$request->colour_code
+            ]);
         //update or create weight points
         if ($request->weight_point){
             foreach ($request->weight_point as $item){
@@ -71,7 +78,6 @@ class QuestionnaireController extends Controller
                         'weight_point' => $item["weight_point"]
                     ],
                     [
-                        'grade_point' => $item['grade_point'] ?? 0,
                         'remark' => $item["remark"]
                     ]);
             }
