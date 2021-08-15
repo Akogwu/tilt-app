@@ -46,7 +46,7 @@ class TestResultController extends Controller
 
     }
 
-    public function mockResult()
+    /*public function mockResult()
     {
         $data = [
             'user'=>[
@@ -320,7 +320,7 @@ class TestResultController extends Controller
         ];
         return $data;
         //return response()->json($data);
-    }
+    }*/
 
     public function viewTestResult($sessionId){
         //TODO check for payment;

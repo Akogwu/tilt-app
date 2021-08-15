@@ -44,12 +44,14 @@
         </div>
 
         <div class="action-pane">
-            <x-jet-validation-errors class="mb-4 table" />
-            @if (session('status'))
-                <div class="mb-4 font-medium text-sm text-green-600">
-                    {{ session('status') }}
-                </div>
-            @endif
+            <div class="row">
+                <x-jet-validation-errors class="mb-4 table" />
+                @if (session('status'))
+                    <div class="mb-4 font-medium text-green-600" style="margin: 20px; width: 100%">
+                        {{ session('status') }}
+                    </div>
+                @endif
+            </div>
 
             <div id="fh" class="loadingdiv localized">
                 <div class="ld-outer">
@@ -102,9 +104,10 @@
                 <div class="content-changeable" id="content-3" data-content="3" style="display:none">
                     <p class="headliner m-b-20"><span class="highlighted">Reset your password</span> to gain access to your account just in case you have forgotten it</p>
 
-                    <form method="post" action="/auth/">
-                        <input type="text" name="email" placeholder="Email Address">
-                        <button name="doResetPassword" type="submit">Reset your password</button>
+                    <form method="post" action="{{ route('password.email') }}" id="reset-password-form">
+                        @csrf
+                        <input type="text" name="email" placeholder="Email Address" required>
+                        <button name="doResetPassword" type="submit">Reset Password</button>
                     </form>
                     <p class="headliner m-t-20">Know your password? <span class="highlighted">
                             <a href="#" class="login-btn" onClick="goLogin();">Sign In!</a></span>
@@ -122,6 +125,7 @@
 
         <script src="/js/app.js"></script>
         <script src="/js/jquery.matchHeight.js"></script>
+
         <script>
             document.getElementById('login-btn').onclick = function (e){
                 e.preventDefault();

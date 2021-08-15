@@ -12,7 +12,7 @@
                         if (!is_null($user->image_url)) {
                             $image = $user->image_url;
                         }
-                        $age = $user->privateLearner->age;
+                        $age = $user->privateLearner->age ?? 0;
                     @endphp
 
                     <figure class=" rounded-xl  md:p-0">
@@ -236,7 +236,7 @@
                                                                         <label>Level</label>
                                                                         <input class="form-control" type="text"
                                                                                name="level" placeholder="Class"
-                                                                               value="{{$user->privateLearner->level}}">
+                                                                               value="{{$user->privateLearner->level ?? 0}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
