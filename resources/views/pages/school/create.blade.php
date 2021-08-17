@@ -8,7 +8,7 @@
     <div>
         <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="mt-5 md:mt-0 md:col-span-2">
-                <form method="post" action="{{ route('register.school') }}">
+                <form method="post" action="{{ route('school.register') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md grid grid-cols-2 bg-white">
 
