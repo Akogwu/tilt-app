@@ -300,13 +300,13 @@ $user = (array)$user;
     </div>
 
     </div>
-@if(true)
+@if($user['payment_status'] == 1)
 <button id="download-btn" type="button" class="btn btn-primary btn-floating" onclick="generatePDF()">
   <i class="fas fa-download"></i>
 </button>
 @else
-    <button id="payment-btn" type="button" class="btn btn-primary btn-floating" onclick="">
-        <i class="fa fa-credit-card"></i>
+    <button id="payment-btn" type="button" class="btn btn-primary btn-floating" style="border-radius: 5px !important;" onclick="routeToPayment()">
+        <i class="fa fa-credit-card"></i> Pay to download Result
     </button>
 @endif
     <!-- RECOMMENDATIONS ENDS -->
@@ -319,6 +319,12 @@ $user = (array)$user;
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-rc.1/dist/chartjs-plugin-datalabels.min.js" integrity="sha256-Oq8QGQ+hs3Sw1AeP0WhZB7nkjx6F1LxsX6dCAsyAiA4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+
+    <script>
+        function routeToPayment(){
+            window.location = '{{route('result.payment',$session_id)}}'
+        }
+    </script>
 
     <script>
 
@@ -537,9 +543,6 @@ $user = (array)$user;
                     $datasets[$k]["backgroundColor"][] = $_colors[$k][$j];
                 }
             }
-
-            // echo "console.log(\"Data Formated\");";
-            // echo "console.log(".json_encode($datasets).");";
 
             ?>
 

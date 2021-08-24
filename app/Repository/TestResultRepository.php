@@ -11,6 +11,7 @@ use App\Models\Section;
 use App\Models\Session;
 use App\Models\TestRecord;
 use App\Models\TestResult;
+use Illuminate\Support\Facades\DB;
 use function PHPUnit\Framework\isEmpty;
 
 class TestResultRepository
@@ -40,7 +41,8 @@ class TestResultRepository
                 'class'=>$student->class,
                 'state'=>$student->state->name ?? '',
                 'country'=>$student->country->name ?? '',
-                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url)
+                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url),
+                'payment_status'=> 1,
             ];
         }elseif ($role =="PRIVATE_LEARNER"){
             $user = $testResult->session->user;
@@ -53,7 +55,9 @@ class TestResultRepository
                 'class'=>$privaterLearner->class,
                 'state'=>$privaterLearner->state->name ?? '',
                 'country'=>$privaterLearner->country->name ?? '',
-                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url)
+                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url),
+                'payment_status'=> $testResult->payment_status,
+
             ];
         }else{//anonymous user viewing status
             $user = $testResult->session->user;
@@ -65,7 +69,8 @@ class TestResultRepository
                 'class'=>'Nil',
                 'state'=>'Nil',
                 'country'=>'Nil',
-                'image_url'=> null
+                'image_url'=> null,
+                'payment_status'=> 0,
             ];
         }
         $groupScores = collect($testResult->group_score_detail);
@@ -81,6 +86,7 @@ class TestResultRepository
 
         return [
             'user'=> $userData,
+            'session_id'=>$sessionId,
             'summary_result' => $summaryResultData,
             'recommendations' => $this->getRecommendations($sessionId)
         ];
@@ -131,10 +137,11 @@ class TestResultRepository
                             ];
                         }
                         //get label data from the answers
+                        $recommendation =$this->getSessionRecommendation($sessionId, $groupSection->recommendation);
                         $sectionData[] = [
                             'section_name'=>$groupSection->name,
                             'labels'=>$labelData,
-                            'recommendation'=>$groupSection->recommendationMessage->question
+                            'recommendation'=> (!is_null($recommendation) && !empty($recommendation))? $recommendation : "No recommendation"
                         ];
                     }
                 }
@@ -247,5 +254,17 @@ class TestResultRepository
             return 0;
         $percent = ($numerator/$denominator) * 100;
         return round($percent);
+    }
+
+    private function getSessionRecommendation($sessionId, $questionnaireId){
+        $testRecord = DB::table('test_records')->where([
+            ['session_id', $sessionId],
+            ['test_records.questionnaire_id', $questionnaireId]])
+            ->join('questionnaire_weight_points',
+                'questionnaire_weight_points.id','=',
+                'test_records.answer')
+            ->select('questionnaire_weight_points.remark')
+            ->get();
+        return $testRecord[0]->remark ?? null;
     }
 }

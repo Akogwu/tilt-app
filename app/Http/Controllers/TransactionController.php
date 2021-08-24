@@ -10,11 +10,36 @@ use App\Models\TestResult;
 use App\Models\Transaction;
 use App\Models\transactionLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
+    public function makePayment($sessionId){
+        $user = Auth::user();
+        $data = [
+          'amount'=>3000,
+          'type'=>'result',
+          'description'=>'Tilt Test Result',
+            'quantity'=>1,
+            'payment_type'=>'test_result',
+            'payment_for'=>$sessionId,
+            'reference_num'=>$this->generateRefNumber(),
+            'user_id'=>Auth::id(),
+            'first_name'=> Auth::user()->first_name,
+            'last_name'=> Auth::user()->last_name,
+        ];
+        try {
+            //save to db
+            Transaction::createNew($data['user_id'], $data['payment_type'], $data['payment_for'], $data['reference_num'], null, $data['amount'], false, $data['quantity']);
+
+        }catch (\Exception $exception){
+            Log::error($exception->getMessage());
+        }
+
+        return view('pages.transaction.payment', compact('user','data'));
+    }
     public function getAll(Request $request){
         $transactions = Transaction::orderBy('created_at','desc');
         $sum = $transactions->sum('amount');
@@ -30,13 +55,53 @@ class TransactionController extends Controller
         return TransactionResource::collection($transactions->paginate(10))->additional(['total_amount' => [
             'amount' => $sum,
         ]]);
+    }
 
+    public function confirmPayment(){
+        $transactionId = \request()->input('trans');
+        $reference = \request()->input('ref');
+        $data = array();
+        $user = Auth::user();
+
+
+        $transaction  = Transaction::where('reference', $reference)->first();
+        if (is_null($transaction)){
+            $data=[
+              'redirect'=>null,
+                'success'=>false,
+            ];
+            return view('pages.transaction.confirm-payment', compact('user','data'));
+        }
+
+        if ($transaction){
+
+            if ($transaction->payment_type == 'test_result'){
+                TestResult::where('session_id', $transaction->payment_for)->update(['payment_status'=>true]);
+                $data=[
+                    'link'=>route('result.getResult', $transaction->payment_for),
+                    'success'=>true,
+                    'ref'=>$reference,
+                    'text'=>'download result'
+                ];
+
+            }elseif ($transaction->payment_type == 'school_capacity'){
+                $data=[
+                    'link'=>route('result.getResult', $transaction->payment_for),
+                    'success'=>true,
+                    'ref'=>$reference,
+                    'text'=>'go back to dashboard'
+                ];
+            }else{
+                abort(400);
+            }
+            return view('pages.transaction.confirm-payment', compact('user','data'));
+        }
     }
 
     public function callBackHook(Request $request){
         //logs all transactions received from paystack
-        //TODO uncomment this line
-        //transactionLog::create(['log'=>$request->all()]);
+
+        transactionLog::create(['log'=>$request->all()]);
         $data = $request->data;
         $status = $data['status'];
         $quantity=0;
@@ -110,6 +175,23 @@ class TransactionController extends Controller
             });
         }
         return response()->json(['total_amount'=>$transactions->sum('amount'), 'data'=> $data], 200);
+    }
+
+    protected function generateRefNumber() {
+        $number = mt_rand(1000000000, 9999999999); // better than rand()
+
+        // call the same function if the barcode exists already
+        if ($this->refNumberExists($number)) {
+            return $this->generateRefNumber();
+        }
+
+        // otherwise, it's valid and can be used
+        return $number;
+    }
+
+    protected function refNumberExists($number) {
+
+        return Transaction::where('reference', $number)->exists();
     }
 
 }

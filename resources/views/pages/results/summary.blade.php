@@ -1,6 +1,13 @@
 @extends('layouts.client')
-
+@php
+    //default image
+    $image = '/images/profile2.png';
+    if (!is_null($user->image_url)) {
+        $image = $user->image_url;
+    }
+@endphp
 @section('content')
+
     <section class="section-header bg-soft pb-0 mb-0">
         <div class="container">
             <div class="row">
@@ -18,7 +25,7 @@
                 <div class="flex flex-col align-items-center py-4 bg-gray-50 relative">
                     <img src="/images/tilt-logo.svg" class="h-20 w-20 absolute top-3 left-5" alt="">
                     <div class="block w-40 h-40 overflow-hidden rounded-full mb-3 ">
-                        <img class="object-cover h-full w-full  " src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=200&amp;fit=max&amp;s=aa3a807e1bbdfd4364d1f449eaa96d82" alt="" aria-hidden="true">
+                        <img class="object-cover h-full w-full  " src="{{asset($image)}}" alt="" aria-hidden="true">
                     </div>
                     <div class="text-center">
                         <div class="text-gray-900 font-bold text-xl mb-1">{{ $user->name }}</div>

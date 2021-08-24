@@ -58,8 +58,12 @@ class Section extends Model
 
         $recommendations = [];
         foreach ($questionnaireIds as $questionnaireId){
-            $testRecord = DB::table('test_records')->where([['session_id', $sessionId], ['test_records.questionnaire_id', $questionnaireId]])
-                ->join('questionnaire_weight_points','questionnaire_weight_points.id','=','test_records.answer')
+            $testRecord = DB::table('test_records')->where([
+                ['session_id', $sessionId],
+                ['test_records.questionnaire_id', $questionnaireId]])
+                ->join('questionnaire_weight_points',
+                    'questionnaire_weight_points.id','=',
+                    'test_records.answer')
                 ->select('test_records.id','questionnaire_weight_points.remark')
                 ->get();
             $recommendations[] = [
