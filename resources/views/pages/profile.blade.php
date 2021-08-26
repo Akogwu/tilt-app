@@ -112,7 +112,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <aside class="col-12 col-lg-4 mt-3 mt-lg-0 d-none d-lg-block z-2">
+                                {{--<aside class="col-12 col-lg-4 mt-3 mt-lg-0 d-none d-lg-block z-2">
                                     <div class="card shadow-sm border-soft p-3">
                                         <div class="card-body">
                                             <h4 class="pb-3">We live in a Greenhouse</h4>
@@ -125,7 +125,7 @@
                                                 by the greenhouse gases and radiated back toward the surface.</p>
                                         </div>
                                     </div>
-                                </aside>
+                                </aside>--}}
                             </div>
                         </div>
                     </div>
