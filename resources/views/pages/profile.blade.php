@@ -52,11 +52,11 @@
                             </a>
                             <a class="nav-item nav-link" id="nav-causes-tab" data-toggle="tab" href="#" role="tab"
                                 aria-controls="nav-causes" aria-selected="false">
-                                <i class="fas fa-chart-pie"></i>Success Transactions <span class="badge badge-dark">0</span>
+                                <i class="fas fa-chart-pie"></i>Success Transactions <span class="badge badge-dark">{{ $transactions['count'] }}</span>
                             </a>
                             <a class="nav-item nav-link" id="nav-effects-tab" data-toggle="tab" href="#" role="tab"
                                 aria-controls="nav-effects" aria-selected="false">&#8358; Total amount spent <span
-                                    class="badge badge-success">0.00</span></a>
+                                    class="badge badge-success">{{ $transactions['total'] }}</span></a>
                         </div>
                     </nav><!-- Tab -->
 

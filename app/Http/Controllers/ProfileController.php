@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Repository\TestResultRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +15,12 @@ class ProfileController extends Controller
         $testResultRepo = new TestResultRepository();
         $testResults = $testResultRepo->getMyTestResults($user->id);
         $testDetail = $testResultRepo->getTestDetails($user->id);
+        $transaction =  Transaction::where([['payment_by', $user->id],['status', 1]])->get();
+        $transactions=[
+            'count'=>$transaction->count(),
+            'total'=>$transaction->sum('amount')
+        ] ;
 
-        return view('pages.profile', compact('user','testResults','testDetail'));
+        return view('pages.profile', compact('user','testResults','testDetail','transactions'));
     }
 }
