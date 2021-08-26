@@ -64,7 +64,7 @@
                         <div class="tab-pane fade show active" id="nav-causes" role="tabpanel"
                             aria-labelledby="nav-causes-tab">
                             <div class="row justify-content-between">
-                                <div class="col-12 col-lg-8 card shadow-sm border-soft">
+                                <div class="col-12 col-lg-12 card shadow-sm border-soft">
                                     <div class="card-body">
                                         <h1 class="text-gray-700 font-bold">Test History</h1>
                                         <div class="flex justify-content-between my-3">
