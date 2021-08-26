@@ -49,8 +49,8 @@ class CreateNewUser implements CreatesNewUsers
 
                 //PRIVATE_LEARNER
                 if ($input['role_id'] == 'PRIVATE_LEARNER'){
-
-                    $privateLearner = PrivateLearner::createNewOrUpdate($input,$user);
+                    //dd($input, $user);
+                    $privateLearner = PrivateLearner::createNewOrUpdate($input,$user->id);
                     //check for session
                     $sessionId = $input['session_id'] ?? null;
 
