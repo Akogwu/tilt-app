@@ -245,7 +245,7 @@ $user = (array)$user;
     <div class="section-box p-5">
     <div style="margin: auto; width: max-content">
     <div class="section-title border border-{{$recommendation->group_color}}">
-    <i class="{{ $recommendation->goroup_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>   {{ $recommendation->group_name }}</div>
+    <i class="{{ $recommendation->group_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>   {{ $recommendation->group_name }}</div>
     </div>
     <div style="width: 400px; height: 400px; margin: auto; margin-top: 40px; margin-bottom: 20px; "><canvas id="{{ $recommendation->group_name }}-chart" width="400" height="400"></canvas></div>
     <p style="padding: 10px; width: 400px;margin: auto;margin-top: 50px;border: 2px solid #f8cd40; font-size: 12px;">
@@ -574,7 +574,7 @@ var myChart2 = new Chart(stack, {
               weight: "bold"
           },
           formatter: (value, context) => {
-              return value > 0 ? value + '%' : "";
+              return value > 0 ?  '' : "";
           }
       }
     },

@@ -74,12 +74,18 @@ class TestResultRepository
             ];
         }
         $groupScores = collect($testResult->group_score_detail);
+        $recommendations = $this->getRecommendations($sessionId);
         //return
-        $summaryResultData = $groupScores->map(function ($item){
+        $summaryResultData = $groupScores->map(function ($item) use ($recommendations){
             $item = (object)$item;
+            $groupName = Group::find($item->group_id)->name ?? '';
+            //get the summary score from the recommendation
+            $recom = collect($recommendations)->filter(function ($recommendation) use ($groupName){
+                return $recommendation['group_name'] == $groupName;
+            })->values();
             return[
-                'group_name'=>Group::find($item->group_id)->name ?? '',
-                'score'=>$item->group_percentage
+                'group_name'=>$groupName,
+                'score'=>$recom[0]['summary_score'] ?? 0
             ];
         });
 
@@ -88,7 +94,7 @@ class TestResultRepository
             'user'=> $userData,
             'session_id'=>$sessionId,
             'summary_result' => $summaryResultData,
-            'recommendations' => $this->getRecommendations($sessionId)
+            'recommendations' => $recommendations
         ];
     }
 
@@ -109,12 +115,16 @@ class TestResultRepository
         $data = array();
         //loop groups
         foreach ($groups as $group){
+
+            $sumSectionScore =$totalSection = 0;
+            $sectionData = array();
             //get only the group ids available in the group-score-detail
             if (in_array($group->id, $groupAnsweredIds->toArray())){
 
                 //sections
                 $groupSections = $group->sections;
-                $sectionData = array();
+                $sumSectionScore =0;
+                $totalSection = $group->sections->count();
                 //get group sections
                 foreach ($groupSections as $groupSection){
                     //get section details
@@ -130,6 +140,7 @@ class TestResultRepository
                             $score =0;
                             if ($testRecord && !empty($testRecord->weightPoint->remark)){
                                 $score = $question->grade_point;
+                                $sumSectionScore+=$score;
                             }
                             $labelData[]=[
                                 'score'=>$score,
@@ -148,10 +159,11 @@ class TestResultRepository
             }
             $data[] = [
                 'group_name'=>$group->name,
-                'goroup_icon'=>$group->icon,
+                'group_icon'=>$group->icon,
                 'group_color'=>$group->color,
                 'description'=> $group->description,
-                'sections'=>$sectionData
+                'sections'=>$sectionData,
+                'summary_score'=>round($sumSectionScore/$totalSection,1)
             ];
         }
 
