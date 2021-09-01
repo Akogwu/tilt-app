@@ -38,7 +38,7 @@
                         <input type="hidden" id="amount" value="{{$data['amount']}}" />
 
                         <div class="form-submit mt-4">
-                            <button type="submit" class="btn btn-success" onclick="payWithPaystack()"> Checkout </button>
+                            <button type="submit" class="btn btn-success" id="checkout" onclick="payWithPaystack()"> Checkout </button>
                         </div>
                     </form>
                 </div>
@@ -55,6 +55,8 @@
         paymentForm.addEventListener("submit", payWithPaystack, false);
         function payWithPaystack(e) {
             e.preventDefault();
+            document.getElementById("checkout").disabled = true;
+
             let handler = PaystackPop.setup({
                 key: '{{env('PAYSTACK_PUBLIC_KEY')}}', // Replace with your public key
                 email: document.getElementById("email-address").value,
@@ -95,7 +97,7 @@
                         setTimeout(function (){
                             //window.location = '{{route('result.getResult',$data['payment_for'])}}';
                             window.location = '/transactions/confirm?ref='+response.reference+'&trans='+response.trans
-                        }, 3000)
+                        }, 1500)
 
                     }
 

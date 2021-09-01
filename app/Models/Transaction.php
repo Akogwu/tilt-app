@@ -26,12 +26,13 @@ class Transaction extends Model
         $paymentFor, $reference,
         $transactionId, $amount,
         $status, $quantity){
-        $new = self::create([
+        $new = self::updateOrCreate([
             "payment_by"=>$paymentBy,
-        "payment_type"=>$paymentType,
-        "payment_for"=>$paymentFor,
-        "reference"=>$reference,
-        "transaction_id"=>$transactionId,
+            "payment_type"=>$paymentType,
+            "payment_for"=>$paymentFor,
+            "reference"=>$reference,
+        ],[
+            "transaction_id"=>$transactionId,
         "amount"=>$amount,
         "status"=>$status,
             'quantity'=> $quantity

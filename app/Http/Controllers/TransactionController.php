@@ -94,6 +94,8 @@ class TransactionController extends Controller
             }else{
                 abort(400);
             }
+
+            $transaction->update(['status'=>true]);
             return view('pages.transaction.confirm-payment', compact('user','data'));
         }
     }
