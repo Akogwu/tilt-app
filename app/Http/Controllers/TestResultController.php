@@ -51,7 +51,7 @@ class TestResultController extends Controller
     public function viewTestResult($sessionId){
         //TODO check for payment;
         $data = $this->testResultRepository->getCompleteResult($sessionId);
-        return $data;
+        //return $data;
         return view("pages.results.result-pdf", $data);
     }
 }

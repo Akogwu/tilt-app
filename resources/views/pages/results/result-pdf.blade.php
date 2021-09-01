@@ -197,7 +197,7 @@ $user = (array)$user;
     <div class="container-fluid summary-container">
         <div style="flex-direction: row;display: flex;width: max-content;float: right;">
             <h4>About Study Materials</h4> <img style="width: 50px; height: 50px; margin-left: 100px"
-                src="{{asset('images/tilt-logo-invert.png')}}"
+                src="{{asset('images/tilt-logo.svg')}}"
                 alt="TILT" />
         </div>
         <div style="margin-top: 80px;">
@@ -413,7 +413,7 @@ $user = (array)$user;
         var canvas = document.getElementById("person-image-canvas");
         var ctx = canvas.getContext("2d");
         var img = document.createElement("img");
-        img.src = "<?php echo $user["image_url1"] ?? "/images/no-image-profile.jpg"; ?>";
+        img.src = "<?php echo $user["image_url"] ?? "/images/no-image-profile.jpg"; ?>";
         img.width = 100;
         img.height = 100;
         ctx.drawImage(img, 0, 0, 300, 150);

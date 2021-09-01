@@ -93,9 +93,12 @@
                                                                     </a>
                                                                     @if ($result->testResult->payment_status != 1)
                                                                         <a href="{{ route('result.getResult', $result->testResult->session_id) }}">
-                                                                            <i class="fa fa-print"></i></a>
+                                                                            <i class="fa fa-print"></i>
+                                                                        </a>
                                                                     @else
-                                                                        <i class="fa fa-print" disabled="">
+                                                                        <a href="{{ route('result.getResult', $result->testResult->session_id) }}">
+                                                                            <i class="fa fa-print text-gray"></i>
+                                                                        </a>
                                                                     @endif
                                                                 </td>
                                                             </tr>
