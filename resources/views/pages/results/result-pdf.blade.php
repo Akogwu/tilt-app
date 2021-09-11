@@ -152,6 +152,14 @@ $user = (array)$user;
             border-color: #005ad4 !important;
         }
 
+        .border-bottom-secondary{
+            border-bottom: 2px #005ad4 solid ;
+        }
+
+        .border-bottom-secondary:last-child {
+            border-bottom: none;
+        }
+
         /*tertiary*/
         .bg-tertiary {
             background-color: #de6926 !important;
@@ -162,8 +170,14 @@ $user = (array)$user;
         .bg-tertiary{
             background-color: #de6926 !important;
         }
-        .border-tertiary{
+            .border-tertiary{
             border-color: #de6926 !important;
+        }
+        .border-bottom-tertiary{
+            border-bottom: 2px #de6926 solid;
+        }
+        .border-bottom-tertiary:last-child {
+            border-bottom: none;
         }
 
         /*primary*/
@@ -175,6 +189,13 @@ $user = (array)$user;
         }
         .border-primary{
             border-color: #11ab7c !important;
+        }
+        .border-bottom-primary{
+            border-bottom: 2px #11ab7c solid;
+        }
+
+        .border-bottom-primary:last-child {
+            border-bottom: none;
         }
         html {
         /* -moz-transform: scale(1.2, 1.2); */
@@ -198,13 +219,6 @@ $user = (array)$user;
         padding-top: 10px;
         padding-bottom: 10px;
     }
-
-    .section-recommendation-tetiary{
-        border-bottom: 2px #de6926 solid;
-    }
-        .section-recommendation:last-child {
-            border: none;
-        }
 
     </style>
 
@@ -262,7 +276,7 @@ $user = (array)$user;
         <h2 class="text-center">Recommendations</h2>
         @endif
     <div class="section-box p-5">
-    <div style="margin: auto;">
+    <div style="margin: auto; width: 80%">
     <div class="section-title border border-{{$recommendation->group_color}}">
         <div class="group-name">
             <i class="{{ $recommendation->group_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>
@@ -289,11 +303,11 @@ $user = (array)$user;
                         <div class="section-item border border-{{$recommendation->group_color ?? ''}}">
                             <div class="section-item-head w-100 p-2 bg-{{$recommendation->group_color ?? ''}}" >
                                <h3 style="text-transform: capitalize" class="text-white text-center"> {{ $section->section_name }}</h3>
-                            <p class="text-white text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci beatae commodi consequuntur, cum dolorum itaque magni minima, modi molestias nemo nesciunt nisi non perferendis, perspiciatis quaerat quia quisquam quos vel?</p>
+                            <p class="text-white text-center">{{$section->section_description}}</p>
                             </div>
                             @foreach($section->question_recommendation as $question_recommendation)
 
-                                <div class="w-100 p-2 bg-transparent section-recommendation" style="font-size: 13px">{{ $question_recommendation['recommendation'] }}</div>
+                                <div class="w-100 p-2 bg-transparent border-bottom-{{$recommendation->group_color}} section-recommendation" style="font-size: 13px">{{ $question_recommendation['recommendation'] }}</div>
                             @endforeach
                         </div>
                     </div>

@@ -151,6 +151,7 @@ class TestResultRepository
                         $recommendation =$this->getSessionRecommendation($sessionId, $groupSection->recommendation);
                         $sectionData[] = [
                             'section_name'=>$groupSection->name,
+                            'section_description'=>$groupSection->description,
                             'labels'=>$labelData,
                             'recommendation'=> (!is_null($recommendation) && !empty($recommendation))? $recommendation : "No recommendation",
                             'question_recommendation'=> $this->getQuestionRecommendation($sessionId, $groupSection->id)
