@@ -73,6 +73,7 @@ class Section extends Model
         }
         return $recommendations;
     }
+
     public function getRecommendation($sessionId, $recommendationId){
         //no recommendation question
         if ($recommendationId == null)

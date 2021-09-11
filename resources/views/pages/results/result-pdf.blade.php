@@ -88,17 +88,21 @@ $user = (array)$user;
 
         .section-title{
             border-radius: 8px;
-            font-size: 20px;
             padding: 5px 40px;
-            width: max-content;
+            width: 80%;
             margin: auto;
-            margin-top: 0px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             border: 2px solid;
-            background-color: #fff !important
+            background-color: #fff !important;
+            display: flex;
         }
         .section-title.border{
             border: 2px solid !important;
             background-color: #fff !important;
+        }
+        .section-title .fas{
+            font-size: 35px;
         }
 
         .section-icon {
@@ -179,10 +183,28 @@ $user = (array)$user;
         }
 
 
-.footer.border.p-3.m-5.text-center {
-	margin-left: 14% !important;
-	margin-right: 14% !important;
-}
+    .footer.border.p-3.m-5.text-center {
+        margin-left: 14% !important;
+        margin-right: 14% !important;
+    }
+
+    .group-name{
+        font-size: 30px;
+        flex: 20%;
+    }
+    .group-description{
+        flex: 80%;
+        margin-left: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .section-recommendation-tetiary{
+        border-bottom: 2px #de6926 solid;
+    }
+        .section-recommendation:last-child {
+            border: none;
+        }
 
     </style>
 
@@ -223,10 +245,7 @@ $user = (array)$user;
     </div>
     <div style="max-width: 100%; width: 400px; height: 400px; margin: auto; margin-top: 40px; margin-bottom: 20px;"><canvas
             id="general-chart" width="400" height="400"></canvas></div>
-    <p class="summary-text"><b>Description of the general learning behavior graph:</b> Lorem ipsum dolor sit amet,
-        consectetuer adipiscing elit. Aenean
-        commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur
-        ridiculus mus.</p>
+    <p class="summary-text"><b>Description of the general learning behavior graph:</b> </p>
     </div>
     </div>
 
@@ -243,9 +262,15 @@ $user = (array)$user;
         <h2 class="text-center">Recommendations</h2>
         @endif
     <div class="section-box p-5">
-    <div style="margin: auto; width: max-content">
+    <div style="margin: auto;">
     <div class="section-title border border-{{$recommendation->group_color}}">
-    <i class="{{ $recommendation->group_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>   {{ $recommendation->group_name }}</div>
+        <div class="group-name">
+            <i class="{{ $recommendation->group_icon }} text-{{ $recommendation->group_color }}" style="margin-right: 10px"></i>
+            {{ $recommendation->group_name }}
+        </div>
+        <div class="group-description">{{$recommendation->description}} </div>
+
+    </div>
     </div>
     <div style="width: 400px; height: 400px; margin: auto; margin-top: 40px; margin-bottom: 20px; "><canvas id="{{ $recommendation->group_name }}-chart" width="400" height="400"></canvas></div>
     <p style="padding: 10px; width: 400px;margin: auto;margin-top: 50px;border: 2px solid #f8cd40; font-size: 12px;">
@@ -261,9 +286,15 @@ $user = (array)$user;
                 @foreach($recommendation->sections as $section)
                     <?php $section = (object)$section; ?>
                     <div class="col-6 mb-4" style="padding: 0 1.5rem 0 1.5rem">
-                        <div class="section-item border border-{{$recommendation->group_color}}">
-                        <div class="section-item-head w-100 p-2 bg-{{$recommendation->group_color}} text-white text-center" style="text-transform: capitalize">{{ $section->section_name }}</div>
-                        <div class="w-100 p-2 bg-transparent" style="font-size: 13px">{{ $section->recommendation }}</div>
+                        <div class="section-item border border-{{$recommendation->group_color ?? ''}}">
+                            <div class="section-item-head w-100 p-2 bg-{{$recommendation->group_color ?? ''}}" >
+                               <h3 style="text-transform: capitalize" class="text-white text-center"> {{ $section->section_name }}</h3>
+                            <p class="text-white text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci beatae commodi consequuntur, cum dolorum itaque magni minima, modi molestias nemo nesciunt nisi non perferendis, perspiciatis quaerat quia quisquam quos vel?</p>
+                            </div>
+                            @foreach($section->question_recommendation as $question_recommendation)
+
+                                <div class="w-100 p-2 bg-transparent section-recommendation" style="font-size: 13px">{{ $question_recommendation['recommendation'] }}</div>
+                            @endforeach
                         </div>
                     </div>
                 @endforeach

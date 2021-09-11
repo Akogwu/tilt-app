@@ -69,30 +69,6 @@ class AuthController extends Controller
         return response()->json(["status"=>true, 'data'=>$data, 'token'=>$token], 200);
     }
 
-    /*public function getAuthenticatedUser()
-    {
-        try {
-            if (! $user = $this->jwt->parseToken($this->jwt->getToken())->authenticate()->role) {
-                return response()->json(['status'=>false, 'message' => 'user not found'], 403);
-            }
-
-        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-
-            return response()->json(['status'=>false, 'message' => 'token_expired'], $e->getStatusCode());
-
-        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-
-            return response()->json(['status'=>false, 'message' => 'token_invalid'], $e->getStatusCode());
-
-        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
-
-            return response()->json(['status'=>false, 'message' => 'token_absent'], $e->getStatusCode());
-
-        }
-
-        return response()->json(compact('user'));
-    }*/
-
     public function getAllRoles(){
         $roles = Role::all();
         return response()->json(["status"=>true,"data"=>$roles ], 200);

@@ -152,7 +152,8 @@ class TestResultRepository
                         $sectionData[] = [
                             'section_name'=>$groupSection->name,
                             'labels'=>$labelData,
-                            'recommendation'=> (!is_null($recommendation) && !empty($recommendation))? $recommendation : "No recommendation"
+                            'recommendation'=> (!is_null($recommendation) && !empty($recommendation))? $recommendation : "No recommendation",
+                            'question_recommendation'=> $this->getQuestionRecommendation($sessionId, $groupSection->id)
                         ];
                     }
                 }
@@ -279,4 +280,31 @@ class TestResultRepository
             ->get();
         return $testRecord[0]->remark ?? null;
     }
+
+    private function getQuestionRecommendation($sessionId, $sectionId){
+        //get all questions in this section
+        $questionnaireIds = Questionnaire::where('section_id', $sectionId)->pluck('id');
+        if ($questionnaireIds == null)
+            return null;
+        //
+
+        $recommendations = [];
+        foreach ($questionnaireIds as $questionnaireId){
+            $testRecord = DB::table('test_records')->where([
+                ['session_id', $sessionId],
+                ['test_records.questionnaire_id', $questionnaireId]])
+                ->join('questionnaire_weight_points',
+                    'questionnaire_weight_points.id','=',
+                    'test_records.answer')
+                ->select('test_records.id','questionnaire_weight_points.remark')
+                ->get();
+            if (!empty($testRecord[0]->remark))
+                $recommendations[] = [
+                    'questionnaire_id'=>$testRecord[0]->id ?? '',
+                    'recommendation'=>$testRecord[0]->remark ?? ''
+                ];
+        }
+        return $recommendations;
+    }
+
 }
