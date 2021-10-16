@@ -31,6 +31,10 @@ Route::get('/take-test',function (){
 
 Route::group(['middleware'=>'auth'], function (){
     Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');
+    
+    Route::any('/result{query}', function() { 
+        return view('pages.result');
+    })->where('query', '.*');
 
 });
 //auth

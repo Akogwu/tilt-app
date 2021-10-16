@@ -1,0 +1,13 @@
+@media screen and (max-width: 900px)  {
+    
+    .summary-big-character {
+        margin-top: -340px;
+        width: 160px;
+        float: right;
+    }
+
+    .summary-big-character img {
+        width: 100%;
+    }
+
+}

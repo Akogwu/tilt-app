@@ -1,0 +1,242 @@
+#result-root{
+    font-family: "Nunito Sans", sans-serif;
+    color: #4F627E;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Nunito Sans", sans-serif !important
+}
+.welcome-board{
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+}
+
+section.section.py-0{
+    background-color: #f3f7fa !important;
+}
+
+.bg-main{
+    background-color: #f3f7fa !important;
+}
+
+#result-root .card {
+    box-shadow: 0px 4px 20px rgba(148, 148, 148, 0.25) !important
+}
+.bottom-button{
+    width: max-content;
+    margin: auto;
+    margin-top: 3rem;
+}
+
+.welcome-board img {
+    width: 350px;
+    height: auto;
+    margin: auto;
+}
+
+.about-header-board {
+    padding-top: 3.5rem;
+    /* background-color: rgba(0,0,0,0.85); */
+    min-height: 325px;
+    background: url("../images/bg-top.png");
+    background-repeat: round;
+}
+
+
+.about-header-board .user-icon {
+    font-size: 50 !important;
+}
+
+.header-summary-board{
+    font-weight: bolder;
+    font-size: 17px;
+    padding: 0.5rem;
+    margin-top: -50px;
+}
+
+#result-root p {
+    font-weight: bolder;
+    font-size: 17px;
+}
+
+.css-1ws8119-MuiDivider-root::before, .css-1ws8119-MuiDivider-root::after {
+	border-top: 2px solid rgba(161, 172, 198, 0.5) !important;
+}
+
+.detailed-report .css-1ws8119-MuiDivider-root::before, .css-1ws8119-MuiDivider-root::after {
+	border-top: 3px solid rgba(161, 172, 198, 0.5) !important;
+}
+
+.report-section{
+    margin-bottom: 5rem;
+}
+
+
+.summary-big-character {
+	margin-top: -100px;
+}
+
+.summary-big-character  img{
+	width: 300px;
+    height: auto;
+}
+
+.summary-list p {
+    font-weight: 400 !important;
+}
+
+.summary-list .list-group-item-action {
+	margin-bottom: 1rem;
+}
+
+.summary-list .d-flex.w-100.line-title {
+	border-bottom: 1px solid #10ab7b;
+    margin-bottom: 0.5rem !important;
+}
+
+.summary-list .d-flex.w-100.line-title h5 {
+	color: #10ab7b;
+    text-transform: capitalize;
+    margin-left: 0.5rem;
+    margin-top: -3px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+
+.theme-green .section-title h4 {
+    margin: 0;
+    font-size: 28px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin: 0;
+    padding: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+.alink {
+    color: #8da7d9 !important;
+    text-decoration: underline !important;
+}
+
+.report-sharing{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.report-sharing li {
+	padding: 0.5rem;
+    padding-bottom: 0;
+}
+
+
+.check-header-board {
+    padding: 0;
+    padding-top: 3.5rem;
+    background-color: #fff;
+    min-height: 500px;
+    background: url("../images/bg-vector.png");
+    background-repeat: round;
+}
+
+.check-header-board-holder{
+    background-color: #fff !important;
+    width: 100% !important;
+    padding: 5rem 2rem 0 5rem;
+    z-index: 9;
+    position: relative;
+}
+
+.check-about-footer-overlay {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	background-color: rgba(60, 89, 152, 0.5);
+	height: 203px;
+}
+
+.biodata {
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.biodata li {
+    color: #D0D0D0;
+}
+
+.biodata li span {
+    color: #fff;
+}
+
+.picture-holder {
+	/* width: 145px; */
+}
+
+.outline-icon h3 {
+	font-size: 18px;
+	margin-left: 1rem;
+}
+
+.outline-icon {
+    display: flex;
+    font-size: 25px;
+    align-items: end;
+}
+
+.outline-icon img {
+    width: 112px;
+    height: auto;
+}
+
+.dominant-info .separator {
+	height: 66px;
+	width: 1px;
+	background: #D0D5E3;
+	margin: auto;
+}
+
+
+.accordion-summary {
+    border-radius: 10px !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.MuiPaper-root.MuiPaper-elevation{
+    box-shadow: none !important;
+    /* background: transparent; */
+}
+
+.MuiPaper-root.MuiPaper-elevation::before{
+    display: none !important;
+}
+
+.accordion-icon{
+    padding: 10px;
+    margin-left: 10px;
+}
+
+
+
+.accordion-icon .outline-icon img {
+    height: 90px !important;
+    width: auto !important;
+}
+
+.accordion-icon .outline-icon h3 {
+    font-size: 20px;
+}
+
+.accordion-summary .summary-big-character {
+	margin-top: inherit;
+}
+
+#result-root .inline-chart .card {
+	box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.25) !important;
+}
+
+#result-root p.right-description{
+    font-size: 15px !important;
+}
