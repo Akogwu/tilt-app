@@ -16,7 +16,34 @@ use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
+    public function schoolCapacityPayment($schoolId, $capacity){
+        //TODO get amount from settings
+        $user = Auth::user();
+        $data = [
+          'amount'=>3000,
+          'type'=>'result',
+          'description'=>'Tilt Test Result',
+            'quantity'=>$capacity,
+            'payment_type'=>'school_capacity',
+            'payment_for'=>$schoolId,
+            'reference_num'=>$this->generateRefNumber(),
+            'user_id'=>Auth::id(),
+            'first_name'=> Auth::user()->first_name,
+            'last_name'=> Auth::user()->last_name,
+        ];
+        try {
+            //save to db
+            Transaction::createNew($data['user_id'], $data['payment_type'], $data['payment_for'], $data['reference_num'], null, $data['amount'], false, $data['quantity']);
+
+        }catch (\Exception $exception){
+            Log::error($exception->getMessage());
+        }
+
+        return view('pages.transaction.payment', compact('user','data'));
+    }
+
     public function makePayment($sessionId){
+        //TODO get amount from settings
         $user = Auth::user();
         $data = [
           'amount'=>3000,
@@ -40,6 +67,7 @@ class TransactionController extends Controller
 
         return view('pages.transaction.payment', compact('user','data'));
     }
+
     public function getAll(Request $request){
         $transactions = Transaction::orderBy('created_at','desc');
         $sum = $transactions->sum('amount');

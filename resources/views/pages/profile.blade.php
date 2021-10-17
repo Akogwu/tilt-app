@@ -83,9 +83,9 @@
                                                         @foreach ($testResults as $result)
                                                             <tr>
                                                                 <td>{{ $result['created_at'] }}</td>
-                                                                <td>{{ $result->testResult->avg_score }}%</td>
-                                                                <td>{{ $result->testResult->total_score }}</td>
-                                                                <td>{{ $result->testResult->obtainable_score }}</td>
+                                                                <td>{{ $result->testResult->avg_score ?? 0 }}%</td>
+                                                                <td>{{ $result->testResult->total_score ?? 0 }}</td>
+                                                                <td>{{ $result->testResult->obtainable_score ?? 0 }}</td>
                                                                 <td>
                                                                     <a href="{{ route('result.summary', $result->testResult->session_id) }}"
                                                                         class="pr-1 text-tertiary" title="view summary result">

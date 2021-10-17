@@ -2,6 +2,15 @@
 @push('styles')
     <link rel="stylesheet" href="/dist/slick/slick/slick.css">
     <link rel="stylesheet" href="/dist/slick/slick/slick-theme.css">
+
+    <style>
+        @media only screen and (max-width: 768px) {
+            .action-card{
+                margin-top: 8rem;
+            }
+        }
+
+    </style>
 @endpush
 @section('content')
     <section class="section-header bg-soft bg-gray-50 text-dark">
@@ -32,7 +41,7 @@
             </div>
         </div>
     </section>
-    <div class="section py-0">
+    <div class="section py-0 action-card">
         <div class="container">
             <div class="grid lg:grid-cols-3 gap-5 mt-n9">
                 <div class="mb-5 d-flex">

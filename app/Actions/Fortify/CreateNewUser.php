@@ -62,7 +62,6 @@ class CreateNewUser implements CreatesNewUsers
                             $session->update(['user_id'=>$user->id,'valid'=>false]);
                         //else do nothing
                     }
-
                 }
                 if (($input['role_id'] == 'SCHOOL_ADMIN')){
                     $school = School::createNew($input);

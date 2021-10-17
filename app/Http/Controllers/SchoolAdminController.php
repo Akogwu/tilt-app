@@ -29,13 +29,17 @@ class SchoolAdminController extends Controller
     public function dashboard(){
         $schoolAdminId = Auth::id();
         $schoolAdmin = SchoolAdmin::where('user_id', $schoolAdminId)->first();
+
+
+
         if ($schoolAdmin ==null)
-            return response()->json(['status'=>false, 'message'=>'School-Admin Id '.$schoolAdminId.' not found'], 404);
+            abort(404, 'No school found');
+
         //school ddetails
         $studentIds = $schoolAdmin->school->student->pluck('user_id');
         $sessionCount = Session::whereIn('user_id', $studentIds)->count();
         $transaction = Transaction::where([['payment_type','school_capacity'],'payment_for'=>$schoolAdmin->school_id],['status'=>true])->count();
-        $students = Student::where('school_id', $schoolAdmin->school->id);
+        $students = Student::where('school_id', $schoolAdmin->school_id);
 
         $data = [
             'school'=>$schoolAdmin->school->schema(),

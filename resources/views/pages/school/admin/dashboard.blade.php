@@ -39,13 +39,13 @@
                         <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                             Total Tests
                         </p>
-                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                        <p class="text-lg font-semibold text-gray-700 dark:text-gray-200" >
                             {{$data['total_test']}}
                         </p>
                     </div>
                 </div>
                 <!-- Card -->
-                <div class="flex items-center p-3 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="flex items-center p-3 bg-white rounded-lg shadow-xs dark:bg-gray-800" style="position: relative;">
                     <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
@@ -57,8 +57,43 @@
                         </p>
                         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                             {{$data['total_transactions']}}
+
+                            <button class="btn btn-danger rounded" style="position: absolute; right: 1.2rem;"
+                                    data-toggle="modal" data-target="#addStudentCapacity"> Increase Capacity</button>
                         </p>
                     </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="addStudentCapacity" tabindex="-1" role="dialog" aria-labelledby="addStudentCapacityTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <form class="needs-validation" action="{{route('schoolCapacity',['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="capacity">Student Capacity</label>
+                                    <input type="number" class="form-control" name="capacity" id="capacity" placeholder="0" min="1" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Proceed</button>
+                        </div>
+                    </form>
+                    </div>
+
                 </div>
             </div>
 
@@ -95,11 +130,7 @@
                                     <td class="px-4 py-3 text-sm">
                                         {{$student->created_at->diffForHumans()}}
                                     </td>
-{{--                                    <td class="px-4 py-3 text-sm">--}}
-{{--                                        69.95--}}
-{{--                                    </td>--}}
-{{--                                    <td class="px-4 py-3 text-sm">--}}
-{{--                                        6/10/2020--}}
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -135,26 +166,6 @@
                         <tr>
                             <td colspan="5" class="text-center py-3"> No record found </td>
                         </tr>
-                        {{--<tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3">
-                                <p class="font-semibold">1</p>
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                3456
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                rty66
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                7s
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                69.95
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                6/10/2020
-                            </td>
-                        </tr>--}}
 
                         </tbody>
                     </table>
@@ -166,5 +177,25 @@
     </div>
     @push('scripts')
         <script src="/js/app.js"></script>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+        </script>
     @endpush
 </x-app-layout>
