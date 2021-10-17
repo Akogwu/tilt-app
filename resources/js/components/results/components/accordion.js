@@ -45,12 +45,6 @@ export const MainAccordion = ({ data }) => {
         }
     };
 
-    // React.useEffect(() => {
-    //     setTimeout(() => {
-
-    //     }, 2000);
-    // }, [data])
-
     const getOffSet = () => {
         const w = borderArea?.current?.clientWidth;
         const offSet = (window.screen.width - w) / 2;
@@ -225,10 +219,9 @@ export const MainAccordion = ({ data }) => {
                                     <div className="col-sm-9 m-auto">
                                         <AlignItemsList
                                             color={item?.color}
-                                            recommendations={
-                                                item?.recommendations
-                                            }
+                                            resources={item?.resources}
                                             reports={item?.reports}
+                                            bottomCardTitle={"Resources"}
                                         />
                                     </div>
                                 </div>

@@ -19,7 +19,7 @@
                 ]
             }
         ],
-        "recommendations": [
+        "resources": [
             "carlifionisb fdnbksfb jn",
             "rewsx",
             "hbdxs",
@@ -54,22 +54,47 @@
             {
                 "icon": "language",
                 "title": "Fluency of Language of Learning",
-                "description": "This learning behaviour has to do with being able to speak and write in the language used in your teaching and learning sessions."
+                "description": "This learning behaviour has to do with being able to speak and write in the language used in your teaching and learning sessions.",
+                "recommendations": [
+                    "Try to make more friends that speak and write better grammar than you do. Note that “better grammar” doesn’t usually mean the use of big or strange words rather the correctness of the position of each word in a spoken or written sentence."
+                ],
+                "guagechart": {
+                    "title": "Your highest strength in Brainy is Reading",
+                    "description": "You scored 63% in Reading which is your highest score in the Brainy Category.",
+                    "charttext": "Reading 63%",
+                    "percent": 63,
+                    "color": {
+                        "primary": "#F1A355",
+                        "light": "#F9E2BF"
+                    }
+                }
             },
             {
                 "icon": "brain",
                 "title": "Memorisation",
-                "description": "Memorisation and Cramming of facts is a valuable learning skill that learners use to acquire a lot of information by saying them repeatedly until they can remember them exactly."
+                "description": "Memorisation and Cramming of facts is a valuable learning skill that learners use to acquire a lot of information by saying them repeatedly until they can remember them exactly.",
+                "recommendations": [
+                    "Take online classes and read other study materials on how to memorize faster and recall better.",
+                    "Play games like elevate"
+                ]
             },
             {
                 "icon": "ear",
                 "title": "Listening skills",
-                "description": "Listening is a learning skill that helps you receive auditory information or learning instructions. Possessing good listening skill can be a game changer for every learner."
+                "description": "Listening is a learning skill that helps you receive auditory information or learning instructions. Possessing good listening skill can be a game changer for every learner.",
+                "recommendations": [
+                    "Discipline yourself to always listen keenly, determining to hear and understand what the teacher or instructor says.",
+                    "Don’t just listen during a teaching and learning session; listen actively by taking down notes of the main points of the lesson, lecture or speech. Try to always use a jotter.",
+                    "Discipline yourself to put away your mobile devices and clear your desk during lessons in class so as to focus on one thing at a time. Also avoid sidetalks and discussions on matters unrelated to the lesson ongoing in class, especially if that behaviour affects your concentration in an ongoing lesson.",
+                    "Practice intentional listening by focusing your thoughts on what the teacher is saying, maintain eye contact with the teacher, jot key points and revise what you have jotted down immediately after the class."
+                ]
             }
         ],
-        "recommendations": [
-            "Discipline yourself to always listen keenly, determining to hear and understand what the teacher or instructor says.",
-            "Practice intentional listening by focusing your thoughts on what the teacher is saying, maintain eye contact with the teacher, jot key points and revise what you have jotted down immediately after the class. See more"
+        "resources": [
+            "carlifionisb fdnbksfb jn",
+            "rewsx",
+            "hbdxs",
+            "hnb vcxd"
         ],
         "chart": {
             "labels": ["Writing", "Language", "Memorisation", "Listening"],
@@ -107,7 +132,7 @@
                 "description": "Practice is the learning behaviour that directly enables a learner to gain mastery of just any subject matter and attain mastery with any skill."
             }
         ],
-        "recommendations": [
+        "resources": [
             "Decide to study your weakest subject(s) on a daily basis and ask for help as often as necessary in order to get your brain well acquainted with it. Your brain will eventually acquire what it repeatedly sees.",
             "Ordinarily, your family members or loved ones; that is, your parents or guardians, need to show some commitment by following up on your academic performance in order to make you more accountable, especially if you’re a very young person. However, the lack of that should be no excuse to continue performing poorly. So what you need to do right now is to make a decision to take responsibility for your progress in life and hold yourself accountable by a high standard of excellence."
         ],
@@ -147,7 +172,7 @@
                 "description": "This refers to the skillful search for deeper meaning and consulting widely in order to verify facts or achieve an objective form of knowledge or discover new facts."
             }
         ],
-        "recommendations": [
+        "resources": [
             "Wherever possible, try to practically verify your understanding of the procedures for each experiment taught you in your science class by safely conducting it again by yourself or with help from your study group.",
             "Commit yourself to finding more knowledge and answers."
         ],
@@ -192,7 +217,7 @@
                 "description": "This aspect seeks to determine the adequacy of a learner's engagement with emotion and soul lifting activities that can help them to be better adjusted to receive learning instructions."
             }
         ],
-        "recommendations": [
+        "resources": [
             "Realize that one doesn’t really get to choose their biological parents and their orientation. However, try to get them talk about the fact that you think they should improve on how they talk to you, the kind of words they use while talking to you and how you don’t feel well cared for. You could get a respected member of your religious organization or community to talk to them about this.",
             "Words spoken to you have profound impact on your emotions and can demotivate or demoralize a person’s will and drive for excellence. So, try to talk to your parents, guardians and teachers about the need for them to improve on the quality of their remarks to you. Consider getting your parents to talk to your teacher about this and another respectable person to talk to your parents. Or simply show them what this report says. Also, decide to behave appropriately so as not to trigger such offensive outbursts and verbalizations."
         ],
@@ -232,7 +257,7 @@
                 "description": "This refers to the skillful search for deeper meaning and consulting widely in order to verify facts or achieve an objective form of knowledge or discover new facts."
             }
         ],
-        "recommendations": [
+        "resources": [
             "Wherever possible, try to practically verify your understanding of the procedures for each experiment taught you in your science class by safely conducting it again by yourself or with help from your study group.",
             "Commit yourself to finding more knowledge and answers.",
             "Take advantage of your leisure time to read and learn about something new, especially a subject that is not within the stipulations of your school curriculum."

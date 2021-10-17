@@ -91,3 +91,41 @@ export const BarChart = (props) => {
         </div>
     );
 };
+
+export const GaugeChart = (props) => {
+    const { percent=0, height=130, data = [], color={primary: "black", light: "white"} } = props;
+    const _chart = React.useRef(null);
+    React.useEffect(() => {
+        var myChart = new Chart(_chart.current, {
+            type: "doughnut",
+           data: {
+            datasets: [{
+              label: 'Reading 63%',
+              data: [percent, 100 - percent],
+              backgroundColor: [
+                color?.primary,
+                color?.light
+              ],
+              hoverOffset: 0,
+              borderWidth: 0,
+              weight: 10
+            }]
+          },
+          options: {
+              responsive: true,
+              plugins: {
+                  legend: {
+                      display: false
+                  }
+              },
+              cutout: "90%",
+              rotation: 90,
+              radius: 65
+          }
+        });
+        // myChart.destroy();
+    }, [props]);
+    return (
+            <canvas ref={_chart} height={height}></canvas>
+    );
+};
