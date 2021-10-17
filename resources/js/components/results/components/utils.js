@@ -1,15 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Divider from "@mui/material/Divider";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
 import { SvgIcon } from "./Icon";
 import { GaugeChart } from "./charts";
+import { v4 } from "uuid";
 
 export const XButton = ({
     url = "#",
@@ -48,12 +42,7 @@ function hexToRGBA(hex, opacity) {
 }
 
 export const LineGaugeDetails = ({ guagechart, color }) => {
-    const xv = React.useRef(null);
-    const xy = React.useRef(null);
 
-    const getOffSet = () => {
-        return (xv?.current?.height - xy?.current?.height)/2;
-    };
 
     return (
         <div className="row mb-3">
@@ -72,13 +61,10 @@ export const LineGaugeDetails = ({ guagechart, color }) => {
                                     color={guagechart?.color || color}
                                 />
                             </div>
-                            <div ref={xv} className="col-xl-7">
+                            <div className="col-xl-7">
                                 <div
-                                    ref={xy}
                                     className="vertical-center-x"
-                                    style={{
-                                        marginTop: getOffSet(),
-                                    }}
+                                    style={{ marginTop: 30 }}
                                 >
                                     <p
                                         style={{
@@ -115,6 +101,7 @@ export const AlignItemsList = ({
             {reports.map((item, i) => {
                 return (
                     <a
+                        key={v4()}
                         href="#"
                         className="list-group-item-action "
                         aria-current="true"
@@ -170,6 +157,7 @@ export const AlignItemsList = ({
 
                         {item?.guagechart && (
                             <LineGaugeDetails
+                                key={v4()}
                                 guagechart={item?.guagechart}
                                 color={color}
                             />
