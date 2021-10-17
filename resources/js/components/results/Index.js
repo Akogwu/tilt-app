@@ -12,15 +12,11 @@ import { Welcome } from "./pages/Welcome";
 import { Report } from "./pages/Report";
 import { DetailedReport } from "./pages/DetailedReport";
 
-import "./assets/css/style.scss";
 import "./assets/css/style.css";
 import "./assets/css/mobile.css";
 import { CheckReport } from "./pages/CheckReport";
 
 function Index() {
-    React.useEffect(() => {
-        // alert("work")
-    }, []);
 
     const history = useHistory();
 
