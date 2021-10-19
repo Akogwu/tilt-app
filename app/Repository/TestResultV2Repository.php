@@ -5,20 +5,29 @@ namespace App\Repository;
 
 
 use App\Models\Group;
-use App\Models\Questionnaire;
 use App\Models\QuestionnaireWeightPoint;
-use App\Models\Section;
-use App\Models\Session;
 use App\Models\TestRecord;
 use App\Models\TestResult;
-use Illuminate\Support\Facades\DB;
-use function PHPUnit\Framework\isEmpty;
 
 class TestResultV2Repository
 {
+    public function detailResult($sessionId){
+        $testResult = TestResult::where('session_id', $sessionId)->first();
+        if ($testResult == null )
+            return [];
+        $role = $testResult->session->user->role->role;
+        $userData = $this->getUserDetail($role, $testResult);
+        return[
+            'user'=> $this,
+            'report'=>[
+                ''
+            ],
+            'session_id'=>$sessionId,
+            'resources'=>[],
+            'chart'=>[]
 
-
-
+        ];
+    }
 
     /*New update*/
     public function summaryResult($sessionId){
@@ -26,52 +35,9 @@ class TestResultV2Repository
         if ($testResult == null )
             return [];
         $role = $testResult->session->user->role->role;
-        $userData = [];
-        if ($role =="STUDENT"){
-            $user = $testResult->session->user;
-            $student = $testResult->session->user->student;
-            $userData = [
-                'name'=>$user->name,
-                'email'=>$user->email,
-                'sex'=>$student->gender,
-                'age'=>$student->age,
-                'school'=>$student->school->name,
-                'class'=>$student->class,
-                'state'=>$student->state->name ?? '',
-                'country'=>$student->country->name ?? '',
-                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url),
-                'payment_status'=> 1,
-            ];
-        }elseif ($role =="PRIVATE_LEARNER"){
-            $user = $testResult->session->user;
-            $privaterLearner = $testResult->session->user->privateLearner;
-            $userData = [
-                'name'=>$user->name,
-                'email'=>$user->email,
-                'sex'=>$privaterLearner->gender,
-                'age'=>$privaterLearner->age,
-                'school'=>$privaterLearner->school,
-                'class'=>$privaterLearner->class,
-                'state'=>$privaterLearner->state->name ?? '',
-                'country'=>$privaterLearner->country->name ?? '',
-                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url),
-                'payment_status'=> $testResult->payment_status,
 
-            ];
-        }else{//anonymous user viewing status
-            $user = $testResult->session->user;
-            $userData = [
-                'name'=>$user->name,
-                'sex'=>'Nil',
-                'age'=>'Nil',
-                'school'=>'Nil',
-                'class'=>'Nil',
-                'state'=>'Nil',
-                'country'=>'Nil',
-                'image_url'=> null,
-                'payment_status'=> 0,
-            ];
-        }
+        $userData = $this->getUserDetail($role, $testResult);
+
         $groupAnswered = collect($testResult->group_score_detail);
         //get all aswered sections
         $sectionAnswered = collect($testResult->section_score_detail)->map(function ($testResult){
@@ -132,6 +98,53 @@ class TestResultV2Repository
             return ;
         $weightPoint = QuestionnaireWeightPoint::find($testRecord->answer);
         return ($weightPoint == null) ? null : $weightPoint->remark;
+    }
+
+    private function getUserDetail($role, $testResult){
+
+        if ($role =="STUDENT"){
+            $user = $testResult->session->user;
+            $student = $testResult->session->user->student;
+            return[
+                'name'=>$user->name,
+                'sex'=>$student->gender,
+                'age'=>$student->age,
+                'school'=>$student->school->name,
+                'class'=>$student->class,
+                'state'=>$student->state->name ?? '',
+                'country'=>$student->country->name ?? '',
+                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url),
+                'payment_status'=> 1,
+            ];
+        }elseif ($role =="PRIVATE_LEARNER"){
+            $user = $testResult->session->user;
+            $privaterLearner = $testResult->session->user->privateLearner;
+            return[
+                'name'=>$user->name,
+                'sex'=>$privaterLearner->gender,
+                'age'=>$privaterLearner->age,
+                'school'=>$privaterLearner->school,
+                'class'=>$privaterLearner->class,
+                'state'=>$privaterLearner->state->name ?? '',
+                'country'=>$privaterLearner->country->name ?? '',
+                'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url),
+                'payment_status'=> $testResult->payment_status,
+
+            ];
+        }else{//anonymous user viewing status
+            $user = $testResult->session->user;
+            return[
+                'name'=>$user->name,
+                'sex'=>'Nil',
+                'age'=>'Nil',
+                'school'=>'Nil',
+                'class'=>'Nil',
+                'state'=>'Nil',
+                'country'=>'Nil',
+                'image_url'=> null,
+                'payment_status'=> 0,
+            ];
+        }
     }
 
 
