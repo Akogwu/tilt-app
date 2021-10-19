@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ResultLayout } from "../components/Layout";
 
-export const Welcome = () => {
+export const Welcome = ({ match }) => {
+    const { sessionId } = match?.params;
     return (
         <ResultLayout
-            bottomButton={{ text: "View Report", url: "/result/report" }}
+            bottomButton={{ text: "View Report", url: `/result/${sessionId}/report` }}
         >
             <div className="row justify-content-center">
                 <div className="col-md-12 bg-white text-center welcome-board">

@@ -18,4 +18,9 @@ Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
 
     //Route::get("/result-view/{sessionId}", [\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('result.view');
 
+    // Route::any('/result/{sessionId}/{query}', function() { 
+    //     return view('pages.result');
+    // })->where('query', '.*');
+
+
 });

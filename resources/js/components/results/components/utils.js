@@ -42,8 +42,6 @@ function hexToRGBA(hex, opacity) {
 }
 
 export const LineGaugeDetails = ({ guagechart, color }) => {
-
-
     return (
         <div className="row mb-3">
             <div className="col-xl-12">
@@ -166,38 +164,49 @@ export const AlignItemsList = ({
                 );
             })}
 
-            <div
-                class="card after-list mt-3"
-                style={{ backgroundColor: color?.light }}
-            >
-                <div class="card-body">
-                    <div className="mb-3">
-                        <p
-                            className="text-center"
-                            style={{
-                                color: color?.primary,
-                                borderBottom: "1px solid",
-                                paddingBottom: "0.5rem",
-                                marginBottom: "0.5rem",
-                            }}
-                        >
-                            {bottomCardTitle}
-                        </p>
+            {(recommendations || resources || []).length > 0 && (
+                <>
+                    <div
+                        class="card after-list mt-3"
+                        style={{ backgroundColor: color?.light }}
+                    >
+                        <div class="card-body">
+                            <div className="mb-3">
+                                <p
+                                    className="text-center"
+                                    style={{
+                                        color: color?.primary,
+                                        borderBottom: "1px solid",
+                                        paddingBottom: "0.5rem",
+                                        marginBottom: "0.5rem",
+                                    }}
+                                >
+                                    {bottomCardTitle}
+                                </p>
 
-                        <ul style={{ listStyle: "disc", marginLeft: "1rem" }}>
-                            {(recommendations || resources || []).map(
-                                (item, i) => {
-                                    return (
-                                        <li>
-                                            <p className="m-0">{item}</p>
-                                        </li>
-                                    );
-                                }
-                            )}
-                        </ul>
+                                <ul
+                                    style={{
+                                        listStyle: "disc",
+                                        marginLeft: "1rem",
+                                    }}
+                                >
+                                    {(recommendations || resources || []).map(
+                                        (item, i) => {
+                                            return (
+                                                <li>
+                                                    <p className="m-0">
+                                                        {item}
+                                                    </p>
+                                                </li>
+                                            );
+                                        }
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </>
+            )}
         </div>
     );
 };

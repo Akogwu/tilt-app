@@ -41,13 +41,15 @@ export const _renderDominantInfo = () => {
     );
 };
 
-export const DetailedReport = () => {
+export const DetailedReport = ({ match }) => {
     const data = require("../sampledata/detailedreport.json");
+    const { sessionId } = match?.params;
+    const { user } = window;
     return (
         <ResultLayout
             bottomButton={{
                 text: "View Detailed Report",
-                url: "/result/check-report",
+                url: `/result/${sessionId}/check-report`,
             }}
         >
             <div className="row justify-content-center detailed-report">
@@ -57,29 +59,29 @@ export const DetailedReport = () => {
                     cardClassnameclassName="p-2"
                 >
                     <div className="col-xl-5 biodata">
-                        <div className="row justify-content-between bio-data text-white text-left">
+                        <div className="row justify-content-between bio-data text-white text-left text-capitalize">
                             <ul>
                                 <li>
-                                    Sex: <span>Female</span>{" "}
+                                    Sex: <span>{user?.sex}</span>{" "}
                                 </li>
                                 <li>
-                                    Age: <span>17</span>{" "}
+                                    Age: <span>{user?.age}</span>{" "}
                                 </li>
                                 <li>
                                     School:{" "}
-                                    <span>Government Girls College</span>{" "}
+                                    <span>{user?.school}</span>{" "}
                                 </li>
                             </ul>
 
                             <ul>
                                 <li>
-                                    Class: <span>SSS 3</span>{" "}
+                                    Class: <span>{user?.class}</span>{" "}
                                 </li>
                                 <li>
-                                    State/Province: <span>Abuja</span>{" "}
+                                    State/Province: <span>{user?.state}</span>{" "}
                                 </li>
                                 <li>
-                                    Country: <span>Nigeria</span>{" "}
+                                    Country: <span>{user?.country}</span>{" "}
                                 </li>
                             </ul>
                         </div>

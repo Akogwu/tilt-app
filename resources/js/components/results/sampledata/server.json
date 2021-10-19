@@ -1,0 +1,174 @@
+{
+    "user": {
+        "name": "Robbert Peter",
+        "sex": "male",
+        "age": "12-20",
+        "school": "Abc Internation Nursery and Primary School",
+        "class": null,
+        "state": "Dorset",
+        "country": "Albania",
+        "image_url": null,
+        "payment_status": 1
+    },
+    "session_id": "2916e8d9-8474-4f38-b218-c6504a430395",
+    "report": [
+        {
+            "title": "Banky",
+            "color": { "primary": "#10AB7B", "light": "#E9F2EF" },
+            "description": "Banky represents a learning behaviours that helps us recall previously acquired information or learning instructions.",
+            "reports": [
+                {
+                    "title": "Reflective Thinking",
+                    "icon": "reflective",
+                    "description": "Reflective Thinking: refers to the learning behaviour that is central to recalling information or learning instructions that have been acquired previously."
+                }
+            ],
+            "recommendations": []
+        },
+        {
+            "title": "Brainy",
+            "color": { "primary": "#DE6926", "light": "#F5EFEB" },
+            "description": "This group represents a set of important learning behaviours by which a learner acquires information or learning instructions.",
+            "reports": [
+                {
+                    "title": "Fluency Of The Language Of Learning",
+                    "icon": "language",
+                    "description": "This learning behaviour has to do with being able to speak and write in the language used in your teaching and learning sessions."
+                },
+                {
+                    "title": "Listening",
+                    "icon": "ear",
+                    "description": "Listening is a learning skill that helps you receive auditory information or learning instructions. Possessing good listening skill can be a game changer for every learner."
+                },
+                {
+                    "title": "Memorisation And Cramming",
+                    "icon": "brain",
+                    "description": "Memorisation and Cramming of facts is a valuable learning skill that learners use to acquire a lot of information by saying them repeatedly until they can remember them exactly."
+                },
+                {
+                    "title": "Reading",
+                    "icon": "",
+                    "description": "Your ability to read is a very important learning skill that helps you acquire useful information and increase your level of intelligence if you put it to use frequently."
+                },
+                {
+                    "title": "Writing",
+                    "icon": "writing",
+                    "description": "A person's ability to write enables them to note important points during the teaching and learning process and to communicate their responses or answers to assessment questions."
+                }
+            ],
+            "recommendations": [
+                "Take online classes and read other study materials on how to memorize faster and recall better.",
+                "Try to read your course materials for at least one hour daily every week throughout a term or semester in view."
+            ]
+        },
+        {
+            "title": "Jack",
+            "color": { "primary": "#1F5DCC", "light": "#EEF4FF" },
+            "description": "This group represents learning behaviours that help us use or apply knowledge and skills effectively.",
+            "reports": [
+                {
+                    "title": "Competition",
+                    "icon": "competition",
+                    "description": "Competition refers to behaviours that enable us to participate in the academic competition that rages in our respective classes."
+                },
+                {
+                    "title": "Imagination",
+                    "icon": "atom",
+                    "description": "This learning behaviour involves using the mind to visualize or picture learning instructions during a teaching and learning session and afterwards, thereby aiding comprehension and creative application of knowledge."
+                },
+                {
+                    "title": "Practice",
+                    "icon": "practice",
+                    "description": "Practice is the learning behaviour that directly enables a learner to gain mastery of just any subject matter and attain mastery with any skill."
+                }
+            ],
+            "recommendations": [
+                "It is okay to try to outperform your friends academically without trying to boast about it. Also consider making new friends that inspire you to greater excellence and achievements.",
+                "Realize that being able to imagine every detail of an example being used in a study material or in the teaching and learning session ongoing in class can determine the rate (speed) at which you understand instructions you encounter on the spot. Make the effort, therefore, to imagine descriptions of examples or illustrations used to explain points or concepts during teaching and learning sessions in class and privately."
+            ]
+        },
+        {
+            "title": "Level Of Readiness",
+            "color": { "primary": "#1F5DCC", "light": "#EEF4FF" },
+            "description": "This represents a set of salient requirements that ensures that a learner is mentally, emotionally, socially and physically adjusted and therefore ready to receive learning instructions.",
+            "reports": [
+                {
+                    "title": "Demotivation",
+                    "icon": "focal-point",
+                    "description": "Demotivation refers to anything that weakens a learner\u2019s will to learn thereby causing them to approach learning activities with little or no interest."
+                },
+                {
+                    "title": "Distraction",
+                    "icon": "robot",
+                    "description": "Distractions refers to anything that directly interferes with a learner\u2019s focus on instructions and their use of instructional materials thereby causing inconsistencies in their attentiveness or concentration in the teaching and learning process."
+                },
+                {
+                    "title": "Music And Dance",
+                    "icon": "music",
+                    "description": "This aspect seeks to determine the adequacy of a learner's engagement with emotion and soul lifting activities that can help them to be better adjusted to receive learning instructions."
+                },
+                {
+                    "title": "Sports And Games",
+                    "icon": "ball",
+                    "description": "This aspect seeks to determine the adequacy of a learner's physical engagement with body building and motor skills related activities that can make them better adjusted physically, socially, mentally and emotionally to receive learning instructions."
+                }
+            ],
+            "recommendations": [
+                "Realize that spending long hours on watching TV is distracting as far as academics is concerned and decide to replace that activity with an outdoor sport in order to manage stress better by improving quality of sleep.",
+                "Try to play, listen to and enjoy some good music for at least daily every week because it can help you relax and relive tension.",
+                "Ensure to participate in your favourite outdoor game or sport at least twice every week."
+            ]
+        },
+        {
+            "title": "Puter",
+            "color": { "primary": "#DE6926", "light": "#F5EFEB" },
+            "description": "This group represents a set of highly valuable learning skills by which a learner processes information or learning instructions in order to achieve in depth understanding.",
+            "reports": [
+                {
+                    "title": "Asking Questions",
+                    "icon": "question",
+                    "description": "This learning behaviour has to do with inquiring for clarity and deeper insight into subject matters."
+                },
+                {
+                    "title": "Objective Thinking",
+                    "icon": "thinking",
+                    "description": "This learning behaviour entails paying keen attention to facts, critically in order to arrive at the best conclusion possible and creative thinking, which is thinking beyond facts and finding new ways to solve problems."
+                },
+                {
+                    "title": "Research And Experiment",
+                    "icon": "search",
+                    "description": "This refers to the skillful search for deeper meaning and consulting widely in order to verify facts or achieve an objective form of knowledge or discover new facts."
+                }
+            ],
+            "recommendations": [
+                "As a personal rule, always ask sensitive or intelligent questions during the teaching and learning session in class so as to gain clarity of understanding in the concept being taught."
+            ]
+        },
+        {
+            "title": "Temperate",
+            "color": { "primary": "#10AB7B", "light": "#E9F2EF" },
+            "description": "Temperate represents a group of learning behaviours that helps a learner to regulate their learning behaviours. This essentially provides balance, intensity and continuity in the masterful and intentional use of the learning skills.",
+            "reports": [
+                {
+                    "title": "Ability To Admit And Correct Mistakes",
+                    "icon": "exclaim",
+                    "description": "This learning behaviour refers to a recognition and admittance of an incorrect perception or approach and the courage to address the situation by taking corrections on such issues and doing things differently."
+                },
+                {
+                    "title": "Humility",
+                    "icon": "reflective",
+                    "description": "This learning behaviour refers to maintaining a lowly or meek state of mind that confers one with the flexibility for life-long learning."
+                },
+                {
+                    "title": "Self-discipline",
+                    "icon": "idea-light",
+                    "description": "This is the most important learning behaviour. It refers to one's ability to control their emotions and strengths so that they focus and do important tasks to the finish and remain gritty as they pursue long term goals."
+                }
+            ],
+            "recommendations": [
+                "Improve on how promptly you seek advice, guidance or counsel from other people who may know better and are willing to help, especially when getting help is necessary. Become more willing to learn and improve on just any subject that you are deficient at. Realize that difficulty doesn\u2019t mean impossibility; it\u2019s only a situation that demands a little more work from you. So put in the extra work and you\u2019ll be just fine.",
+                "As a matter of personal rule, try to stay on and finish whatever you are working on (priority A) before taking up any other task(s) (priority B) EXCEPT the other task (priority B) is very urgent and important or completing it (priority B) will positively impact on the result or outcome of your current task (priority A)."
+            ]
+        }
+    ]
+}

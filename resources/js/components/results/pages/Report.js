@@ -4,7 +4,7 @@ import { CharacterImage } from "../components/Icon";
 import { ResultLayout } from "../components/Layout";
 import { AlignItemsList, XButton } from "../components/utils";
 
-export const HeaderDetail = ({ children, title = "Hi Sonia", dominant, cardClass="" }) => {
+export const HeaderDetail = ({ children, title = window?.user?.name, dominant, cardClass="", sessionId }) => {
     return (
         <>
             <div className="col-md-12 bg-gray text-center about-header-board">
@@ -34,7 +34,7 @@ export const HeaderDetail = ({ children, title = "Hi Sonia", dominant, cardClass
                             marginBottom: 0,
                         }}
                     >
-                        soniaeno@gmail.com
+                        {window?.user?.email}
                     </p>
                 )}
             </div>
@@ -53,7 +53,7 @@ export const HeaderDetail = ({ children, title = "Hi Sonia", dominant, cardClass
                                         </div>
                                         <XButton
                                             text={"View Detailed Report"}
-                                            url={"/result/check-report"}
+                                            url={`/result/${sessionId}/check-report`}
                                             style={{ fontSize: 14 }}
                                         />
                                     </>
@@ -148,17 +148,18 @@ export const ReportSection = ({
     );
 };
 
-export const Report = () => {
-    const data = require("../sampledata/report.json");
+export const Report = ({ match }) => {
+    const data = window?.report||[];// require("../sampledata/report.json");
+    const { sessionId } = match?.params;
     return (
         <ResultLayout
             bottomButton={{
                 text: "View Detailed Report",
-                url: "/result/check-report",
+                url: `/result/${sessionId}/check-report`
             }}
         >
             <div className="row justify-content-center">
-                <HeaderDetail />
+                <HeaderDetail sessionId={sessionId} />
                 <div className="container">
                     <div className="col-xl-12">
                         <Divider style={{ marginTop: 50, marginBottom: 30 }}>

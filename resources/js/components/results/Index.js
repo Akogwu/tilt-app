@@ -23,16 +23,16 @@ function Index() {
     return (
         <Router history={history}>
             <Switch>
-                <Route exact path="/result" component={Welcome} />
-                <Route exact path="/result/report" component={Report} />
+                <Route exact path="/result/:sessionId/home" component={Welcome} />
+                <Route exact path="/result/:sessionId/report" component={Report} />
                 <Route
                     exact
-                    path="/result/check-report"
+                    path="/result/:sessionId/check-report"
                     component={CheckReport}
                 />
                 <Route
                     exact
-                    path="/result/detailed-report"
+                    path="/result/:sessionId/detailed-report"
                     component={DetailedReport}
                 />
             </Switch>

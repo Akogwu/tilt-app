@@ -53,12 +53,14 @@ class TestResultController extends Controller
 
     public function viewTestResult($sessionId){
 
-        $data = $this->testResultRepository->getCompleteResult($sessionId);
+        $data = $this->testResultV2Repository->summaryResult($sessionId);
         //return $data;
-        return view("pages.results.result-pdf", $data);
+        return view("pages.result", $data);
     }
 
     public function summaryResult($sessionId){
          return $this->testResultV2Repository->summaryResult($sessionId);
     }
+
+    
 }

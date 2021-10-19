@@ -32,6 +32,7 @@ class TestResultV2Repository
             $student = $testResult->session->user->student;
             $userData = [
                 'name'=>$user->name,
+                'email'=>$user->email,
                 'sex'=>$student->gender,
                 'age'=>$student->age,
                 'school'=>$student->school->name,
@@ -46,6 +47,7 @@ class TestResultV2Repository
             $privaterLearner = $testResult->session->user->privateLearner;
             $userData = [
                 'name'=>$user->name,
+                'email'=>$user->email,
                 'sex'=>$privaterLearner->gender,
                 'age'=>$privaterLearner->age,
                 'school'=>$privaterLearner->school,

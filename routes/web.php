@@ -30,13 +30,14 @@ Route::get('/take-test',function (){
 })->name('questions');
 
 Route::group(['middleware'=>'auth'], function (){
+
     Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');
-    
-    Route::any('/result{query}', function() { 
-        return view('pages.result');
-    })->where('query', '.*');
+
+    Route::get('/result/{sessionId}/{query}', [\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('pages.result');
+
 
 });
+
 //auth
 
 //Country endpoints

@@ -1,12 +1,13 @@
 import React from "react";
 import { ResultLayout } from "../components/Layout";
 
-export const CheckReport = () => {
+export const CheckReport = ({ match }) => {
+    const { sessionId } = match?.params;
     return (
         <ResultLayout
             bottomButton={{
                 text: "View Report",
-                url: "/result/detailed-report",
+                url: `/result/${sessionId}/detailed-report`,
             }}
             containerStyle={{ paddingRight: 0, paddingLeft: 0 }}
         >
