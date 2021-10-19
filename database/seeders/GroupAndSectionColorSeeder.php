@@ -24,9 +24,9 @@ class GroupAndSectionColorSeeder extends Seeder
             "Temperate"=> ["primary"=>"#10AB7B","light"=>"#E9F2EF"]
         );
 
-        /*foreach ( $groupColors as $group=>$color){
+        foreach ( $groupColors as $group=>$color){
             Group::where('name', $group)->update(['result_color'=>json_encode($color)]);
-        }*/
+        }
 
         $sectionData = array(
             "Competition"=> ["primary"=>"#000","light"=>"#000",'icon'=>'competition'],
@@ -53,8 +53,7 @@ class GroupAndSectionColorSeeder extends Seeder
         foreach ($sectionData as $item=>$value){
             Section::where('name', $item)->update([
                 'result_color'=>json_encode(['primary'=>$value['primary'],'light'=>$value['light']]),
-                'icon'=>$value['icon'],
-                'graph_description'=>$item.', Donec tristique, augue interdum vestibulum convallis, ante ex accumsan nisi, et condimentum massa tortor quis massa.'
+                'icon'=>$value['icon']
             ]);
         }
 
