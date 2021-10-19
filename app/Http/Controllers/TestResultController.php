@@ -9,14 +9,17 @@ use App\Models\Student;
 use App\Models\TestResult;
 
 use App\Repository\TestResultRepository;
+use App\Repository\TestResultV2Repository;
 use Illuminate\Support\Facades\Log;
 
 class TestResultController extends Controller
 {
     private $testResultRepository;
-     public function __construct(TestResultRepository $testResultRepository)
+    private $testResultV2Repository;
+     public function __construct(TestResultRepository $testResultRepository, TestResultV2Repository $testResultV2Repository)
      {
          $this->testResultRepository = $testResultRepository;
+         $this->testResultV2Repository = $testResultV2Repository;
      }
 
     public function getTestResultSummary($sessionId){
@@ -53,5 +56,9 @@ class TestResultController extends Controller
         $data = $this->testResultRepository->getCompleteResult($sessionId);
         //return $data;
         return view("pages.results.result-pdf", $data);
+    }
+
+    public function summaryResult($sessionId){
+         return $this->testResultV2Repository->summaryResult($sessionId);
     }
 }

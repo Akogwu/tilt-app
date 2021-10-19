@@ -10,6 +10,8 @@ class Group extends Model
     use SoftDeletes;
     protected $guarded =[];
 
+    protected $casts = ['result_color'=>'json'];
+
     public function sections(){
         return $this->hasMany(Section::class, 'group_id')
             ->orderBy('name','asc');

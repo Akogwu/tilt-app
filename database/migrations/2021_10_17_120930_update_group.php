@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddGraphGroupDescriptionToGroupTable extends Migration
+class UpdateGroup extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddGraphGroupDescriptionToGroupTable extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            //
+            $table->text('result_color')->nullable();
+            $table->text('graph_description')->nullable();
         });
     }
 
@@ -25,8 +26,6 @@ class AddGraphGroupDescriptionToGroupTable extends Migration
      */
     public function down()
     {
-        Schema::table('groups', function (Blueprint $table) {
-            $table->string('graph_description')->nullable();
-        });
+        //
     }
 }
