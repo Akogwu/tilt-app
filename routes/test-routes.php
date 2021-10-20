@@ -10,15 +10,17 @@ Route::group(['prefix'=>'test'],function (){
 });
 Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
         //get detail result
-    Route::get('/results/{sessionId}',[\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('result.getResult');
+    //Route::get('/results/{sessionId}',[\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('result.getResult');
     Route::post('/{userId}',[\App\Http\Controllers\TestResultController::class,'getMyTestResults']);
     Route::post('details/{userId}',[\App\Http\Controllers\TestResultController::class,'getTestDetails']);
     //new summary result
     Route::get('/result/{sessionId}/summary', [\App\Http\Controllers\TestResultController::class,'summaryResult'])->name('result.summary');
+    //new result
+    Route::get('/result/{sessionId}/summary', [\App\Http\Controllers\TestResultController::class,'summaryResult'])->name('result.summary');
 
-    //Route::get("/result-view/{sessionId}", [\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('result.view');
+    Route::get('/results/{sessionId}',[\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('result.getResult');
 
-    // Route::any('/result/{sessionId}/{query}', function() { 
+    // Route::any('/result/{sessionId}/{query}', function() {
     //     return view('pages.result');
     // })->where('query', '.*');
 

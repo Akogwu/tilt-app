@@ -5,28 +5,123 @@ namespace App\Repository;
 
 
 use App\Models\Group;
+use App\Models\Questionnaire;
 use App\Models\QuestionnaireWeightPoint;
 use App\Models\TestRecord;
 use App\Models\TestResult;
+use Illuminate\Support\Facades\DB;
 
 class TestResultV2Repository
 {
     public function detailResult($sessionId){
         $testResult = TestResult::where('session_id', $sessionId)->first();
+
         if ($testResult == null )
             return [];
         $role = $testResult->session->user->role->role;
-        $userData = $this->getUserDetail($role, $testResult);
-        return[
-            'user'=> $this,
-            'report'=>[
-                ''
-            ],
-            'session_id'=>$sessionId,
-            'resources'=>[],
-            'chart'=>[]
 
+        $groupAnswered = collect($testResult->group_score_detail);
+
+        //get all aswered sections
+        $sectionAnswered = collect($testResult->section_score_detail)->map(function ($testResult){
+            return $testResult['section_id'];
+        });
+
+        $summaryResultData = $groupAnswered->map(function ($item) use ($sectionAnswered, $sessionId){
+            $item = (object)$item;
+            $group = Group::find($item->group_id);
+            //get all section
+            $sections =  $group->sections->map(function($section) use ($sectionAnswered, $sessionId){
+                //from answered sections
+                if (in_array($section->id, $sectionAnswered->toArray())){
+                    $recommendation = collect($this->getQuestionRecommendation($sessionId, $section->id))->map(function ($recommendation){
+                        return $recommendation['recommendation'];
+                    });
+                    $gradePoint = collect($this->getQuestionRecommendation($sessionId, $section->id))->map(function ($recommendation){
+                        return $recommendation['grade_point'];
+                    });
+                    return[
+                        'icon'=>$section->icon,
+                        'title'=>$section->name,
+                        'description'=>$section->description,
+                        'recommendations'=> $recommendation->filter()->values(),
+                        'score'=>round($gradePoint->sum(), 2)
+                    ];
+                }
+            });
+
+            //get section recommendations
+            $resource= array(
+                "Hello this is a dummy text",
+                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
+                "sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+                );
+            $numSection = count($sections);
+            return[
+                'title'=>$group->name,
+                'color'=>$group->result_color,
+                'description'=>$group->description,
+                'reports'=>$sections,
+                'resources'=>$resource,
+                'chart'=>[
+                    "labels"=>collect($sections)->map(function ($section){
+                        return $section['title'];
+                    }),
+                ],
+                'data'=>[
+                    'label'=> $group->name.' Parameters',
+                    'data'=>collect($sections)->map(function ($section){
+                        return $section['score'];
+                    }),
+                ],
+                'group_score'=> collect($sections)->sum(function ($section) use($numSection){
+                    if ($section['score'] == 0 || $numSection ==0)
+                        return 0;
+                    //find the average
+                    return round($section['score']/$numSection, 2);
+
+            })
+            ];
+        });
+
+        $graphLabel = collect($summaryResultData)->map(function ($data){
+            return $data['title'];
+        });
+
+        $graphData = collect($summaryResultData)->map(function ($data){
+            return $data['group_score'];
+        });
+        $groupData= array();
+        $a=0;
+        //form an array
+        foreach ($graphLabel as $label){
+            $groupData[] = array('group_name'=>$label,'value'=>$graphData[$a++]);
+        }
+
+        $collection = collect($summaryResultData)->sortByDesc('group_score');
+        $sortCollection = $collection->values()->take(2)->map(function ($group){
+            return[
+                "title"=>$group['title'],
+                'color'=>$group['color'],
+                'score'=>$group['group_score']
+            ];
+        });
+
+        return[
+            'user'=> $this->getUserDetail($role, $testResult),
+            'dominant_group'=>$sortCollection,
+            'overview'=>[
+                'label'=>$graphLabel,
+                'data'=>$graphData,
+                'graph_description'=>"Ut wisi enim ad minim veniam.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy"
+            ],
+            'report'=>$summaryResultData,
+            'session_id'=>$sessionId,
         ];
+    }
+
+    private function getSectionName($array){
+
     }
 
     /*New update*/
@@ -62,7 +157,7 @@ class TestResultV2Repository
 
             $recommendations = array();
             foreach ($group->sections as $section){
-                $result = $this->getRecommendation($sessionId, $section->recommendationMessage->id ?? null);
+                $result = $this->getSectionRecommendation($sessionId, $section->recommendationMessage->id ?? null);
                 //take only those with value
                 if ($result)
                     $recommendations[]=$result;
@@ -84,7 +179,7 @@ class TestResultV2Repository
         ];
     }
     /*New*/
-    private function getRecommendation($sessionId, $recommendationId){
+    private function getSectionRecommendation($sessionId, $recommendationId){
         //no recommendation question
         if ($recommendationId == null)
             return;
@@ -98,6 +193,43 @@ class TestResultV2Repository
             return ;
         $weightPoint = QuestionnaireWeightPoint::find($testRecord->answer);
         return ($weightPoint == null) ? null : $weightPoint->remark;
+    }
+
+    private function getQuestionRecommendation($sessionId, $sectionId){
+        //get all questions in this section
+        $questionnaireIds = Questionnaire::where('section_id', $sectionId)->pluck('id');
+        if ($questionnaireIds == null)
+            return null;
+        //
+
+        $recommendations = [];
+        foreach ($questionnaireIds as $questionnaireId){
+            $testRecord = DB::table('test_records')->where([
+                ['session_id', $sessionId],
+                ['test_records.questionnaire_id', $questionnaireId]])
+                ->join("questionnaires",
+                    "questionnaires.id",'=','test_records.questionnaire_id')
+                ->join('questionnaire_weight_points',
+                    'questionnaire_weight_points.id','=',
+                    'test_records.answer')
+                ->select('questionnaire_weight_points.remark AS remark','questionnaires.grade_point as grade_point')
+                ->get();
+            if (!empty($testRecord)){
+                //if solution is triggered (remark) therefore grade_point is 0
+                if (!empty($testRecord[0]->remark))
+                    $recommendations[] = [
+                        'recommendation'=>$testRecord[0]->remark ?? '',
+                        'grade_point'=>0
+                    ];
+                else
+                    $recommendations[] = [
+                        'recommendation'=> '',
+                        'grade_point'=>$testRecord[0]->grade_point ?? 0
+                    ];
+            }
+
+        }
+        return $recommendations;
     }
 
     private function getUserDetail($role, $testResult){
