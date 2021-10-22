@@ -28,6 +28,7 @@ class GroupController extends Controller
             'color'=>"required",
             'icon'=>"required",
             'description'=>"required",
+            'graph_description'=>"required",
         ]);
         if ($this->isNameExist($request->name))
             return response()->json(['status'=>false, "message"=>"Name already exists"], 409);
@@ -43,6 +44,7 @@ class GroupController extends Controller
             'color'=>"required",
             'icon'=>"required",
             'description'=>"required",
+            'graph_description'=>"required",
         ]);
         $name = ucwords(strtolower($request->name));
         $group = Group::where("id", $groupId)->first();
@@ -59,6 +61,7 @@ class GroupController extends Controller
             'color'=>$request->color,
             'icon'=>$request->icon,
             'description'=>$request->description,
+            'graph_description'=>$request->graph_description,
         ]);
 
         return response()->json(['status'=>true, "message"=>"Update successful"], 201);
