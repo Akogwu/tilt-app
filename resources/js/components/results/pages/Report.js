@@ -3,6 +3,7 @@ import React from "react";
 import { CharacterImage } from "../components/Icon";
 import { ResultLayout } from "../components/Layout";
 import { AlignItemsList, XButton } from "../components/utils";
+import { v4 } from "uuid";
 
 export const HeaderDetail = ({ children, title = window?.user?.name, dominant, cardClass="", sessionId }) => {
     return (
@@ -190,7 +191,7 @@ export const Report = ({ match }) => {
                     </div>
                 </div>
                 {data.map((item, i) => {
-                    return <ReportSection {...item} />;
+                    return <ReportSection key={v4()} {...item} />;
                 })}
 
                 <div className="container">

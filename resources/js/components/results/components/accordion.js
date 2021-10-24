@@ -173,7 +173,7 @@ export const MainAccordion = ({ data }) => {
                                             width: window.screen.width,
                                             marginLeft: getOffSet() - 15,
                                             padding: 30,
-                                            marginBottom: 40
+                                            marginBottom: 40,
                                         }}
                                     >
                                         <div className="row m-auto">
