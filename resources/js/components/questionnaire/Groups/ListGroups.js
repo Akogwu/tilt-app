@@ -32,6 +32,7 @@ const ListGroups = (props) => {
     const handleOpenEditModal = (group) => {
         setId(group.id);
         setGroup(group);
+        
         setOpenEditModal(true);
 
     }
