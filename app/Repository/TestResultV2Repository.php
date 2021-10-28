@@ -22,7 +22,7 @@ class TestResultV2Repository
         $role = $testResult->session->user->role->role;
 
         $groupAnswered = collect($testResult->group_score_detail);
-        $graphDescription = GraphOverview::latest()->first()->description ?? '';
+        $graphOverview = GraphOverview::latest()->first()->description ?? '';
         //get all aswered sections
         $sectionAnswered = collect($testResult->section_score_detail)->map(function ($testResult){
             return $testResult['section_id'];
@@ -110,7 +110,7 @@ class TestResultV2Repository
             'overview'=>[
                 'label'=>$graphLabel,
                 'data'=>$graphData,
-                'graph_description'=>$graphDescription
+                'graph_overview'=>$graphOverview
             ],
             'report'=>$summaryResultData,
             'session_id'=>$sessionId,
@@ -127,7 +127,7 @@ class TestResultV2Repository
         if ($testResult == null )
             return [];
         $role = $testResult->session->user->role->role;
-
+        $graphOverview = GraphOverview::latest()->first()->description ?? '';
         $userData = $this->getUserDetail($role, $testResult);
 
         $groupAnswered = collect($testResult->group_score_detail);
@@ -173,6 +173,8 @@ class TestResultV2Repository
             "user"=>$userData,
             'session_id'=>$sessionId,
             'report'=>$summaryResultData,
+            'graph_overview'=>$graphOverview
+
         ];
     }
     /*New*/
