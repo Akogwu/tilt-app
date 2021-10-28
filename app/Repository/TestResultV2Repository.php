@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 
+use App\Models\GraphOverview;
 use App\Models\Group;
 use App\Models\Questionnaire;
 use App\Models\QuestionnaireWeightPoint;
@@ -21,7 +22,7 @@ class TestResultV2Repository
         $role = $testResult->session->user->role->role;
 
         $groupAnswered = collect($testResult->group_score_detail);
-
+        $graphDescription = GraphOverview::latest()->first()->description ?? '';
         //get all aswered sections
         $sectionAnswered = collect($testResult->section_score_detail)->map(function ($testResult){
             return $testResult['section_id'];
@@ -51,18 +52,14 @@ class TestResultV2Repository
             });
 
             //get section recommendations
-            $resource= array(
-                "Hello this is a dummy text",
-                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
-                "sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
-                );
+
             $numSection = count($sections);
             return[
                 'title'=>$group->name,
                 'color'=>$group->result_color,
                 'description'=>$group->description,
                 'reports'=>$sections,
-                'resources'=>$resource,
+                'resources'=>$group->resource,
                 'chart'=>[
                     "labels"=>collect($sections)->map(function ($section){
                         return $section['title'];
@@ -113,7 +110,7 @@ class TestResultV2Repository
             'overview'=>[
                 'label'=>$graphLabel,
                 'data'=>$graphData,
-                'graph_description'=>"Ut wisi enim ad minim veniam.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy"
+                'graph_description'=>$graphDescription
             ],
             'report'=>$summaryResultData,
             'session_id'=>$sessionId,
