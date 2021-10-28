@@ -23,7 +23,8 @@ class Group extends Model
           [
               'color'=>$request->color,
               'icon'=>$request->icon,
-              'description'=>$request->description
+              'description'=>$request->description,
+              'resource'=>$request->resource
           ]
         );
     }
@@ -35,6 +36,7 @@ class Group extends Model
             'color'=>$this->color,
             'icon'=>$this->icon,
             'description'=>$this->description,
+            'resource'=>$this->resource,
         ];
     }
 

@@ -11,7 +11,9 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         name:'',
         color:'',
         icon:'',
-        description:''
+        description:'',
+        graph_description:'',
+        resource:''
     });
 
     useEffect(()=>{
@@ -19,7 +21,9 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
             name: fillData.name,
             color: fillData.color,
             icon: fillData.icon,
-            description: fillData.description
+            description: fillData.description,
+            graph_description: fillData.graph_description,
+            resource:fillData.resource
         })
     },[fillData]);
 
@@ -28,8 +32,12 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         name:values.name,
         color:values.color,
         icon:values.icon,
-        description:values.description
+        description:values.description,
+        graph_description:values.graph_description,
+        resource:values.resource
+
     }
+    
     const handleChange = e => {
         const {name,value} = e.target;
         setValues({...values,[name]:value})
@@ -37,6 +45,10 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
     const handleChangeEdit = e => {
         const {name,value} = e.target;
         setValues({...values,[name]:value})
+    }
+
+    const handleResourceChangeEdit = value => {
+        setValues({...values,['resource']:value})
     }
 
     const handleSubmit = e =>{
@@ -52,7 +64,9 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
                     name: '',
                     color: '',
                     icon: '',
-                    description: ''
+                    description: '',
+                    graph_description:'',
+                    resource:''
                 })
                 handleSuccess(false);
             },1500)
@@ -80,7 +94,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         });
     }
 
-    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit}
+    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit,handleResourceChangeEdit}
 }
 
 export default useForm;

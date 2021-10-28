@@ -67,6 +67,7 @@ Route::get('/print-result',[\App\Http\Controllers\PDFController::class,'generate
 
 require_once 'test-routes.php';
 require_once 'group-routes.php';
+require_once 'group-resource-routes.php';
 require_once 'questionnaire-routes.php';
 require_once 'section-routes.php';
 require_once 'subscription-routes.php';
@@ -76,3 +77,4 @@ require_once 'user-routes.php';
 require_once 'school-admin-routes.php';
 require_once 'student-routes.php';
 require_once 'transaction-routes.php';
+require_once 'graph-overview-routes.php';

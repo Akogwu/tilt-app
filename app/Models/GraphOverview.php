@@ -11,4 +11,6 @@ class GraphOverview extends Model
 
     protected $guarded = [];
 
+    protected $hidden =['updated_at','created_at'];
+
 }

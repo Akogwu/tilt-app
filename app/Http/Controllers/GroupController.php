@@ -23,12 +23,13 @@ class GroupController extends Controller
         return SectionAllResource::collection($section);
     }
     public function create(Request $request){
-        $this->validate($request,[
+        $this->validate($request, [
             'name'=>"required",
             'color'=>"required",
             'icon'=>"required",
             'description'=>"required",
             'graph_description'=>"required",
+            'resource'=>"nullable"
         ]);
         if ($this->isNameExist($request->name))
             return response()->json(['status'=>false, "message"=>"Name already exists"], 409);
@@ -45,6 +46,7 @@ class GroupController extends Controller
             'icon'=>"required",
             'description'=>"required",
             'graph_description'=>"required",
+            'resource'=>"nullable"
         ]);
         $name = ucwords(strtolower($request->name));
         $group = Group::where("id", $groupId)->first();
@@ -62,6 +64,7 @@ class GroupController extends Controller
             'icon'=>$request->icon,
             'description'=>$request->description,
             'graph_description'=>$request->graph_description,
+            'resource'=>$request->resource
         ]);
 
         return response()->json(['status'=>true, "message"=>"Update successful"], 201);
