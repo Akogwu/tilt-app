@@ -23,7 +23,7 @@ class GroupController extends Controller
         return SectionAllResource::collection($section);
     }
     public function create(Request $request){
-        $this->validate($request,[
+        $this->validate($request, [
             'name'=>"required",
             'color'=>"required",
             'icon'=>"required",
