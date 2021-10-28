@@ -10,6 +10,8 @@ import {QuestionContext, QuestionProvider} from "./questions/QuestionContext";
 import Questions from "./questions/Questions";
 import QuestionAddModal from "./questions/QuestionAddModal";
 import AlertMessage from "../Alert";
+import GroupOverview from "./Groups/GroupOverview";
+import {GroupContext} from "./Groups/GroupContext";
 
 const App = () => {
     const [openGroupModal,setOpenGroupModal] = useState(false);
@@ -21,6 +23,8 @@ const App = () => {
     const [openAlert,setOpenAlert] = useState(false);
 
     const [questions,setQuestions,loadingQuestions,sectionId,setSectionId] = useContext(QuestionContext);
+
+    const [overview] = useContext(GroupContext);
 
     const handleCloseAlert = () =>{
         setOpenAlert(false);
@@ -64,6 +68,8 @@ const App = () => {
                         <Questions/>
                     </div>
                 </div>
+                <hr/>
+                <GroupOverview overviewData={overview} />
             </div>
         </Fragment>
     );

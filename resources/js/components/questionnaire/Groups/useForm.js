@@ -3,7 +3,7 @@ import {GroupContext} from './GroupContext';
 import {postGroup,updateGroup,getGroups} from './GroupApi';
 import {apiGet, apiPost, apiUpdate} from "../../utils/ConnectApi";
 
-const useForm = (validate,handleSuccess,handleClose,fillData) => {
+const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
 
     const [groups,setGroups] = useContext(GroupContext);
     const [errors, setErrors] = useState({});
@@ -14,6 +14,10 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         description:'',
         graph_description:'',
         resource:''
+    });
+    const [overviewValue, setOverviewValue] = useState({
+        id:'',
+        description: ''
     });
 
     useEffect(()=>{
@@ -27,6 +31,12 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         })
     },[fillData]);
 
+    useEffect(()=>{
+        overviewData && setOverviewValue({
+            id:overviewData.id,
+            description: overviewData.description
+        })
+    },[overviewData]);
 
     const data = {
         name:values.name,
@@ -37,7 +47,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         resource:values.resource
 
     }
-    
+
     const handleChange = e => {
         const {name,value} = e.target;
         setValues({...values,[name]:value})
@@ -46,9 +56,18 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         const {name,value} = e.target;
         setValues({...values,[name]:value})
     }
+    const handleChangeOverview = e => {
+        const {name,value} = e.target;
+        setOverviewValue({...overviewValue,[name]:value})
+
+    }
 
     const handleResourceChangeEdit = value => {
         setValues({...values,['resource']:value})
+    }
+
+    const handleClear = () => {
+        setOverviewValue({...overviewValue,['description']:''})
     }
 
     const handleSubmit = e =>{
@@ -72,7 +91,6 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
             },1500)
 
         });
-
     }
 
     const handleEdit = (e,group_id) => {
@@ -94,7 +112,29 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         });
     }
 
-    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit,handleResourceChangeEdit}
+    const handleOverviewEdit = (e,overview_id) => {
+        e.preventDefault();
+        console.log(
+            overviewValue
+        )
+        setErrors(validate(overviewValue));
+        if (Object.keys(validate(overviewValue)).length <= 0)
+            apiUpdate(data,`overview/${overview_id}`).then(res => {
+                apiGet('overview').then(overview => {
+                    setOverviewValue(overview);
+
+                    handleSuccess();
+                    setTimeout(function (){
+                        handleClose();
+
+                        handleSuccess(false);
+                    },1500)
+
+                });
+            });
+    }
+
+    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit,handleResourceChangeEdit,handleOverviewEdit ,handleChangeOverview,handleClear,overviewValue}
 }
 
 export default useForm;
