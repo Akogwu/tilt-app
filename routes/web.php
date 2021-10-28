@@ -77,3 +77,4 @@ require_once 'user-routes.php';
 require_once 'school-admin-routes.php';
 require_once 'student-routes.php';
 require_once 'transaction-routes.php';
+require_once 'graph-overview-routes.php';
