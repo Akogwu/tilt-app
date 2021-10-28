@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { SvgIcon } from "./Icon";
@@ -41,7 +41,31 @@ function hexToRGBA(hex, opacity) {
     );
 }
 
-export const LineGaugeDetails = ({ guagechart, color }) => {
+
+// "guagechart": {
+//     "title": "Your highest strength in Brainy is Reading",
+//     "description": "You scored 63% in Reading which is your highest score in the Brainy Category.",
+//     "charttext": "Reading 63%",
+//     "percent": 63,
+//     "color": {
+//         "primary": "#F1A355",
+//         "light": "#F9E2BF"
+//     }
+// }
+
+export const LineGaugeDetails = ({ guagechart, color, allmax, sectionTitle }) => {
+
+    const getTitle = () => {
+        if(allmax?.length === 1) {
+            return `Your highest strengths in ${sectionTitle} are ${allmax[0]?.title} and ${allmax[1]?.title}.`;
+        }
+        return `Your highest strength in ${sectionTitle} is ${guagechart?.title}`;
+    }
+
+    const getDescription = () => {
+
+    }
+
     return (
         <div className="row mb-3">
             <div className="col-xl-12">
@@ -55,7 +79,7 @@ export const LineGaugeDetails = ({ guagechart, color }) => {
                         <div className="row justify-content-center">
                             <div className="col-xl-3">
                                 <GaugeChart
-                                    percent={guagechart?.percent}
+                                    percent={guagechart?.score}
                                     color={guagechart?.color || color}
                                 />
                             </div>
@@ -72,7 +96,7 @@ export const LineGaugeDetails = ({ guagechart, color }) => {
                                             marginBottom: "0.5rem",
                                         }}
                                     >
-                                        {guagechart?.title}
+                                        {getTitle()}
                                     </p>
                                     <p className="m-0" style={{ fontSize: 14 }}>
                                         {guagechart?.description}
@@ -93,9 +117,23 @@ export const AlignItemsList = ({
     recommendations,
     resources,
     bottomCardTitle = "Short Recommendation",
+    detailed,
+    sectionTitle
 }) => {
+
+    const getGuageChart = () => {
+        const highest = reports.reduce((acc, shot) => acc = acc > shot.score ? acc : shot.score, 0);
+        const d = reports.filter(e => e.score === highest) || [];
+        return { max: d.length > 0 ? d[0] : null , count: d };
+    }
+
+    React.useEffect(() => {
+        console.log("ENGINE:  ", getGuageChart());
+
+    }, [])
+
     return (
-        <div className="list-group summary-list">
+        <div className="list-group summary-list ">
             {reports.map((item, i) => {
                 return (
                     <a
@@ -141,9 +179,9 @@ export const AlignItemsList = ({
                                             (item, i) => {
                                                 return (
                                                     <li>
-                                                        <p className="m-0">
-                                                            {item}
-                                                        </p>
+                                                        <p className="m-0 linkard"
+                                                            dangerouslySetInnerHTML={{ __html: item }}
+                                                        />
                                                     </li>
                                                 );
                                             }
@@ -153,11 +191,13 @@ export const AlignItemsList = ({
                             </>
                         )}
 
-                        {item?.guagechart && (
+                        {detailed && getGuageChart().max && getGuageChart()?.max?.title === item.title && (
                             <LineGaugeDetails
                                 key={v4()}
-                                guagechart={item?.guagechart}
+                                guagechart={getGuageChart().max}
                                 color={color}
+                                allmax={getGuageChart().count}
+                                sectionTitle={sectionTitle}
                             />
                         )}
                     </a>
@@ -194,9 +234,9 @@ export const AlignItemsList = ({
                                         (item, i) => {
                                             return (
                                                 <li>
-                                                    <p className="m-0">
-                                                        {item}
-                                                    </p>
+                                                    <p className="m-0 linkard" 
+                                                        dangerouslySetInnerHTML={{ __html: item }}
+                                                    />
                                                 </li>
                                             );
                                         }

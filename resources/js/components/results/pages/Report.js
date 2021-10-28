@@ -75,6 +75,7 @@ export const ReportSection = ({
     reports,
     color,
     moredetaillink,
+    detailed = false
 }) => {
     return (
         <div className="col-xl-12 p-0 report-section theme-green ">
@@ -124,6 +125,7 @@ export const ReportSection = ({
                         color={color}
                         recommendations={recommendations}
                         reports={reports}
+                        detailed={detailed}
                     />
                 </div>
                 {moredetaillink && (

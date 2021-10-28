@@ -9,6 +9,7 @@ export const BarChart = (props) => {
         height = 200,
         data = [],
         labels = [],
+        backgroundColor
     } = props;
     const _chart = React.useRef(null);
 
@@ -28,7 +29,9 @@ export const BarChart = (props) => {
                     },
                     borderWidth: 2,
                     borderColor: "transparent",
+                    backgroundColor: item?.backgroundColor || backgroundColor
                 },
+                
             };
         });
     };
@@ -56,6 +59,8 @@ export const BarChart = (props) => {
                                 color: "#999999",
                             },
                         },
+                        min: 0,
+                        max: 100,
                     },
                     x: {
                         grid: {

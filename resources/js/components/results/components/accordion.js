@@ -51,6 +51,11 @@ export const MainAccordion = ({ data }) => {
         return -offSet;
     };
 
+    const addBg = (chart) => {
+        chart.backgroundColor = "red";
+        return chart
+    }
+
     return (
         <>
             {expandAll.length < 1 && (
@@ -193,6 +198,7 @@ export const MainAccordion = ({ data }) => {
                                                     <div className="col-xl-6 inline-chart">
                                                         <BarChart
                                                             {...item?.chart}
+                                                            backgroundColor={item?.color?.primary}
                                                             cardStyle={{
                                                                 width: 400,
                                                                 height: 250,
@@ -222,6 +228,8 @@ export const MainAccordion = ({ data }) => {
                                             resources={item?.resources}
                                             reports={item?.reports}
                                             bottomCardTitle={"Resources"}
+                                            detailed={true}
+                                            sectionTitle={item?.title}
                                         />
                                     </div>
                                 </div>

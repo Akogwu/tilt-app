@@ -54,7 +54,7 @@ class TestResultV2Repository
             $resource= array(
                 "Hello this is a dummy text",
                 "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
-                "sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+                "sed diam nonummy nibh euismod <a href=\"https://google.com\">tincidunt</a> ut laoreet dolore magna aliquam erat volutpat."
                 );
             $numSection = count($sections);
             return[
@@ -67,12 +67,13 @@ class TestResultV2Repository
                     "labels"=>collect($sections)->map(function ($section){
                         return $section['title'];
                     }),
-                ],
-                'data'=>[
-                    'label'=> $group->name.' Parameters',
-                    'data'=>collect($sections)->map(function ($section){
-                        return $section['score'];
-                    }),
+                    
+                    "data"=>[[
+                        'label'=> $group->name.' Parameters',
+                        'data'=> collect($sections)->map(function ($section){
+                            return $section['score'];
+                        }),
+                    ]],
                 ],
                 'group_score'=> collect($sections)->sum(function ($section) use($numSection){
                     if ($section['score'] == 0 || $numSection ==0)
