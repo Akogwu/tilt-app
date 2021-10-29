@@ -24,8 +24,6 @@ const App = () => {
 
     const [questions,setQuestions,loadingQuestions,sectionId,setSectionId] = useContext(QuestionContext);
 
-    const [overview] = useContext(GroupContext);
-
     const handleCloseAlert = () =>{
         setOpenAlert(false);
     }
@@ -69,7 +67,7 @@ const App = () => {
                     </div>
                 </div>
                 <hr/>
-                <GroupOverview overviewData={overview} />
+                <GroupOverview />
             </div>
         </Fragment>
     );

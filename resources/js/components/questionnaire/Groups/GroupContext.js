@@ -18,15 +18,8 @@ export const GroupProvider = (props) => {
         });
     },[]);
 
-    useEffect( () => {
-        apiGet('overview').then(overview => {
-            setOverview(overview);
-            //setLoadingGroups(false);
-        });
-    },[]);
-
     return (
-        <GroupContext.Provider value={[groups,setGroups,loadingGroups, overview, setOverview]}>
+        <GroupContext.Provider value={[groups,setGroups,loadingGroups]}>
             {props.children}
         </GroupContext.Provider>
     );

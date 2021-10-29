@@ -15,13 +15,13 @@ class GraphOverviewCOntroller extends Controller
 
     public function createUpdate(Request $request){
         $this->validate($request, [
-            'overview'=>'required',
+            'description'=>'required',
             'id'=>'nullable'
         ]);
 
-        GraphOverview::createOrUpdate(
+        GraphOverview::updateOrCreate(
             ['id'=>$request->id ?? null],
-            ['overview'=>$request->overview]
+            ['description'=>$request->description]
         );
 
         return response()->json(['message'=>'successful']);
@@ -29,8 +29,8 @@ class GraphOverviewCOntroller extends Controller
     }
 
     public function delete($id){
-        $overview = GraphOverview::findOrFail($id);
+        $description = GraphOverview::findOrFail($id);
         //check if in use, disable else delete
-        $overview->delete();
+        $description->delete();
     }
 }

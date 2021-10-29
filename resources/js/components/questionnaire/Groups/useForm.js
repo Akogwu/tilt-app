@@ -3,7 +3,7 @@ import {GroupContext} from './GroupContext';
 import {postGroup,updateGroup,getGroups} from './GroupApi';
 import {apiGet, apiPost, apiUpdate} from "../../utils/ConnectApi";
 
-const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
+const useForm = (validate,handleSuccess,handleClose,fillData) => {
 
     const [groups,setGroups] = useContext(GroupContext);
     const [errors, setErrors] = useState({});
@@ -15,7 +15,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
         graph_description:'',
         resource:''
     });
-    const [overviewValue, setOverviewValue] = useState({
+    const [graph_overviewValue, setGraphOverviewValue] = useState({
         id:'',
         description: ''
     });
@@ -31,12 +31,12 @@ const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
         })
     },[fillData]);
 
-    useEffect(()=>{
-        overviewData && setOverviewValue({
-            id:overviewData.id,
-            description: overviewData.description
-        })
-    },[overviewData]);
+    // useEffect(()=>{
+    //     graphOverview && setGraphOverviewValue({
+    //         id:graphOverview.id,
+    //         description: graphOverview.description
+    //     })
+    // },[graphOverview]);
 
     const data = {
         name:values.name,
@@ -58,7 +58,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
     }
     const handleChangeOverview = e => {
         const {name,value} = e.target;
-        setOverviewValue({...overviewValue,[name]:value})
+        setGraphOverviewValue({...graph_overviewValue,[name]:value})
 
     }
 
@@ -67,7 +67,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
     }
 
     const handleClear = () => {
-        setOverviewValue({...overviewValue,['description']:''})
+        setGraphOverviewValue({...graph_overviewValue,['description']:''})
     }
 
     const handleSubmit = e =>{
@@ -112,20 +112,22 @@ const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
         });
     }
 
+    // const graphOverview = {
+    //     id:
+    // };
+
     const handleOverviewEdit = (e,overview_id) => {
         e.preventDefault();
-        console.log(
-            overviewValue
-        )
-        setErrors(validate(overviewValue));
-        if (Object.keys(validate(overviewValue)).length <= 0)
-            apiUpdate(data,`overview/${overview_id}`).then(res => {
-                apiGet('overview').then(overview => {
-                    setOverviewValue(overview);
+
+        //setErrors(validate(graph_overviewValue));
+        //if (Object.keys(validate(graph_overviewValue)).length <= 0)
+        apiPost(graph_overviewValue,`graph-overviews`).then(res => {
+                apiGet('graph-overviews').then(overview => {
+                    setGraphOverviewValue(overview);
 
                     handleSuccess();
                     setTimeout(function (){
-                        handleClose();
+                        //handleClose();
 
                         handleSuccess(false);
                     },1500)
@@ -134,7 +136,9 @@ const useForm = (validate,handleSuccess,handleClose,fillData, overviewData) => {
             });
     }
 
-    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit,handleResourceChangeEdit,handleOverviewEdit ,handleChangeOverview,handleClear,overviewValue}
+    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit,
+        handleResourceChangeEdit,handleOverviewEdit ,handleChangeOverview,
+        handleClear,graph_overviewValue,setGraphOverviewValue}
 }
 
 export default useForm;

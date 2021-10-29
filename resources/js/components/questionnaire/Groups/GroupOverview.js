@@ -3,19 +3,29 @@ import TextField from "@material-ui/core/TextField";
 import useForm from "./useForm";
 import validate from "./validateInfo";
 import {GroupContext} from "./GroupContext";
+import {apiGet} from "../../utils/ConnectApi";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 
 export default function GroupOverview({
-                                        open,
-                                        handleClose,
-                                        overviewData,
+                                     //   graph_overviewData,
                                     }) {
+
+    const [success, setSuccess] = useState(false);
+
     const handleSuccess = ($success = true) => {
         setSuccess($success);
     };
 
+    useEffect( () => {
+        apiGet('graph-overviews').then(overview => {
+            setGraphOverviewValue(overview)
+        });
+    },[]);
+
     const {
         values,
-        overviewValue,
+        graph_overviewValue,
         handleChange,
         errors,
         handleSubmit,
@@ -25,14 +35,37 @@ export default function GroupOverview({
         handleChangeOverview,
         handleOverviewEdit,
         handleClear,
-    } = useForm(validate, handleSuccess, handleClose, overviewData);
-    const [success, setSuccess] = useState(false);
+        setGraphOverviewValue
+    } = useForm(validate, handleSuccess);
 
+    //console.log(graphOverview)
     return (
         <div>
             <div className="mt-2 text-center">
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div
+                            className={`inline-flex w-full overflow-hidden bg-gray-100 rounded-lg shadow-2xl my-2 ${
+                                !success && "hidden"
+                            } `}
+                        >
+                            <div className="flex items-center justify-content-center w-12 bg-green-500">
+                                <FontAwesomeIcon
+                                    icon={faThumbsUp}
+                                    size="lg"
+                                    className=" mx-auto flex-shrink-0 text-white"
+                                />
+                            </div>
+                            <div className="px-3 py-2 text-left">
+                                                    <span className="font-semibold text-green-500">
+                                                        Success
+                                                    </span>
+                                <p className="mb-1 text-sm leading-none text-gray-500">
+                                    Graph Overview Submitted
+                                    Successfully
+                                </p>
+                            </div>
+                        </div>
                         {/*<div className="sm:flex sm:items-start">*/}
                         {/*<div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">*/}
                         <form
@@ -41,7 +74,7 @@ export default function GroupOverview({
                             onSubmit={(e) =>
                                 handleOverviewEdit(
                                     e,
-                                    overviewData.id
+                                    graph_overviewValue.id
                                 )
                             }
                         >
@@ -53,7 +86,7 @@ export default function GroupOverview({
                                         fullWidth
                                         name="description"
                                         value={
-                                            overviewValue.description
+                                            graph_overviewValue.description
                                         }
                                         label="Overview"
                                         margin="dense"
