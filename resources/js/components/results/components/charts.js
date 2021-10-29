@@ -9,6 +9,7 @@ export const BarChart = (props) => {
         height = 200,
         data = [],
         labels = [],
+        backgroundColor
     } = props;
     const _chart = React.useRef(null);
 
@@ -28,7 +29,9 @@ export const BarChart = (props) => {
                     },
                     borderWidth: 2,
                     borderColor: "transparent",
+                    backgroundColor: item?.backgroundColor || backgroundColor
                 },
+                
             };
         });
     };
@@ -56,6 +59,8 @@ export const BarChart = (props) => {
                                 color: "#999999",
                             },
                         },
+                        min: 0,
+                        max: 100,
                     },
                     x: {
                         grid: {
@@ -101,7 +106,6 @@ export const GaugeChart = (props) => {
     const {
         percent = 0,
         height = 130,
-        data = [],
         color = { primary: "black", light: "white" },
     } = props;
     const _chart = React.useRef(null);
@@ -111,7 +115,7 @@ export const GaugeChart = (props) => {
             data: {
                 datasets: [
                     {
-                        label: "Reading 63%",
+                        label: `Reading ${percent}%`,
                         data: [percent, 100 - percent],
                         backgroundColor: [color?.primary, color?.light],
                         hoverOffset: 0,
@@ -141,12 +145,17 @@ export const GaugeChart = (props) => {
                 style={{
                     width: "calc(100% - 30px)",
                     textAlign: "center",
-                    fontWeight: "bolder"
+                    fontWeight: "bolder",
                 }}
             >
-                <label className="m-0" style={{
-                    fontSize: 12
-                }}>Reading {percent}%</label>
+                <label
+                    className="m-0"
+                    style={{
+                        fontSize: 12,
+                    }}
+                >
+                    Reading {percent}%
+                </label>
             </div>
             <canvas ref={_chart} height={height}></canvas>
         </div>

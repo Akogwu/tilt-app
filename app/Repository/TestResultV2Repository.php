@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 
+use App\Models\GraphOverview;
 use App\Models\Group;
 use App\Models\Questionnaire;
 use App\Models\QuestionnaireWeightPoint;
@@ -21,7 +22,7 @@ class TestResultV2Repository
         $role = $testResult->session->user->role->role;
 
         $groupAnswered = collect($testResult->group_score_detail);
-
+        $graphOverview = GraphOverview::latest()->first()->description ?? '';
         //get all aswered sections
         $sectionAnswered = collect($testResult->section_score_detail)->map(function ($testResult){
             return $testResult['section_id'];
@@ -51,28 +52,33 @@ class TestResultV2Repository
             });
 
             //get section recommendations
+<<<<<<< HEAD
             $resource= array(
                 "Hello this is a dummy text",
                 "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
-                "sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."
+                "sed diam nonummy nibh euismod <a href=\"https://google.com\">tincidunt</a> ut laoreet dolore magna aliquam erat volutpat."
                 );
+=======
+
+>>>>>>> db68890c9b8d711b99679ef72fc8dbbab5b9efca
             $numSection = count($sections);
             return[
                 'title'=>$group->name,
                 'color'=>$group->result_color,
                 'description'=>$group->description,
                 'reports'=>$sections,
-                'resources'=>$resource,
+                'resources'=>$group->resource,
                 'chart'=>[
                     "labels"=>collect($sections)->map(function ($section){
                         return $section['title'];
                     }),
-                ],
-                'data'=>[
-                    'label'=> $group->name.' Parameters',
-                    'data'=>collect($sections)->map(function ($section){
-                        return $section['score'];
-                    }),
+                    
+                    "data"=>[[
+                        'label'=> $group->name.' Parameters',
+                        'data'=> collect($sections)->map(function ($section){
+                            return $section['score'];
+                        }),
+                    ]],
                 ],
                 'group_score'=> collect($sections)->sum(function ($section) use($numSection){
                     if ($section['score'] == 0 || $numSection ==0)
@@ -113,7 +119,7 @@ class TestResultV2Repository
             'overview'=>[
                 'label'=>$graphLabel,
                 'data'=>$graphData,
-                'graph_description'=>"Ut wisi enim ad minim veniam.Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy"
+                'graph_overview'=>$graphOverview
             ],
             'report'=>$summaryResultData,
             'session_id'=>$sessionId,
@@ -130,7 +136,7 @@ class TestResultV2Repository
         if ($testResult == null )
             return [];
         $role = $testResult->session->user->role->role;
-
+        $graphOverview = GraphOverview::latest()->first()->description ?? '';
         $userData = $this->getUserDetail($role, $testResult);
 
         $groupAnswered = collect($testResult->group_score_detail);
@@ -176,6 +182,8 @@ class TestResultV2Repository
             "user"=>$userData,
             'session_id'=>$sessionId,
             'report'=>$summaryResultData,
+            'graph_overview'=>$graphOverview
+
         ];
     }
     /*New*/

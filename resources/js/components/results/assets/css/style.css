@@ -261,3 +261,8 @@ div p.font-weight-bolder{
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }
+
+  .linkard a {
+	color: #5e7299 !important;
+	text-decoration: underline;
+}

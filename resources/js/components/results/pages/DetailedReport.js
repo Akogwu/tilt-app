@@ -42,7 +42,7 @@ export const _renderDominantInfo = () => {
 };
 
 export const DetailedReport = ({ match }) => {
-    const data = require("../sampledata/detailedreport.json");
+    const data = window.detailedReport ;// require("../sampledata/detailedreport.json");
     const { sessionId } = match?.params;
     const { user } = window;
     return (
@@ -114,36 +114,17 @@ export const DetailedReport = ({ match }) => {
                                     id={uuidv4()}
                                     data={[
                                         {
-                                            label: "Legend 1",
-                                            data: [107, 124, 99, 115, 133, 133],
+                                            label: "Summary",
+                                            data: window?.overview?.data || [],
                                             backgroundColor: "#526080",
-                                        },
-                                        {
-                                            label: "Legend 2",
-                                            data: [66, 107, 75, 66, 91, 66],
-                                            backgroundColor: "#A8AFBF",
-                                        },
+                                        }
                                     ]}
-                                    labels={[
-                                        "Banky",
-                                        "Brainy",
-                                        "Jack",
-                                        "Puter",
-                                        "Level of Readiness",
-                                        "Temperate",
-                                    ]}
+                                    labels={window?.overview?.label || []}
                                 />
                             </div>
 
                             <p className="">
-                                Lorem ipsum dolor sit amet, consectetuer
-                                adipiscing elit, sed diam nonummy nibh euismod
-                                tincidunt ut laoreet dolore magna aliquam erat
-                                volutpat. Ut wisi enim ad minim veniam.Lorem
-                                ipsum dolor sit amet, consectetuer adipiscing
-                                elit, sed diam nonummy nibh euismod tincidunt ut
-                                laoreet dolore magna aliquam erat volutpat. Ut
-                                wisi enim ad minim veniam.
+                              {window?.overview?.graph_description}
                             </p>
                         </div>
                     </div>
