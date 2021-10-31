@@ -15,11 +15,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         graph_description:'',
         resource:''
     });
-    const [graph_overviewValue, setGraphOverviewValue] = useState({
-        id:'',
-        description: ''
-    });
-
+    const [graph_overviewValue, setGraphOverviewValue] = useState({id:'', description: ''});
     useEffect(()=>{
         fillData && setValues({
             name: fillData.name,
@@ -46,7 +42,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         graph_description:values.graph_description,
         resource:values.resource
 
-    }
+    };
 
     const handleChange = e => {
         const {name,value} = e.target;
@@ -67,7 +63,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
     }
 
     const handleClear = () => {
-        setGraphOverviewValue({...graph_overviewValue,['description']:''})
+        setGraphOverviewValue({...graph_overviewValue,['description']:'', ['id']:'0'});
     }
 
     const handleSubmit = e =>{

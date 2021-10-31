@@ -9,7 +9,7 @@ class GraphOverviewCOntroller extends Controller
 {
 
     public function getOverview(){
-        return GraphOverview::latest()->first();
+        return GraphOverview::all();
 
     }
 
