@@ -204,7 +204,7 @@ export const AlignItemsList = ({
                 );
             })}
 
-            {(recommendations || resources || []).length > 0 && (
+            {(recommendations || []).length > 0 || resources && (
                 <>
                     <div
                         class="card after-list mt-3"
@@ -223,14 +223,22 @@ export const AlignItemsList = ({
                                 >
                                     {bottomCardTitle}
                                 </p>
-
+                                {resources && (
+                                    <ul
+                                        style={{
+                                            listStyle: "disc",
+                                            marginLeft: "1rem",
+                                        }}
+                                        dangerouslySetInnerHTML={{ __html: resources }}
+                                    />
+                                )||(
                                 <ul
                                     style={{
                                         listStyle: "disc",
                                         marginLeft: "1rem",
                                     }}
                                 >
-                                    {(recommendations || resources || []).map(
+                                    {recommendations.map(
                                         (item, i) => {
                                             return (
                                                 <li>
@@ -242,6 +250,7 @@ export const AlignItemsList = ({
                                         }
                                     )}
                                 </ul>
+                                )}
                             </div>
                         </div>
                     </div>
