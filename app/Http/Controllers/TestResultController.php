@@ -59,7 +59,7 @@ class TestResultController extends Controller
         $data["detailedReport"] = $detail["report"];
         $data["overview"] = $detail["overview"];
         $data["dominant_group"] = $detail["dominant_group"];
-        return $data;
+        // return $data;
         if($data["user"]["payment_status"] == 1){
             return view("pages.result", $data);
         }
