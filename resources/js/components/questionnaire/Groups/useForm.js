@@ -15,7 +15,7 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         graph_description:'',
         resource:''
     });
-
+    const [graph_overviewValue, setGraphOverviewValue] = useState({id:'', description: ''});
     useEffect(()=>{
         fillData && setValues({
             name: fillData.name,
@@ -27,6 +27,12 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         })
     },[fillData]);
 
+    // useEffect(()=>{
+    //     graphOverview && setGraphOverviewValue({
+    //         id:graphOverview.id,
+    //         description: graphOverview.description
+    //     })
+    // },[graphOverview]);
 
     const data = {
         name:values.name,
@@ -36,8 +42,8 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         graph_description:values.graph_description,
         resource:values.resource
 
-    }
-    
+    };
+
     const handleChange = e => {
         const {name,value} = e.target;
         setValues({...values,[name]:value})
@@ -46,9 +52,18 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         const {name,value} = e.target;
         setValues({...values,[name]:value})
     }
+    const handleChangeOverview = e => {
+        const {name,value} = e.target;
+        setGraphOverviewValue({...graph_overviewValue,[name]:value})
+
+    }
 
     const handleResourceChangeEdit = value => {
         setValues({...values,['resource']:value})
+    }
+
+    const handleClear = () => {
+        setGraphOverviewValue({...graph_overviewValue,['description']:'', ['id']:'0'});
     }
 
     const handleSubmit = e =>{
@@ -72,7 +87,6 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
             },1500)
 
         });
-
     }
 
     const handleEdit = (e,group_id) => {
@@ -94,7 +108,33 @@ const useForm = (validate,handleSuccess,handleClose,fillData) => {
         });
     }
 
-    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit,handleResourceChangeEdit}
+    // const graphOverview = {
+    //     id:
+    // };
+
+    const handleOverviewEdit = (e,overview_id) => {
+        e.preventDefault();
+
+        //setErrors(validate(graph_overviewValue));
+        //if (Object.keys(validate(graph_overviewValue)).length <= 0)
+        apiPost(graph_overviewValue,`graph-overviews`).then(res => {
+                apiGet('graph-overviews').then(overview => {
+                    setGraphOverviewValue(overview);
+
+                    handleSuccess();
+                    setTimeout(function (){
+                        //handleClose();
+
+                        handleSuccess(false);
+                    },1500)
+
+                });
+            });
+    }
+
+    return {values,handleChange,errors,handleSubmit,handleEdit,handleChangeEdit,
+        handleResourceChangeEdit,handleOverviewEdit ,handleChangeOverview,
+        handleClear,graph_overviewValue,setGraphOverviewValue}
 }
 
 export default useForm;

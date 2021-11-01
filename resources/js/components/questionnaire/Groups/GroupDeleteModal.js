@@ -16,9 +16,6 @@ export default function GroupDeleteModal({open,handleClose,group_id}) {
 
     const {handleDeleteModal} = useActionDelete();
 
-
-
-
     return (
         <div>
             <Dialog

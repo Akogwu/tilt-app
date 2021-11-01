@@ -7,7 +7,10 @@ export const GroupContext = createContext();
 export const GroupProvider = (props) => {
     const [groups,setGroups] = useState([]);
     const [loadingGroups,setLoadingGroups] = useState(true);
-
+    const [overview, setOverview] = useState({
+        id:'',
+        description:''
+    });
     useEffect( () => {
         apiGet('groups').then(groups => {
             setGroups(groups);
