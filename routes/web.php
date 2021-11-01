@@ -35,7 +35,6 @@ Route::group(['middleware'=>'auth'], function (){
 
     Route::get('/result/{sessionId}/{query}', [\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('pages.result');
 
-
 });
 
 //auth

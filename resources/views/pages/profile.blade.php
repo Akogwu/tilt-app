@@ -87,7 +87,7 @@
                                                                 <td>{{ $result->testResult->total_score ?? 0 }}</td>
                                                                 <td>{{ $result->testResult->obtainable_score ?? 0 }}</td>
                                                                 <td>
-                                                                    <a href="{{ route('result.summary', $result->testResult->session_id) }}"
+                                                                    <a href="{{ route('pages.result', [$result->testResult->session_id, 'report']) }}"
                                                                         class="pr-1 text-tertiary" title="view summary result">
                                                                         <i class="fa fa-eye"></i>
                                                                     </a>
@@ -96,7 +96,7 @@
                                                                             <i class="fa fa-print"></i>
                                                                         </a>
                                                                     @else
-                                                                        <a href="{{ route('result.getResult', $result->testResult->session_id) }}">
+                                                                        <a href="{{ route('pages.result', [$result->testResult->session_id, 'detailed-report']) }}">
                                                                             <i class="fa fa-print text-gray"></i>
                                                                         </a>
                                                                     @endif
