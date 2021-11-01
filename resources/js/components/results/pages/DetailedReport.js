@@ -5,6 +5,12 @@ import { BarChart } from "../components/charts";
 import { ResultLayout } from "../components/Layout";
 import { HeaderDetail, ReportSection } from "./Report";
 import { v4 as uuidv4 } from "uuid";
+import { CharacterImage } from "../components/Icon";
+
+export const mergeArr = () => {
+    const data = window.overview;
+    return data?.data.map((item, i) => { return { score: item, title: data?.label[i] } }).sort((a, b) => b.score - a.score)
+}
 
 export const _renderDominantInfo = () => {
     return (
@@ -15,25 +21,28 @@ export const _renderDominantInfo = () => {
             <div className="row dominant-info ">
                 <div className="col-xl-10 m-auto ">
                     <div className="row justify-content-around">
-                        <div className="outline-icon">
-                            <img
-                                src={
-                                    require("../assets/images/character/outline/brainy-o.png")
-                                        .default
-                                }
-                            />
-                            <h3>Brainy</h3>
-                        </div>
-                        <div className="separator" />
-                        <div className="outline-icon">
-                            <img
-                                src={
-                                    require("../assets/images/character/outline/puter-o.png")
-                                        .default
-                                }
-                            />
-                            <h3>Puter</h3>
-                        </div>
+                        {mergeArr().map((item, i) => {
+                                if (i < 2)
+                                    return (
+                                        <>
+                                            <div className="outline-icon">
+                                                <CharacterImage
+                                                    name={
+                                                        item?.title?.toLowerCase() +
+                                                        "-o"
+                                                    }
+                                                />
+                                                <h3>{item?.title}
+                                                <br/>
+                                                <span style={{ fontSize: 14 }}>{item?.score}</span>
+                                                </h3>
+                                            </div>
+                                            {i === 0 && (
+                                                <div className="separator" />
+                                            )}
+                                        </>
+                                    );
+                            })}
                     </div>
                 </div>
             </div>
@@ -42,9 +51,10 @@ export const _renderDominantInfo = () => {
 };
 
 export const DetailedReport = ({ match }) => {
-    const data = window.detailedReport ;// require("../sampledata/detailedreport.json");
+    const data = window.detailedReport;
     const { sessionId } = match?.params;
     const { user } = window;
+
     return (
         <ResultLayout
             bottomButton={{
@@ -68,8 +78,7 @@ export const DetailedReport = ({ match }) => {
                                     Age: <span>{user?.age}</span>{" "}
                                 </li>
                                 <li>
-                                    School:{" "}
-                                    <span>{user?.school}</span>{" "}
+                                    School: <span>{user?.school}</span>{" "}
                                 </li>
                             </ul>
 
@@ -117,21 +126,19 @@ export const DetailedReport = ({ match }) => {
                                             label: "Summary",
                                             data: window?.overview?.data || [],
                                             backgroundColor: "#526080",
-                                        }
+                                        },
                                     ]}
                                     labels={window?.overview?.label || []}
                                 />
                             </div>
 
                             <p className="">
-                              {window?.overview?.graph_description}
+                                {window?.overview?.graph_description}
                             </p>
                         </div>
                     </div>
                 </div>
-                {/* {data.map((item, i) => {
-                    return <ReportSection {...item} />;
-                })} */}
+
                 <div className="container">
                     <div className="col-xl-12">
                         <MainAccordion data={data} />

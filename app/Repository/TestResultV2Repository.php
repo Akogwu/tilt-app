@@ -52,15 +52,6 @@ class TestResultV2Repository
             });
 
             //get section recommendations
-<<<<<<< HEAD
-            $resource= array(
-                "Hello this is a dummy text",
-                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit",
-                "sed diam nonummy nibh euismod <a href=\"https://google.com\">tincidunt</a> ut laoreet dolore magna aliquam erat volutpat."
-                );
-=======
-
->>>>>>> db68890c9b8d711b99679ef72fc8dbbab5b9efca
             $numSection = count($sections);
             return[
                 'title'=>$group->name,

@@ -1,8 +1,15 @@
 import React from "react";
 import { ResultLayout } from "../components/Layout";
+import { mergeArr } from "./DetailedReport";
+
+
+const getDominant = () => {
+    return mergeArr()[0];
+}
 
 export const CheckReport = ({ match }) => {
     const { sessionId } = match?.params;
+
     return (
         <ResultLayout
             bottomButton={{
@@ -18,10 +25,10 @@ export const CheckReport = ({ match }) => {
                             <img
                                 className="passport-photo"
                                 src={
-                                    require("../assets/images/photo.png")
-                                        .default
+                                    window?.user?.image_url
                                 }
                                 width={145}
+                                style={{ borderRadius: 10 }}
                             />
                             <h1
                                 style={{
@@ -30,7 +37,7 @@ export const CheckReport = ({ match }) => {
                                     marginTop: 10,
                                 }}
                             >
-                                Oni Oyintomiwa
+                                {window?.user?.name}
                             </h1>
                             <p
                                 style={{
@@ -39,7 +46,7 @@ export const CheckReport = ({ match }) => {
                                     margin: 0,
                                 }}
                             >
-                                Dominant: Puter
+                                Dominant: {getDominant().title}
                             </p>
                         </div>
                         <h1

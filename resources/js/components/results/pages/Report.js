@@ -9,7 +9,9 @@ export const HeaderDetail = ({ children, title = window?.user?.name, dominant, c
     return (
         <>
             <div className="col-md-12 bg-gray text-center about-header-board">
-                {/* <img className="passport-photo" src={require("../assets/images/undraw_well_done_i2wr.png").default}  /> */}
+                {window?.user?.image_url && (
+                <div className="passport-holder"> <img className="passport-photo" src={window?.user?.image_url}  /></div>
+                )|| (
                 <span>
                     {" "}
                     <i
@@ -20,6 +22,7 @@ export const HeaderDetail = ({ children, title = window?.user?.name, dominant, c
                         }}
                     />{" "}
                 </span>
+                )}
                 <h1
                     className="text-white"
                     style={{ fontSize: 22, marginBottom: 0, marginTop: 30 }}

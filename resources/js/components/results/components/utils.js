@@ -56,7 +56,7 @@ function hexToRGBA(hex, opacity) {
 export const LineGaugeDetails = ({ guagechart, color, allmax, sectionTitle }) => {
 
     const getTitle = () => {
-        if(allmax?.length === 1) {
+        if(allmax?.length > 1) {
             return `Your highest strengths in ${sectionTitle} are ${allmax[0]?.title} and ${allmax[1]?.title}.`;
         }
         return `Your highest strength in ${sectionTitle} is ${guagechart?.title}`;
@@ -86,7 +86,7 @@ export const LineGaugeDetails = ({ guagechart, color, allmax, sectionTitle }) =>
                             <div className="col-xl-7">
                                 <div
                                     className="vertical-center-x"
-                                    style={{ marginTop: 30 }}
+                                    // style={{ marginTop: 30 }}
                                 >
                                     <p
                                         style={{
