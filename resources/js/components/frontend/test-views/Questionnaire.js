@@ -482,7 +482,7 @@ class Questionnaire extends Component {
         await apiPost(testSession,'test/submit').then(res => {
             if (res.status){
                 this.setState({ isLoading: false });
-                window.location.href = `/test/result/${sessionId}/summary`;
+                window.location.href = `/result/${sessionId}/home`;
             }
         });
 

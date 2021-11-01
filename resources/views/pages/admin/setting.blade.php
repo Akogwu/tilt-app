@@ -1,7 +1,10 @@
 <x-app-layout>
+    @push('styles')
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    @endpush
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Transactions') }}
+            {{ __('Settings') }}
         </h2>
     </x-slot>
     <div class="py-12">
@@ -11,58 +14,10 @@
                     <div>
                         <x-jet-application-logo class="block h-12 w-auto" />
                     </div>
-                    <div class="grid grid-cols-12 gap-6 mt-5">
-                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-700">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <img src="/images/transaction.svg" height="24px" width="24px" alt="" />
-                                    </div>
-                                    <div class="text-3xl font-bold leading-8 mt-6">{{$data['total']}}</div>
-                                    <div class="text-base text-gray-600 mt-1">Total Transactions</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-red-400 via-red-500 to-red-700">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <img src="/images/close.svg" height="24px" width="24px" alt="" />
-                                    </div>
-                                    <div class="text-3xl font-bold leading-8 mt-6">{{$data['failed']}}</div>
-                                    <div class="text-base text-gray-600 mt-1">Failed Transaction</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-green-400 via-green-500 to-green-700">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <img src="/images/check-mark.svg" height="24px" width="24px" alt="" />
-                                    </div>
-                                    <div class="text-3xl font-bold leading-8 mt-6">{{$data['success']}}</div>
-                                    <div class="text-base text-gray-600 mt-1 text-white">Successful Transactions</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-700">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <img src="/images/naira_sign.svg" height="24px" width="24px" alt="" />
-                                    </div>
-                                    <div class="text-3xl font-bold leading-8 mt-6">{{$data['total_funds']}}</div>
-                                    <div class="text-base text-gray-600 mt-1">Total Funds</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="my-8 w-full justify-content-between">
                         <div class="recent-tests pr-3">
-                            <h1 class="uppercase text-gray-700 font-bold my-2.5">Transactions</h1>
                             <div class="w-full">
                                 <div class="-my-2 overflow-x-auto sm:-mx-12 lg:-mx-12">
                                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -74,59 +29,45 @@
                                                         Name
                                                     </th>
                                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Purpose
+                                                        value
                                                     </th>
                                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Amount(&#8358;)
+                                                        Action
                                                     </th>
-                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Status
-                                                    </th>
-                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                        Date
-                                                    </th>
+
                                                 </tr>
                                                 </thead>
                                                 <tbody class="bg-white divide-y divide-gray-200">
-                                                <tr>
-                                                    <td colspan="5" rowspan="5"> <p class="text-center"> No record available</p></td>
-                                                </tr>
-{{--                                                @foreach($data['latest_test'] as $test)--}}
-{{--                                                    <tr>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            <div class="flex items-center">--}}
-{{--                                                                <div class="flex-shrink-0 h-10 w-10">--}}
-{{--                                                                    <img class="h-10 w-10 rounded-full"--}}
-{{--                                                                         src=""--}}
-{{--                                                                         alt="" />--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="ml-4">--}}
-{{--                                                                    <div class="text-sm font-medium text-gray-900">--}}
-{{--                                                                        45--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            <div class="flex items-center">--}}
-{{--                                                                <div class="ml-4">--}}
-{{--                                                                    <div class="text-sm text-gray-500">--}}
-{{--                                                                        45%--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            <div class="text-sm text-gray-900">45</div>--}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            --}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            --}}
-{{--                                                        </td>--}}
-{{--                                                    </tr>--}}
-{{--                                                @endforeach--}}
+                                                @if($settings)
+                                                    @foreach($settings as $setting)
+                                                        <tr>
+
+                                                            <td class="px-3 py-4 whitespace-nowrap text-muted" style="font-size: 15px;">
+                                                                {{$setting->name}}
+                                                            </td>
+
+                                                            <td class="px-3 py-4 whitespace-nowrap">
+                                                                {{$setting->value}}
+                                                            </td>
+
+                                                            <td class="px-3 py-4 whitespace-nowrap">
+{{--                                                                <a href="#" class="pr-1 text-tertiary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" title="view">--}}
+{{--                                                                    <i class="fa fa-eye"></i>--}}
+{{--                                                                </a>--}}
+
+                                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                                    Edit
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td colspan="5" rowspan="5"> <p class="text-center"> No record available</p></td>
+                                                    </tr>
+                                                @endif
+
+
                                                 </tbody>
                                             </table>
                                             <table class="min-w-full divide-y divide-gray-200">
@@ -148,8 +89,35 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#">
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+    <!-- Modal -->
+
+
     @push('scripts')
         <script src="/js/app.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     @endpush
 </x-app-layout>
