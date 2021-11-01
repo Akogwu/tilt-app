@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\GraphOverview;
 use Illuminate\Http\Request;
 
-class GraphOverviewCOntroller extends Controller
+class GraphOverviewController extends Controller
 {
 
     public function getOverview(){
