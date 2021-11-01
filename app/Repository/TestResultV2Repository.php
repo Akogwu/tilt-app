@@ -52,6 +52,7 @@ class TestResultV2Repository
             });
 
             //get section recommendations
+
             $numSection = count($sections);
             return[
                 'title'=>$group->name,
@@ -63,7 +64,7 @@ class TestResultV2Repository
                     "labels"=>collect($sections)->map(function ($section){
                         return $section['title'];
                     }),
-                    
+
                     "data"=>[[
                         'label'=> $group->name.' Parameters',
                         'data'=> collect($sections)->map(function ($section){

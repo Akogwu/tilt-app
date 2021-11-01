@@ -10,7 +10,7 @@ class SettingsController extends Controller
 {
     public function getAll(){
         $settings = Settings::all();
-        return response()->json($settings);
+        return view('pages.admin.setting', compact('settings'));
     }
 
     public function update(Request $request){

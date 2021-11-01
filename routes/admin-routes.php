@@ -10,6 +10,12 @@ $router->group(['prefix' => 'admin',  'middleware' => ['auth','admin']], functio
 
 });
 
+$router->group(['prefix' => 'settings',  'middleware' => ['auth','admin']], function () use ($router) {
+
+    $router->get('/', [\App\Http\Controllers\SettingsController::class,'getAll'])->name('setting.get-all');
+    $router->post('/', [\App\Http\Controllers\SettingsController::class,'update'])->name('setting.update');
+});
+
 $router->group(['prefix' => 'school-management',  'middleware' => ['auth','admin']], function () use ($router) {
     //$router->group(['middleware' => 'admin'], function () use ($router){
 

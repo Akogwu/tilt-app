@@ -21,7 +21,7 @@
                         {{ __('Questionnaire') }}
                     </x-jet-nav-link>
 
-                    <x-jet-nav-link href="{{ route('admin.transaction') }}" >
+                    <x-jet-nav-link href="{{ route('admin.transaction') }}"  :active="request()->routeIs('transactions')">
                         {{ __('Financial') }}
                     </x-jet-nav-link>
 
@@ -65,7 +65,7 @@
                     </div>
 
 
-                    <x-jet-nav-link href="#" >
+                    <x-jet-nav-link href="{{ route('setting.get-all') }}" >
                         {{ __('Settings') }}
                     </x-jet-nav-link>
                     @endif
