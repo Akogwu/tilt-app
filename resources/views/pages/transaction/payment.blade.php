@@ -20,7 +20,7 @@
                         </tr>
                         <tr>
                             <td>Sub total</td>
-                            <td>{{$data['amount']}}</td>
+                            <td> <strong> &#x20A6; {{$data['amount']}}</strong></td>
                         </tr>
                         <tr>
                             <td>Quantity</td>
@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td> </td>
+                            <td>  <strong> &#x20A6; {{$data['amount']}}</strong></td>
                         </tr>
 
                     </table>

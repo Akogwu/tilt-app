@@ -6,6 +6,7 @@ use App\Http\Resources\TransactionResource;
 use App\Mail\TestResultPaymentMail;
 use App\Models\School;
 use App\Models\SchoolAdmin;
+use App\Models\Settings;
 use App\Models\TestResult;
 use App\Models\Transaction;
 use App\Models\transactionLog;
@@ -46,7 +47,7 @@ class TransactionController extends Controller
         //TODO get amount from settings
         $user = Auth::user();
         $data = [
-          'amount'=>3000,
+          'amount'=>Settings::getValue('PRIVATE_LEARNER_FLAT_RATE'),
           'type'=>'result',
           'description'=>'Tilt Test Result',
             'quantity'=>1,
