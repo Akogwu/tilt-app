@@ -10,8 +10,16 @@ const getDominant = () => {
 export const CheckReport = ({ match }) => {
     const { sessionId } = match?.params;
 
+    React.useEffect(() => {
+        const { user } = window;
+        if(user?.payment_status !== 1){
+            window.location = `/transactions/result/${sessionId}`
+        }
+    }, [])
+
     return (
         <ResultLayout
+            checkAuth={true}
             bottomButton={{
                 text: "View Report",
                 url: `/result/${sessionId}/detailed-report`,

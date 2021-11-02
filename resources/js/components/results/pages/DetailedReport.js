@@ -55,8 +55,15 @@ export const DetailedReport = ({ match }) => {
     const { sessionId } = match?.params;
     const { user } = window;
 
+    React.useEffect(() => {
+        if(user?.payment_status !== 1){
+            window.location = `/transactions/result/${sessionId}`
+        }
+    }, [])
+
     return (
         <ResultLayout
+            checkAuth={true}
             bottomButton={{
                 text: "View Detailed Report",
                 url: `/result/${sessionId}/check-report`,

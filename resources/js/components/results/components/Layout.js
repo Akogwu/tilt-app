@@ -5,8 +5,10 @@ import { XButton } from "./utils";
 export const ResultLayout = ({
     children,
     bottomButton = { text: "Download", url: "#" },
-    containerStyle = {}
+    containerStyle = {},
+    checkAuth = false,
 }) => {
+
     return (
         <section
             class="section bg-main overlay-gray-100 text-black"

@@ -56,14 +56,17 @@ class TestResultController extends Controller
 
         $detail = $this->testResultV2Repository->detailResult($sessionId);
         $data = $this->testResultV2Repository->summaryResult($sessionId);
-        $data["detailedReport"] = $detail["report"];
-        $data["overview"] = $detail["overview"];
-        $data["dominant_group"] = $detail["dominant_group"];
+        $data["overview"] = [];
+        $data["dominant_group"] = [];
+        $data["detailedReport"] = [];
         // return $data;
         if($data["user"]["payment_status"] == 1){
-            return view("pages.result", $data);
+            $data["overview"] = $detail["overview"];
+            $data["dominant_group"] = $detail["dominant_group"];
+            $data["detailedReport"] = $detail["report"];
         }
-        return Redirect::to('/transactions/result/'.$sessionId);
+        return view("pages.result", $data);
+        // return Redirect::to('/transactions/result/'.$sessionId);
     }
 
     public function summaryResult($sessionId){

@@ -12,8 +12,8 @@ export const XButton = ({
     style = { fontSize: 18 },
 }) => {
     return (
-        <Link
-            to={url}
+        <a
+            href={url}
             onClick={(e) => {
                 action && e.preventDefault();
                 action && action();
@@ -22,7 +22,7 @@ export const XButton = ({
             style={style}
         >
             {text}
-        </Link>
+        </a>
     );
 };
 

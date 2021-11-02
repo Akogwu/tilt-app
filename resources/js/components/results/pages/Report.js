@@ -5,23 +5,35 @@ import { ResultLayout } from "../components/Layout";
 import { AlignItemsList, XButton } from "../components/utils";
 import { v4 } from "uuid";
 
-export const HeaderDetail = ({ children, title = window?.user?.name, dominant, cardClass="", sessionId }) => {
+export const HeaderDetail = ({
+    children,
+    title = window?.user?.name,
+    dominant,
+    cardClass = "",
+    sessionId,
+}) => {
     return (
         <>
             <div className="col-md-12 bg-gray text-center about-header-board">
-                {window?.user?.image_url && (
-                <div className="passport-holder"> <img className="passport-photo" src={window?.user?.image_url}  /></div>
-                )|| (
-                <span>
-                    {" "}
-                    <i
-                        className="user-icon fas fa-user-circle"
-                        style={{
-                            fontSize: 75,
-                            color: "rgba(255,255,255,0.85)",
-                        }}
-                    />{" "}
-                </span>
+                {(window?.user?.image_url && (
+                    <div className="passport-holder">
+                        {" "}
+                        <img
+                            className="passport-photo"
+                            src={window?.user?.image_url}
+                        />
+                    </div>
+                )) || (
+                    <span>
+                        {" "}
+                        <i
+                            className="user-icon fas fa-user-circle"
+                            style={{
+                                fontSize: 75,
+                                color: "rgba(255,255,255,0.85)",
+                            }}
+                        />{" "}
+                    </span>
                 )}
                 <h1
                     className="text-white"
@@ -55,11 +67,28 @@ export const HeaderDetail = ({ children, title = window?.user?.name, dominant, c
                                             Click the button below to view the
                                             detailed result.
                                         </div>
+
+                       
+                                        {window?.user?.payment_status === 1 && (
+
                                         <XButton
                                             text={"View Detailed Report"}
                                             url={`/result/${sessionId}/check-report`}
                                             style={{ fontSize: 14 }}
                                         />
+                                        ) || (
+                                            <XButton
+                                                text={"Pay Now"}
+                                                url={`/transactions/result/${sessionId}`}
+                                                style={{
+                                                    background: "red",
+                                                    borderWidth: 0,
+                                                    fontSize: 14
+                                                }}
+                                            />
+
+                                        )}
+
                                     </>
                                 )}
                             </div>
@@ -78,7 +107,7 @@ export const ReportSection = ({
     reports,
     color,
     moredetaillink,
-    detailed = false
+    detailed = false,
 }) => {
     return (
         <div className="col-xl-12 p-0 report-section theme-green ">
@@ -155,14 +184,27 @@ export const ReportSection = ({
 };
 
 export const Report = ({ match }) => {
-    const data = window?.report||[];// require("../sampledata/report.json");
+    const data = window?.report || []; // require("../sampledata/report.json");
     const { sessionId } = match?.params;
+    const { user } = window;
+
     return (
         <ResultLayout
-            bottomButton={{
-                text: "View Detailed Report",
-                url: `/result/${sessionId}/check-report`
-            }}
+            bottomButton={
+                user?.payment_status === 1
+                    ? {
+                          text: "View Detailed Report",
+                          url: `/result/${sessionId}/check-report`,
+                      }
+                    : {
+                          text: "Pay now",
+                          url: `/transactions/result/${sessionId}`,
+                          style: {
+                              background: "red",
+                              borderWidth: 0
+                          },
+                      }
+            }
         >
             <div className="row justify-content-center">
                 <HeaderDetail sessionId={sessionId} />
@@ -174,7 +216,7 @@ export const Report = ({ match }) => {
                                     margin: 0,
                                     marginLeft: 20,
                                     marginRight: 20,
-                                    color: "#526080"
+                                    color: "#526080",
                                 }}
                             >
                                 Overview
@@ -182,16 +224,9 @@ export const Report = ({ match }) => {
                         </Divider>
 
                         <div className="col-sm-9 m-auto p-0">
-                            <p className="">
-                                Lorem ipsum dolor sit amet, consectetuer
-                                adipiscing elit, sed diam nonummy nibh euismod
-                                tincidunt ut laoreet dolore magna aliquam erat
-                                volutpat. Ut wisi enim ad minim veniam.Lorem
-                                ipsum dolor sit amet, consectetuer adipiscing
-                                elit, sed diam nonummy nibh euismod tincidunt ut
-                                laoreet dolore magna aliquam erat volutpat. Ut
-                                wisi enim ad minim veniam.
-                            </p>
+                            <p className=""
+                                dangerouslySetInnerHTML={{ __html: window.graph_overview }}
+                            />
                         </div>
                     </div>
                 </div>
