@@ -10,6 +10,7 @@ class SettingsController extends Controller
 {
     public function getAll(){
         $settings = Settings::all();
+
         return view('pages.admin.setting', compact('settings'));
     }
 
