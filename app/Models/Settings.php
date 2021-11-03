@@ -28,6 +28,15 @@ class Settings extends Model
         );
     }
 
+    public static function getValue($name){
+        $setting = self::where('name',$name)->first();
+        if ($setting)
+            return $setting->value;
+
+        return 0;
+
+    }
+
     protected $hidden = ['deleted_at','updated_at','created_at','id'];
 
 }

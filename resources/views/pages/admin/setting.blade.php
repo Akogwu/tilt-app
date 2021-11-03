@@ -19,6 +19,7 @@
                     <div class="my-8 w-full justify-content-between">
                         <div class="recent-tests pr-3">
                             <div class="w-full">
+
                                 <div class="-my-2 overflow-x-auto sm:-mx-12 lg:-mx-12">
                                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -55,10 +56,11 @@
 {{--                                                                    <i class="fa fa-eye"></i>--}}
 {{--                                                                </a>--}}
 
-                                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#{{$setting->name}}">
                                                                     Edit
                                                                 </button>
                                                             </td>
+
                                                         </tr>
                                                     @endforeach
                                                 @else
@@ -83,6 +85,45 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @foreach($settings as $setting)
+                                <div class="modal fade" id="{{$setting->name}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="{{$setting->name}}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Update Settings</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{route('setting.update')}}" method="post">
+                                                @csrf
+                                            <div class="modal-body">
+
+                                                    <div class="mb-3 row">
+                                                        <label for="inputPassword" class="col-sm-2 col-form-label">Name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="hidden" value="{{$setting->name}}"  name="name" />
+                                                            <input type="text" class="form-control" value="{{$setting->name}}" name="tag_name" id="tag_name" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 row">
+                                                        <label for="inputValue" class="col-sm-2 col-form-label">Name</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="number" class="form-control" name="value" value="{{$setting->value}}" id="value">
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </div>
+                                            </form>
+
+                                            {{--                                            endform--}}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
                         </div>
 
                     </div>
@@ -90,25 +131,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#">
 
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 

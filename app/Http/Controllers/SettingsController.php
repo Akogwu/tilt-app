@@ -15,12 +15,10 @@ class SettingsController extends Controller
     }
 
     public function update(Request $request){
-        foreach ($request->all() as $item=>$value){
-            if (is_int($value))
-                Settings::createNew($item, $value);
-            else
-                return response()->json(['status'=>false, 'message'=>'invalid value '.$value.' for item '.$item.' Expecting integer']);
-        }
-        return response()->json(['status'=>true, 'message'=>'Updated successfully'], 201);
+       Settings::createNew($request->name, $request->value);
+
+        return back();
     }
+
+
 }
