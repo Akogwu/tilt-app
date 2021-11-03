@@ -29,13 +29,12 @@ Route::get('/take-test',function (){
     return view('pages.questions');
 })->name('questions');
 
-Route::get('/result/{sessionId}/home', [\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('pages.result');
+Route::get('/result/{sessionId}/{query}', [\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('pages.result');
+
 
 Route::group(['middleware'=>'auth'], function (){
 
-    Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');
-
-    Route::get('/result/{sessionId}/{query}', [\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('pages.result');
+    Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');    
 
 });
 
