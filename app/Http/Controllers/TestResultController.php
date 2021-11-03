@@ -56,12 +56,11 @@ class TestResultController extends Controller
 
         $detail = $this->testResultV2Repository->detailResult($sessionId);
         $data = $this->testResultV2Repository->summaryResult($sessionId);
-        $data["overview"] = [];
+        $data["overview"] = $detail["overview"];
         $data["dominant_group"] = [];
         $data["detailedReport"] = [];
         // return $data;
         if($data["user"]["payment_status"] == 1){
-            $data["overview"] = $detail["overview"];
             $data["dominant_group"] = $detail["dominant_group"];
             $data["detailedReport"] = $detail["report"];
         }
