@@ -10,4 +10,8 @@
         width: 100%;
     }
 
+    .dominant-info .separator{
+        display: none;
+    }
+
 }
