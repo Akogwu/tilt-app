@@ -44,6 +44,7 @@ class TestResultV2Repository
                     return[
                         'icon'=>$section->icon,
                         'title'=>$section->name,
+                        'short_name'=>$section->short_name,
                         'description'=>$section->description,
                         'recommendations'=> $recommendation->filter()->values(),
                         'score'=>round($gradePoint->sum(), 2)
@@ -62,7 +63,7 @@ class TestResultV2Repository
                 'resources'=>$group->resource,
                 'chart'=>[
                     "labels"=>collect($sections)->map(function ($section){
-                        return $section['title'];
+                        return $section['short_name'];
                     }),
 
                     "data"=>[[

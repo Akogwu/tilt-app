@@ -21,7 +21,7 @@
                                     Thank you for your patronage
                                 </p>
                                 <p>
-                                    <a href="{{$data['link']}}" target="_blank">{{$data['text']}}</a>
+                                    <a href="{{$data['link']}}">{{$data['text']}}</a>
                                 </p>
                             </div>
                             @else
