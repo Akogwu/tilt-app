@@ -225,6 +225,7 @@ export const AlignItemsList = ({
                                 </p>
                                 {resources && (
                                     <ul
+                                        className="resource-list"
                                         style={{
                                             listStyle: "disc",
                                             marginLeft: "1rem",

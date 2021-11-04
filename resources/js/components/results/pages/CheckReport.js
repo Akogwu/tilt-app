@@ -54,7 +54,10 @@ export const CheckReport = ({ match }) => {
                                     margin: 0,
                                 }}
                             >
-                                Dominant: {getDominant().title}
+                                {/* Dominant: {getDominant().title} */}
+                                Dominant: <strong>{mergeArr().map((item, i) => { 
+                                    if(i < 2) return item.title + (i === 0 ? " & ": "")
+                                })}</strong>
                             </p>
                         </div>
                         <h1

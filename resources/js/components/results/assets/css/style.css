@@ -279,3 +279,12 @@ div p.font-weight-bolder{
 	height: 100%;
 	border-radius: 100%;
 }
+
+.resource-list, .resource-list ol, .resource-list ul {
+    list-style: disc !important;
+}
+
+.resource-list li, .resource-list ol li, .resource-list ul li{
+    font-weight: 400 !important;
+    text-transform: capitalize;
+}
