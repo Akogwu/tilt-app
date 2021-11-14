@@ -49,6 +49,7 @@ class SchoolAdminController extends Controller
             'total_students'=>$students->count(),
         ];
 
+        //dd($data);
 
         return view('pages.school.admin.dashboard',compact('data'));
     }

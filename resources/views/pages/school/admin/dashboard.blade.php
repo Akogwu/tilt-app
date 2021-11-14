@@ -75,7 +75,7 @@
                             </button>
                         </div>
 
-                        <form class="needs-validation" action="{{route('schoolCapacity',['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
+                        <form class="needs-validation" action="{{route('schoolCapacity.payment',['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
                         <div class="modal-body">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
