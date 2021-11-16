@@ -67,7 +67,7 @@ export const LineGaugeDetails = ({ guagechart, color, allmax, sectionTitle }) =>
     }
 
     return (
-        <div className="row mb-3">
+        <div className="row mb-3" >
             <div className="col-xl-12">
                 <div class="card no-shadow" style={{ border: "none" }}>
                     <div
@@ -137,9 +137,8 @@ export const AlignItemsList = ({
         <div className="list-group summary-list ">
             {reports.map((item, i) => {
                 return (
-                    <a
+                    <div
                         key={v4()}
-                        href="#"
                         className="list-group-item-action "
                         aria-current="true"
                     >
@@ -201,7 +200,7 @@ export const AlignItemsList = ({
                                 sectionTitle={sectionTitle}
                             />
                         )}
-                    </a>
+                    </div>
                 );
             })}
 
