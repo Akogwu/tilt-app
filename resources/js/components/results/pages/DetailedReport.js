@@ -156,8 +156,8 @@ export const DetailedReport = ({ match }) => {
                                 />
                             </div>
 
-                            <p className="">
-                                {window?.overview?.graph_description}
+                            <p className="text-center">
+                                {window?.overview?.graph_overview}
                             </p>
                         </div>
                     </div>
