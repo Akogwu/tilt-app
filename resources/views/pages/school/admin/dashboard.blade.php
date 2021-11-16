@@ -69,13 +69,13 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">Increase School Capacity</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
 
-                        <form class="needs-validation" action="{{route('schoolCapacity',['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
+                        <form class="needs-validation" action="{{route('schoolCapacity.payment',['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
                         <div class="modal-body">
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">

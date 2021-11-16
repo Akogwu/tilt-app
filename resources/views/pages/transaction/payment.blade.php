@@ -93,11 +93,11 @@
                 callback: function(response){
                     console.log(response)
                     if (response.status =='success'){
-                        alert('Payment Successful')
+                        alert("payment successful")
                         setTimeout(function (){
                             //window.location = '{{route('result.getResult',$data['payment_for'])}}';
                             window.location = '/transactions/confirm?ref='+response.reference+'&trans='+response.trans
-                        }, 1500)
+                        }, 500)
 
                     }
 

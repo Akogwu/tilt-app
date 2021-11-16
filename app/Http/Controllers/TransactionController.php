@@ -21,9 +21,9 @@ class TransactionController extends Controller
         //TODO get amount from settings
         $user = Auth::user();
         $data = [
-          'amount'=>3000,
-          'type'=>'result',
-          'description'=>'Tilt Test Result',
+          'amount'=>Settings::getValue('INDIVIDUAL_STUDENT_FLAT_RATE'),
+          'type'=>'school_capacity',
+          'description'=>'Increase school capacity',
             'quantity'=>$capacity,
             'payment_type'=>'school_capacity',
             'payment_for'=>$schoolId,
@@ -44,7 +44,6 @@ class TransactionController extends Controller
     }
 
     public function makePayment($sessionId){
-        //TODO get amount from settings
         $user = Auth::user();
         $data = [
           'amount'=>Settings::getValue('PRIVATE_LEARNER_FLAT_RATE'),
@@ -107,10 +106,10 @@ class TransactionController extends Controller
             if ($transaction->payment_type == 'test_result'){
                 TestResult::where('session_id', $transaction->payment_for)->update(['payment_status'=>true]);
                 $data=[
-                    'link'=>route('result.getResult', $transaction->payment_for),
+                    'link'=>route('pages.result', [$transaction->payment_for,'check-report']),
                     'success'=>true,
                     'ref'=>$reference,
-                    'text'=>'download result'
+                    'text'=>'View result'
                 ];
 
             }elseif ($transaction->payment_type == 'school_capacity'){

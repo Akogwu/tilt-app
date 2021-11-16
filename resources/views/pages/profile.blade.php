@@ -66,7 +66,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-12 col-lg-12 card shadow-sm border-soft">
                                     <div class="card-body">
-                                        <h1 class="text-gray-700 font-bold">Test History</h1>
+                                        <h2 class="text-gray-700 font-bold">Test History</h2>
                                         <div class="flex justify-content-between my-3">
                                             <table class="table">
                                                 <thead class="bg-gray-50">
@@ -92,7 +92,7 @@
                                                                         <i class="fa fa-eye"></i>
                                                                     </a>
                                                                     @if ($result->testResult->payment_status != 1)
-                                                                        <a href="{{ route('result.getResult', $result->testResult->session_id) }}">
+                                                                        <a href="{{ route('pages.result', [$result->testResult->session_id, 'detailed-report']) }}">
                                                                             <i class="fa fa-print"></i>
                                                                         </a>
                                                                     @else
@@ -115,20 +115,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{--<aside class="col-12 col-lg-4 mt-3 mt-lg-0 d-none d-lg-block z-2">
-                                    <div class="card shadow-sm border-soft p-3">
-                                        <div class="card-body">
-                                            <h4 class="pb-3">We live in a Greenhouse</h4>
-                                            <p>Life on Earth depends on energy coming from the Sun. About half the light
-                                                reaching Earth's
-                                                atmosphere passes through the air and clouds to the surface, where it is
-                                                absorbed and then
-                                                radiated upward in the form of infrared heat. About 90 percent of this heat
-                                                is then absorbed
-                                                by the greenhouse gases and radiated back toward the surface.</p>
-                                        </div>
-                                    </div>
-                                </aside>--}}
+                                
                             </div>
                         </div>
                     </div>

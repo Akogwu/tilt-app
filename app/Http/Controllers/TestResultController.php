@@ -22,6 +22,7 @@ class TestResultController extends Controller
          $this->testResultRepository = $testResultRepository;
          $this->testResultV2Repository = $testResultV2Repository;
      }
+    //TODO remove method
 
     public function getTestResultSummary($sessionId){
 
@@ -37,7 +38,7 @@ class TestResultController extends Controller
         return view('pages.results.summary', compact('testResult','payment_status','user','sessionId'));
 
     }
-
+    //TODO remove method
     public function getCompleteResult($sessionId)
     {
         try {
