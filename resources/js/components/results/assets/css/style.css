@@ -304,3 +304,7 @@ div p.font-weight-bolder{
 	margin: auto;
 	margin-top: 350px;
 }
+
+.resource-list a {
+	color: #3b5999 !important;
+}
