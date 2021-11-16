@@ -9,8 +9,12 @@ import { CharacterImage } from "../components/Icon";
 
 export const mergeArr = () => {
     const data = window.overview;
-    return data?.data.map((item, i) => { return { score: item, title: data?.label[i] } }).sort((a, b) => b.score - a.score)
-}
+    return data?.data
+        .map((item, i) => {
+            return { score: item, title: data?.label[i] };
+        })
+        .sort((a, b) => b.score - a.score);
+};
 
 export const _renderDominantInfo = () => {
     return (
@@ -22,27 +26,37 @@ export const _renderDominantInfo = () => {
                 <div className="col-xl-10 m-auto ">
                     <div className="row justify-content-around">
                         {mergeArr().map((item, i) => {
-                                if (i < 2)
-                                    return (
-                                        <>
-                                            <div className="outline-icon">
-                                                <CharacterImage
-                                                    name={
-                                                        item?.title?.toLowerCase() +
-                                                        "-o"
-                                                    }
-                                                />
-                                                <h3>{item?.title}
-                                                <br/>
-                                                <span style={{ fontSize: 14 }}>{item?.score}</span>
-                                                </h3>
-                                            </div>
-                                            {i === 0 && (
-                                                <div className="separator" />
-                                            )}
-                                        </>
-                                    );
-                            })}
+                            if (i < 2)
+                                return (
+                                    <>
+                                        <div
+                                            className={`outline-icon  ${
+                                                window.innerWidth < 800 &&
+                                                i === 0
+                                                    ? "mb-5"
+                                                    : ""
+                                            }`}
+                                        >
+                                            <CharacterImage
+                                                name={
+                                                    item?.title?.toLowerCase() +
+                                                    "-o"
+                                                }
+                                            />
+                                            <h3>
+                                                {item?.title}
+                                                <br />
+                                                <span style={{ fontSize: 14 }}>
+                                                    {item?.score}
+                                                </span>
+                                            </h3>
+                                        </div>
+                                        {i === 0 && (
+                                            <div className="separator" />
+                                        )}
+                                    </>
+                                );
+                        })}
                     </div>
                 </div>
             </div>
@@ -56,10 +70,10 @@ export const DetailedReport = ({ match }) => {
     const { user } = window;
 
     React.useEffect(() => {
-        if(user?.payment_status !== 1){
-            window.location = `/transactions/result/${sessionId}`
+        if (user?.payment_status !== 1) {
+            window.location = `/transactions/result/${sessionId}`;
         }
-    }, [])
+    }, []);
 
     return (
         <ResultLayout
@@ -120,7 +134,10 @@ export const DetailedReport = ({ match }) => {
                         <div className="col-sm-9 m-auto p-0">
                             <div
                                 style={{
-                                    width: "max-content",
+                                    width:
+                                        window.innerWidth > 800
+                                            ? "max-content"
+                                            : "100%",
                                     margin: "auto",
                                     marginTop: "1rem",
                                     marginBottom: "2rem",

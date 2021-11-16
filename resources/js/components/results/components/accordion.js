@@ -143,17 +143,17 @@ export const MainAccordion = ({ data }) => {
                             <AccordionDetails>
                                 <div
                                     ref={borderArea}
-                                    className="container mt-4"
+                                    className={`container mt-4 ${window.innerWidth < 800 && "p-0"}`}
                                 >
-                                    <div className="col-sm-9 m-auto">
+                                    <div className={`col-sm-9 m-auto ${window.innerWidth < 800 && "p-0"}`}>
                                         <div className="row">
                                             <div className="col-sm-8">
                                                 <div
                                                     className="summary"
-                                                    style={{
+                                                    style={ window.innerWidth > 800 ? {
                                                         marginTop: "3rem",
                                                         marginBottom: "3rem",
-                                                    }}
+                                                    }:{}}
                                                 >
                                                     <p className="">
                                                         {item?.description}
@@ -175,7 +175,7 @@ export const MainAccordion = ({ data }) => {
                                         style={{
                                             position: "relative",
                                             background: item?.color?.light,
-                                            width: window.screen.width,
+                                            width: window.innerWidth > 800 ? window.innerWidth : `calc(${window.innerWidth}px + 2rem)`,
                                             marginLeft: getOffSet() - 15,
                                             padding: 30,
                                             marginBottom: 40,
@@ -200,7 +200,7 @@ export const MainAccordion = ({ data }) => {
                                                             {...item?.chart}
                                                             backgroundColor={item?.color?.primary}
                                                             cardStyle={{
-                                                                width: 400,
+                                                                width: window.innerWidth > 800 ? 400 : "100%",
                                                                 height: 250,
                                                             }}
                                                             height={180}

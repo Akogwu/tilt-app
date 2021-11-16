@@ -109,6 +109,33 @@ export const ReportSection = ({
     moredetaillink,
     detailed = false,
 }) => {
+
+    const summaryText = () => {
+        return (
+            <div className="col-sm-8">
+                            <div
+                                className="summary"
+                                style={{
+                                    marginTop: "3rem",
+                                    marginBottom: "3rem",
+                                }}
+                            >
+                                <p className="">{description}</p>
+                            </div>
+                        </div>
+        )
+    }
+
+    const summaryImage = () => {
+        return (
+            <div className="col-sm-4">
+                            <div className="summary-big-character">
+                                <CharacterImage name={title?.toLowerCase()} />
+                            </div>
+                        </div>
+        )
+    }
+
     return (
         <div className="col-xl-12 p-0 report-section theme-green ">
             <div
@@ -132,22 +159,21 @@ export const ReportSection = ({
             <div className="container mt-4">
                 <div className="col-sm-9 m-auto">
                     <div className="row">
-                        <div className="col-sm-8">
-                            <div
-                                className="summary"
-                                style={{
-                                    marginTop: "3rem",
-                                    marginBottom: "3rem",
-                                }}
-                            >
-                                <p className="">{description}</p>
-                            </div>
-                        </div>
-                        <div className="col-sm-4">
-                            <div className="summary-big-character">
-                                <CharacterImage name={title?.toLowerCase()} />
-                            </div>
-                        </div>
+
+                        {window.innerWidth > 800 && (
+                            <>
+                                {summaryText()}
+                                {summaryImage()}
+                            </>
+                        )||(
+                            <>
+                                {summaryImage()}
+                                {summaryText()}
+                            </>
+                        )}
+
+                        
+
                     </div>
                 </div>
             </div>

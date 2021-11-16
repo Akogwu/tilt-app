@@ -9,12 +9,21 @@ export const ResultLayout = ({
     checkAuth = false,
 }) => {
 
+    React.useEffect(() => {
+        setTimeout(() => {
+            const loader = document.getElementById("page-loader");
+            loader.classList.add("d-none");
+        }, 1000);
+    }, [])
+
     return (
         <section
             class="section bg-main overlay-gray-100 text-black"
             data-background=""
         >
-            <div className="container-fluid" style={containerStyle}>{children}</div>
+            <div className="container-fluid" style={containerStyle}>
+                {children}
+            </div>
             <div className="bottom-button">
                 <XButton {...bottomButton} />
             </div>

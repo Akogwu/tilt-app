@@ -81,6 +81,7 @@ export const LineGaugeDetails = ({ guagechart, color, allmax, sectionTitle }) =>
                                 <GaugeChart
                                     percent={guagechart?.score}
                                     color={guagechart?.color || color}
+                                    name={guagechart?.title}
                                 />
                             </div>
                             <div className="col-xl-7">

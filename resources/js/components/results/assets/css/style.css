@@ -288,3 +288,19 @@ div p.font-weight-bolder{
     font-weight: 400 !important;
     text-transform: capitalize;
 }
+
+.page-loader {
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900000;
+    background: #fff;
+}
+
+.page-loader .holder {
+	width: max-content;
+	margin: auto;
+	margin-top: 350px;
+}

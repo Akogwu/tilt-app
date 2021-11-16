@@ -5,7 +5,7 @@ import { getRelativePosition } from "chart.js/helpers";
 
 export const BarChart = (props) => {
     const {
-        cardStyle = { width: 500, height: 350 },
+        cardStyle = { width: window.innerWidth > 800 ? 500 : "auto", height: 350 },
         height = 200,
         data = [],
         labels = [],
@@ -104,6 +104,7 @@ export const BarChart = (props) => {
 
 export const GaugeChart = (props) => {
     const {
+        name= "",
         percent = 0,
         height = 130,
         color = { primary: "black", light: "white" },
@@ -115,7 +116,7 @@ export const GaugeChart = (props) => {
             data: {
                 datasets: [
                     {
-                        label: `Reading ${percent}%`,
+                        label: `${name} ${percent}%`,
                         data: [percent, 100 - percent],
                         backgroundColor: [color?.primary, color?.light],
                         hoverOffset: 0,
@@ -148,14 +149,16 @@ export const GaugeChart = (props) => {
                     fontWeight: "bolder",
                 }}
             >
-                <label
-                    className="m-0"
+                <div
+                    // className="m-0"
                     style={{
                         fontSize: 12,
+                        maxWidth: "60%",
+                        margin: "auto"
                     }}
                 >
-                    Reading {percent}%
-                </label>
+                    {name} - {percent}%
+                </div>
             </div>
             <canvas ref={_chart} height={height}></canvas>
         </div>

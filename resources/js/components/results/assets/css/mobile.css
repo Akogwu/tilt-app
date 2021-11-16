@@ -1,9 +1,9 @@
 @media screen and (max-width: 900px)  {
     
     .summary-big-character {
-        margin-top: -340px;
+        /* margin-top: -340px;
         width: 160px;
-        float: right;
+        float: right; */
     }
 
     .summary-big-character img {
@@ -12,6 +12,11 @@
 
     .dominant-info .separator{
         display: none;
+    }
+
+
+    .summary-big-character {
+        margin-top: -20px;
     }
 
 }
