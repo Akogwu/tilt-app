@@ -16,6 +16,8 @@ class PrivateLearner extends Model
                 'level'=>$input['level'] ?? null,
                 'gender'=>$input['gender'],
                 'school'=>$input['school'] ?? null,
+                'country_id'=>$input['country_id'] ?? null,
+                'state_id'=>$input['state_id'] ?? null,
             ]);
         return $new;
     }

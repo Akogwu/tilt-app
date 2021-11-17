@@ -107,13 +107,17 @@ class AdminController extends Controller
     }
 
     public function getTransaction(){
+        $transactions = Transaction::orderBy('created_at','desc');
+        $sum = $transactions->sum('amount');
+        $transactions = $transactions->paginate(15);
         $data=[
-            "total"=>0,
+            "total"=>$transactions->count(),
             "failed"=>0,
             "success"=>0,
-            "total_funds"=>'0.00'
+            "total_funds"=>$sum
             ];
-        return view('pages.admin.transaction', compact('data'));
+        //dd($transactions);
+        return view('pages.admin.transaction', compact('data','transactions'));
     }
 
     public function getAllSchool(){

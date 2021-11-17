@@ -21,6 +21,11 @@ class Transaction extends Model
         });
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'payment_by');
+    }
+
     public static function createNew(
         $paymentBy, $paymentType,
         $paymentFor, $reference,

@@ -114,7 +114,7 @@ const GraphEditOverview = ({graph_overview, handleSuccess}) => {
                                     fullWidth
                                     name="description"
                                     value={x.description}
-                                    label="Graph Overview"
+                                    label="Learning Behaviour Graph"
                                     margin="dense"
                                     error=""
                                     multiline
