@@ -17,7 +17,7 @@ echo "</script>";
 <style>
 
 .page-loader {
-	position: absolute;
+        position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
