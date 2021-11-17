@@ -28,7 +28,7 @@ class RegistrationController extends Controller
     public function showRegistrationForm()
     {
         $countries = Country::all();
-        dd($countries);
+
         return view('auth.register', compact('countries'));
     }
 
