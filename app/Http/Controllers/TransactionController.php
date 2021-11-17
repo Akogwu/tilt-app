@@ -68,7 +68,8 @@ class TransactionController extends Controller
         return view('pages.transaction.payment', compact('user','data'));
     }
 
-    public function getAll(Request $request){
+    /*public function getAll(Request $request){
+        $query = \request()->input();
         $transactions = Transaction::orderBy('created_at','desc');
         $sum = $transactions->sum('amount');
         $row = $request->query('row') ?? 10;
@@ -83,7 +84,7 @@ class TransactionController extends Controller
         return TransactionResource::collection($transactions->paginate(10))->additional(['total_amount' => [
             'amount' => $sum,
         ]]);
-    }
+    }*/
 
     public function confirmPayment(){
         $transactionId = \request()->input('trans');
@@ -159,18 +160,20 @@ class TransactionController extends Controller
                 //for school capacity
                 if ($paymentType == 'school_capacity'){
                     School::where('id', $paymentFor)->increment('school_capacity', $quantity);
+                    //TODO send email notification
                 }elseif ($paymentType == 'test_result'){
                     //get test field, then update to payment
                     TestResult::where('session_id', $paymentFor)->update(['payment_status'=>true]);
                     //send download link to email
                     try {
                         $email = $data['customer']['email'];
-                        Mail::to($email)->send(new TestResultPaymentMail("", env('FRONTEND_URL').'results/'.$paymentFor));
+                        Mail::to($email)->send(new TestResultPaymentMail("", route('pages.result', [$paymentFor, 'detailed-report'])));
                     }catch (\Exception $exception){
                         Log::error('TransactionController', ['callBackHook'=>$exception->getMessage()]);
                     }
                 }else{
                     //do nothing
+                    return false;
                 }
                 Transaction::createNew($userId, $paymentType, $paymentFor, $reference, $transactionId, $amount, true, $quantity);
 

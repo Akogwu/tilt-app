@@ -142,34 +142,9 @@ const  QuestionPanel = ({question,index}) => {
                                     <MenuItem  value="40">40%</MenuItem>
                                     <MenuItem  value="60">60%</MenuItem>
                                 </TextField>
-          
-                            </div>
-                            <div>
-                                <TextField
-                                    name={"colour_code"}
-                                    fullWidth
-                                    margin="dense"
-                                    label="Color-code"
-                                    variant="outlined"
-                                    value ={state.colour_code || ""}
-                                    onChange={handleChanges} />
 
                             </div>
-                            <div>
-                            <button type="button" onClick={()=>setShowColorPicker(showColorPicker => !showColorPicker)}>{'Select Color'}</button>
-                            {showColorPicker && (
-                                <ChromePicker 
-                                color={colorPicker}
-                                onChange = {
-                                    colorCode=>{
-                                        
-                                        setColorPicker(colorCode.hex);
-                                        handleColorChanges(colorCode.hex);
-                                    }
-                                }
-                                />
-                            )}
-                            </div>
+
 
                             <Divider/>
                             <DialogActions className={classes.Heading}>

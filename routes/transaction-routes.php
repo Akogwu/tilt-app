@@ -2,9 +2,7 @@
 $router->group(['prefix' => 'transactions'], function () use ($router) {
     $router->post('/webhook', [\App\Http\Controllers\TransactionController::class,'callBackHook']);
     //admin
-    $router->group(['middleware' => 'admin'], function () use ($router) {
-        $router->get('/', [\App\Http\Controllers\TransactionController::class,'getAll']);
-    });
+
 
     $router->group(['middleware'=>'auth'], function () use ($router) {
         //school admin

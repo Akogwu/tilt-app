@@ -71,6 +71,9 @@
                                                 <thead class="bg-gray-50">
                                                 <tr>
                                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        S/N
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Name
                                                     </th>
                                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -88,56 +91,59 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody class="bg-white divide-y divide-gray-200">
-                                                <tr>
-                                                    <td colspan="5" rowspan="5"> <p class="text-center"> No record available</p></td>
-                                                </tr>
-{{--                                                @foreach($data['latest_test'] as $test)--}}
-{{--                                                    <tr>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            <div class="flex items-center">--}}
-{{--                                                                <div class="flex-shrink-0 h-10 w-10">--}}
-{{--                                                                    <img class="h-10 w-10 rounded-full"--}}
-{{--                                                                         src=""--}}
-{{--                                                                         alt="" />--}}
-{{--                                                                </div>--}}
-{{--                                                                <div class="ml-4">--}}
-{{--                                                                    <div class="text-sm font-medium text-gray-900">--}}
-{{--                                                                        45--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            <div class="flex items-center">--}}
-{{--                                                                <div class="ml-4">--}}
-{{--                                                                    <div class="text-sm text-gray-500">--}}
-{{--                                                                        45%--}}
-{{--                                                                    </div>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            <div class="text-sm text-gray-900">45</div>--}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            --}}
-{{--                                                        </td>--}}
-{{--                                                        <td class="px-6 py-4 whitespace-nowrap">--}}
-{{--                                                            --}}
-{{--                                                        </td>--}}
-{{--                                                    </tr>--}}
-{{--                                                @endforeach--}}
-                                                </tbody>
-                                            </table>
-                                            <table class="min-w-full divide-y divide-gray-200">
-                                                <tfoot class="bg-gray-50">
-                                                <tr class="pb-4">
-                                                    <td class="px-5">
 
-                                                    </td>
-                                                </tr>
+                                                @foreach($transactions as $transaction)
+                                                    <tr>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <div class="flex items-center">
+
+                                                                <div class="ml-4">
+                                                                    <div class="text-sm font-medium text-gray-900">
+                                                                        {{$loop->iteration}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <div class="flex items-center">
+
+                                                                <div class="ml-4">
+                                                                    <div class="text-sm font-medium text-gray-900">
+                                                                        {{$transaction->user->name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <div class="flex items-center">
+                                                                <div class="ml-4">
+                                                                    <div class="text-sm text-gray-500">
+                                                                        {{$transaction->payment_type}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            <div class="text-sm text-gray-900">{{$transaction->amount}}</div>
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            {{($transaction->status==0) ? 'pending' : 'paid'}}
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            {{$transaction->created_at}}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot class="bg-gray-50">
+                                                    <tr class="pb-4">
+                                                        <td class="px-5">
+                                                            {{$transactions->links()}}
+                                                        </td>
+                                                    </tr>
                                                 </tfoot>
                                             </table>
+
                                         </div>
                                     </div>
                                 </div>

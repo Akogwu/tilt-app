@@ -25,6 +25,13 @@ class RegistrationController extends Controller
        // return view('pages.contact',compact('countries'));
     }
 
+    public function showRegistrationForm()
+    {
+        $countries = Country::all();
+        dd($countries);
+        return view('auth.register', compact('countries'));
+    }
+
 
     public function createSchool(){
         $countries = Country::all();
@@ -56,10 +63,13 @@ class RegistrationController extends Controller
         $this->validate($request, [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|string',
+            'email' => 'required|email|unique:users,email',
             'gender' => 'required|string',
             'age' => 'required',
             'level' => 'required|string',
+            'school' => 'required|string',
+            'country_id' => 'required|numeric',
+            'state_id' => 'required|numeric',
             'password' => 'required|string',
         ]);
         //find already existing email

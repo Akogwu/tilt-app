@@ -73,6 +73,22 @@
                                     <x-jet-label for="phone" value="{{ __('Phone') }}" />
                                     <x-jet-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
                                 </div>
+                                <div class="">
+                                    <x-jet-label for="school" value="{{ __('School') }}" />
+                                    <x-jet-input id="school" class="block mt-1 w-full" type="tel" name="school" :value="old('school')" required />
+                                </div>
+                                <div>
+                                    <x-jet-label for="age" value="{{ __('Country') }}" />
+                                    <select name="country_id" id="country" class="block mt-1 w-full border-gray-200" required>
+                                        <option value="">Select Country</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <x-jet-label for="age" value="{{ __('State') }}" />
+                                    <select name="state_id" id="state" class="block mt-1 w-full border-gray-200" required>
+                                        <option value="">Select State</option>
+                                    </select>
+                                </div>
 
                                 <div class="">
                                     <x-jet-label for="password" value="{{ __('Password') }}" />
@@ -193,7 +209,7 @@
                 </div>
             </div>
         </div>
-        
+
 
     </x-jet-authentication-card>
     @push('scripts')

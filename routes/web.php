@@ -25,6 +25,10 @@ Route::get('/contact',function (){
 Route::get('/test',function (){
     return view('pages.test');
 });
+
+Route::get('register', [\App\Http\Controllers\RegistrationController::class,'showRegistrationForm'])->name('register');
+
+
 Route::get('/take-test',function (){
     return view('pages.questions');
 })->name('questions');
@@ -34,7 +38,7 @@ Route::get('/result/{sessionId}/{query}', [\App\Http\Controllers\TestResultContr
 
 Route::group(['middleware'=>'auth'], function (){
 
-    Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');    
+    Route::get('/profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('user.profile');
 
 });
 
@@ -63,7 +67,7 @@ Route::get('logout',function (){
 
 
 // print complete result route
-Route::get('/print-result',[\App\Http\Controllers\PDFController::class,'generateResult'])->name('print-result');
+//Route::get('/print-result',[\App\Http\Controllers\PDFController::class,'generateResult'])->name('print-result');
 
 require_once 'test-routes.php';
 require_once 'group-routes.php';

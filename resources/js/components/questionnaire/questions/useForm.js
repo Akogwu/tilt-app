@@ -47,7 +47,7 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
             question_id: question.id,
             grade_point: question.grade_point,
             colour_code: question.colour_code,
-        
+
         });
     },[question]);
 
@@ -92,17 +92,14 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
     };
 
     const handleColorChanges = (colorCode) =>{
-        //console.log(colorCode);
         setState({...state, colour_code:colorCode});
-        console.log(state.colour_code);
-    } 
+    }
 
     const handleSubmit = e =>{
         e.preventDefault();
         setErrors(validate(state));
 
         if (Object.keys(validate(state)).length <= 0){
-            console.log(newData);
             setLoading(true);
             apiPost(newData,'questionnaire').then( () => {
                 apiGet(`sections/${sectionId}/questionnaires`).then( questions => {

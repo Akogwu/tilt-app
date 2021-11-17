@@ -96,7 +96,7 @@
                                                                             <i class="fa fa-print"></i>
                                                                         </a>
                                                                     @else
-                                                                        <a href="{{ route('pages.result', [$result->testResult->session_id, 'detailed-report']) }}">
+                                                                        <a href="">
                                                                             <i class="fa fa-print text-gray"></i>
                                                                         </a>
                                                                     @endif
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
