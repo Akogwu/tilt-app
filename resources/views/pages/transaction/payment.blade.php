@@ -5,11 +5,11 @@
         <div class="container">
             <div class="row justify-content-center pt-5">
                 <div class="col-8">
-                    <img src="{{asset('images/tilt-test-result.png')}}" width="200" class="image" alt="Tilt Test Result" style="float: right">
+                    <img src="{{asset('images/tilt-test-result.png')}}" class="image img-responsive" alt="Tilt Test Result">
                 </div>
                 <div class="col-4">
                     <h4>Transaction Summary</h4>
-                    <table>
+                    <table class="table">
                         <tr>
                             <td>Payment Description</td>
                             <td>{{$data['description']}}</td>
@@ -37,7 +37,7 @@
 
                         <input type="hidden" id="amount" value="{{$data['amount']}}" />
 
-                        <div class="form-submit mt-4">
+                        <div class="form-submit mt-4 right-0">
                             <button type="submit" class="btn btn-success" id="checkout" onclick="payWithPaystack()"> Checkout </button>
                         </div>
                     </form>
