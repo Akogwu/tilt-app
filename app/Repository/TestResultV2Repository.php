@@ -98,17 +98,18 @@ class TestResultV2Repository
         }
 
         $collection = collect($summaryResultData)->sortByDesc('group_score');
-        $sortCollection = $collection->values()->take(2)->map(function ($group){
+        $dominantGroups = $collection->values()->take(2)->map(function ($group){
+            //echo $group['group_score'];
             return[
                 "title"=>$group['title'],
                 'color'=>$group['color'],
-                'score'=>$group['group_score']
+                'score'=> round($group['group_score'], 2)
             ];
         });
 
         return[
             'user'=> $this->getUserDetail($role, $testResult),
-            'dominant_group'=>$sortCollection,
+            'dominant_group'=>$dominantGroups,
             'overview'=>[
                 'label'=>$graphLabel,
                 'data'=>$graphData,

@@ -107,17 +107,24 @@ class AdminController extends Controller
     }
 
     public function getTransaction(){
-        $transactions = Transaction::orderBy('created_at','desc');
-        $sum = $transactions->sum('amount');
+        $type=null;
+        if ($type = \request()->input('type', null)){
+            $transactions = Transaction::where('payment_type', $type)->orderBy('created_at','desc');
+        }else
+            $transactions = Transaction::orderBy('created_at','desc');
+
+        //$transactions = Transaction::orderBy('created_at','desc');
+        $transCalc = Transaction::orderBy('created_at','desc');
+        $sum = Transaction::where('status',1)->sum('amount');
         $transactions = $transactions->paginate(15);
         $data=[
-            "total"=>$transactions->count(),
-            "failed"=>0,
-            "success"=>0,
+            "total"=>$transCalc->count(),
+            "failed"=>$transCalc->where('status',0)->count(),
+            "success"=>Transaction::where('status',1)->count(),
             "total_funds"=>$sum
             ];
         //dd($transactions);
-        return view('pages.admin.transaction', compact('data','transactions'));
+        return view('pages.admin.transaction', compact('data','transactions','type'));
     }
 
     public function getAllSchool(){

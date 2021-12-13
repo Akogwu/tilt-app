@@ -18,7 +18,7 @@ export const ResultLayout = ({
         window.addEventListener('resize', () => {
             window.location = ""
         });
-        
+
     }, [])
 
     return (

@@ -176,6 +176,7 @@ class TransactionController extends Controller
     }
 
     protected function transactionHistory($payerId, $type=null){
+
         $data = [];
         if ($type =='school'){
             $transactions = Transaction::where([['payment_for', $payerId],['payment_type','school_capacity']])->get();
@@ -195,7 +196,7 @@ class TransactionController extends Controller
     protected function generateRefNumber() {
         $number = mt_rand(1000000000, 9999999999); // better than rand()
 
-        // call the same function if the barcode exists already
+        // call the same function if the reference exists already
         if ($this->refNumberExists($number)) {
             return $this->generateRefNumber();
         }

@@ -68,7 +68,7 @@ export const HeaderDetail = ({
                                             detailed result.
                                         </div>
 
-                       
+
                                         {window?.user?.payment_status === 1 && (
 
                                         <XButton
@@ -78,7 +78,7 @@ export const HeaderDetail = ({
                                         />
                                         ) || (
                                             <XButton
-                                                text={"Pay Now"}
+                                                text={"Get Detailed Result"}
                                                 url={`/transactions/result/${sessionId}`}
                                                 style={{
                                                     background: "red",
@@ -172,7 +172,7 @@ export const ReportSection = ({
                             </>
                         )}
 
-                        
+
 
                     </div>
                 </div>
@@ -223,7 +223,7 @@ export const Report = ({ match }) => {
                           url: `/result/${sessionId}/check-report`,
                       }
                     : {
-                          text: "Pay now",
+                          text: "Get Detailed Result",
                           url: `/transactions/result/${sessionId}`,
                           style: {
                               background: "red",

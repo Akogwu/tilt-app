@@ -63,6 +63,17 @@
                     <div class="my-8 w-full justify-content-between">
                         <div class="recent-tests pr-3">
                             <h1 class="uppercase text-gray-700 font-bold my-2.5">Transactions</h1>
+                            <div class="">
+                                <form action="">
+                                    <div class="form-group">
+                                        <select name="payment_type" id="payment_type" class="form-group">
+                                            <option value="all">All</option>
+                                            <option value="test_result" {{($type =='test_result') ? 'selected':''}}>Result</option>
+                                            <option value="school_capacity" {{($type =='school_capacity') ? 'selected':''}}>School Capacity</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="w-full">
                                 <div class="-my-2 overflow-x-auto sm:-mx-12 lg:-mx-12">
                                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -80,6 +91,9 @@
                                                         Purpose
                                                     </th>
                                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                        Reference
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                         Amount(&#8358;)
                                                     </th>
                                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -94,12 +108,14 @@
 
                                                 @foreach($transactions as $transaction)
                                                     <tr>
-                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                        <td class="px-6 whitespace-nowrap">
                                                             <div class="flex items-center">
 
-                                                                <div class="ml-4">
+                                                                <div class="">
                                                                     <div class="text-sm font-medium text-gray-900">
-                                                                        {{$loop->iteration}}
+
+                                                                        {{ ($transactions->currentPage() - 1) * $transactions->perPage() + $loop->iteration }}
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -117,27 +133,45 @@
                                                         <td class="px-6 py-4 whitespace-nowrap">
                                                             <div class="flex items-center">
                                                                 <div class="ml-4">
-                                                                    <div class="text-sm text-gray-500">
+                                                                    <div class="text-sm font-medium text-gray-900">
                                                                         {{$transaction->payment_type}}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap">
-                                                            <div class="text-sm text-gray-900">{{$transaction->amount}}</div>
+                                                            <div class="flex items-center">
+                                                                <div class="ml-4">
+                                                                    <div class="text-sm font-medium text-gray-900">
+                                                                        {{$transaction->reference}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap">
-                                                            {{($transaction->status==0) ? 'pending' : 'paid'}}
+                                                            <div class="text-sm text-gray-900 amount">{{$transaction->amount}}</div>
                                                         </td>
                                                         <td class="px-6 py-4 whitespace-nowrap">
-                                                            {{$transaction->created_at}}
+                                                            @if($transaction->status==1)
+                                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                                    Successful
+                                                                </span>
+                                                            @else
+                                                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                                                    Failed
+                                                                </span>
+                                                            @endif
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap">
+                                                            {{$transaction->created_at->diffForHumans()}}<br>
+                                                            <small class="text-gray-500">{{$transaction->created_at}}</small>
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
                                                 <tfoot class="bg-gray-50">
                                                     <tr class="pb-4">
-                                                        <td class="px-5">
+                                                        <td class="px-5" colspan="6">
                                                             {{$transactions->links()}}
                                                         </td>
                                                     </tr>
@@ -157,5 +191,30 @@
     </div>
     @push('scripts')
         <script src="/js/app.js"></script>
+        <script>
+            $(document).ready(function () {
+                let nigeriaLocale = Intl.NumberFormat('en-NG');
+
+                $('.amount').each(function(i, obj) {
+                    //obj.html(nigeriaLocale.format(obj.innerText))
+                    let value = nigeriaLocale.format(obj.innerText);
+                    obj.innerHTML='&#8358;'+value;
+                });
+
+                $('#payment_type').on('change', function (e) {
+                    let value =  $(this).val();
+                    let link = '{!! route('admin.transaction') !!}'
+                    if(value !== 'all'){
+                        link = link+'?type='+value;
+                    }
+                    console.log(link);
+                    setTimeout(function() {
+                        window.location = link;
+                    }, 1000);
+                })
+            });
+
+
+        </script>
     @endpush
 </x-app-layout>
