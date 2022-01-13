@@ -17,6 +17,7 @@ class Questionnaire extends Model
                 'question' => $request->question,
                 'grade_point' => $request->grade_point,
                 'colour_code' => $request->colour_code,
+                'resource' => $request->resource,
             ]
         );
         return $new;
@@ -36,7 +37,9 @@ class Questionnaire extends Model
             'question'=>$this->question,
             'weight_point'=>$this->weightPoints,
             'grade_point'=>$this->grade_point,
-            'colour_code'=>$this->colour_code
+            'colour_code'=>$this->colour_code,
+            'resource' => $this->resource,
+
         ];
     }
 
