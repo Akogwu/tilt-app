@@ -32,17 +32,23 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         section_id:'',
         question_id:'',
         grade_point:'',
-        colour_code:''
+        colour_code:'',
+        resource:question.weight_points.find( current_point => current_point.weight_point === 20 ).resource ? question.weight_points.find( current_point => current_point.weight_point === 20 ).resource : ''
+
         // color_picker:'#fff',
         // show_color_picker: false
     });
 
+
     useEffect(()=>{
+
         let initial_point = 20;
+
         question && setState({...state,
             question: question.question,
             weight_points:question.weight_points,
             remark: question.weight_points.find( current_point => current_point.weight_point === initial_point ).remark,
+            resource: question.weight_points.find( current_point => current_point.weight_point === initial_point ).resource,
             section_id: question.section_id,
             question_id: question.id,
             grade_point: question.grade_point,
@@ -57,11 +63,12 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
     const data = {
         question:state.question,
         weight_point:state.weight_points,
-        remark:state.remark,
         section_id:state.section_id,
         question_id:state.question_id,
+        remark:state.remark,
         grade_point: state.grade_point,
         colour_code: state.colour_code
+        // resource: state.resource
 
     }
 
@@ -79,7 +86,12 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
     const handleChangeRemark = e => {
         const score = parseInt(e.target.value);
         let scoreObj = state.weight_points.find(current_score => current_score.weight_point === score);
-        setState({...state,weight_point:scoreObj.weight_point,remark:scoreObj.remark});
+
+        setState({...state,weight_point:scoreObj.weight_point,remark:scoreObj.remark, resource:scoreObj.resource});
+    }
+
+    const handleResourceChangeEdit = value => {
+        setState({...state,resource:value})
     }
 
 
@@ -89,6 +101,15 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         setData.remark       = state.remark;
         let index = state.weight_points.findIndex( obj => obj.weight_point === setData.weight_point);
         state.weight_points[index].remark = setData.remark;
+    };
+
+    const handleAddResource = () => {
+        let setData = {};
+        setData.weight_point = state.weight_point;
+        setData.resource     = state.resource;
+        let index = state.weight_points.findIndex( obj => obj.weight_point === setData.weight_point);
+        state.weight_points[index].resource = setData.resource;
+
     };
 
     const handleColorChanges = (colorCode) =>{
@@ -117,6 +138,9 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
 
     const handleUpdateQuestion = async e => {
         e.preventDefault();
+        // handleAddRemark()
+        handleAddResource()
+
         setErrors(validate(state));
         if (Object.keys(validate(state)).length <= 0)
             setLoading(true);
@@ -135,7 +159,7 @@ const useForm = (validate,handleSuccess,handleClose,question) => {
         });
     }
 
-    return {state,handleChanges,handleChangeRemark,handleAddRemark,handleUpdateQuestion, handleColorChanges, errors,handleSubmit,loading}
+    return {state,handleChanges,handleChangeRemark, handleResourceChangeEdit, handleAddRemark, handleAddResource,handleUpdateQuestion, handleColorChanges, errors,handleSubmit,loading}
 }
 
 export default useForm;

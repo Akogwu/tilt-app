@@ -11,7 +11,7 @@ class QuestionnaireWeightPoint extends Model
 
     protected $guarded= [];
     protected $table = "questionnaire_weight_points";
-    public static function createNew($questionnaireId, $weight_point, $remark){
+    public static function createNew($questionnaireId, $weight_point, $remark, $resource){
         $new = self::firstOrCreate(
             [
                 'questionnaire_id' => $questionnaireId,
@@ -19,6 +19,7 @@ class QuestionnaireWeightPoint extends Model
             ],
             [
                 'remark' => $remark,
+                'resource' => $resource
             ]
         );
         return $new;

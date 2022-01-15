@@ -945,8 +945,6 @@
     "debug" "^4.1.1"
     "env-paths" "^2.2.0"
     "fs-extra" "^8.1.0"
-    "global-agent" "^2.0.2"
-    "global-tunnel-ng" "^2.7.1"
     "got" "^9.6.0"
     "progress" "^2.0.3"
     "semver" "^6.2.0"
@@ -2396,7 +2394,6 @@
   dependencies:
     "anymatch" "~3.1.2"
     "braces" "~3.0.2"
-    "fsevents" "~2.3.2"
     "glob-parent" "~5.1.2"
     "is-binary-path" "~2.1.0"
     "is-glob" "~4.0.1"
@@ -2445,7 +2442,6 @@
   "resolved" "https://registry.npmjs.org/cli-table3/-/cli-table3-0.6.0.tgz"
   "version" "0.6.0"
   dependencies:
-    "colors" "^1.1.2"
     "object-assign" "^4.1.0"
     "string-width" "^4.2.0"
   optionalDependencies:
@@ -3731,11 +3727,6 @@
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
 
-"fsevents@~2.3.2":
-  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
-  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
-  "version" "2.3.2"
-
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
   "resolved" "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
@@ -4579,7 +4570,7 @@
     "merge-stream" "^2.0.0"
     "supports-color" "^8.0.0"
 
-"jquery@^3.6.0":
+"jquery@^3.2":
   "integrity" "sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw=="
   "resolved" "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
   "version" "3.6.0"

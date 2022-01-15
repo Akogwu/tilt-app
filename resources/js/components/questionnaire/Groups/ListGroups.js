@@ -32,7 +32,7 @@ const ListGroups = (props) => {
     const handleOpenEditModal = (group) => {
         setId(group.id);
         setGroup(group);
-        
+
         setOpenEditModal(true);
 
     }
@@ -49,7 +49,6 @@ const ListGroups = (props) => {
             <GroupDeleteModal group_id={id} open={openDeleteModal} handleClose={handleCloseDeleteModal}/>
             <GroupEditModal group_id={id} fillData={group} open={openEditModal} handleClose={handleCloseEditModal} />
             <List  >
-
                 {props.groups.length > 0 &&  props.groups.map( (group,index) =>
                     <ListItem key={index} button className="my-3 py-9" selected={selectedGroup === index} onClick={ () => handleSelectedGroup(index,group.id)}>
                         <ListItemIcon>

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 
 import GroupResources from "./GroupResources";
-import { CustomTextEditor } from "./editor";
+import { CustomTextEditor } from "../questions/editor";
 
 export default function GroupEditModal({
     group_id,
@@ -242,9 +242,18 @@ export default function GroupEditModal({
                                                             </small>
                                                         </div>
                                                     </div>
-                                                    <div className="grid grid-cols-1 gap-2.5 my-2 border border-dark">
-                                                        {/* Group Resources */}
-                                                        <label style={{color:'#989898',fontSize:'13px'}}>Group Resources</label>
+
+                     {/*                               <div className="grid grid-cols-1 gap-2.5 my-2 border border-dark">
+                                                         Group Resources
+                                                        <label
+                                                            style={{
+                                                                color: "#989898",
+                                                                fontSize:
+                                                                    "13px",
+                                                            }}
+                                                        >
+                                                            Group Resources
+                                                        </label>
                                                         <CustomTextEditor
                                                             callback={(e) =>
                                                                 handleResourceChangeEdit(
@@ -256,7 +265,7 @@ export default function GroupEditModal({
                                                             }
                                                         />
                                                     </div>
-
+*/}
                                                     <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                                         <button
                                                             type="submit"
