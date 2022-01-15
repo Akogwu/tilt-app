@@ -16,7 +16,7 @@ Route::group(['prefix' => 'tests', 'middleware'=>'auth'], function () {
     //new summary result
     Route::get('/result/{sessionId}/summary', [\App\Http\Controllers\TestResultController::class,'summaryResult'])->name('result.summary');
     //new result
-    Route::get('/result/{sessionId}/summary', [\App\Http\Controllers\TestResultController::class,'summaryResult'])->name('result.summary');
+    //Route::get('/result/{sessionId}/summary', [\App\Http\Controllers\TestResultController::class,'summaryResult'])->name('result.summary');
 
     Route::get('/results/{sessionId}',[\App\Http\Controllers\TestResultController::class,'viewTestResult'])->name('result.getResult');
 

@@ -10,7 +10,10 @@ use App\Models\Questionnaire;
 use App\Models\QuestionnaireWeightPoint;
 use App\Models\TestRecord;
 use App\Models\TestResult;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TestResultV2Repository
 {
@@ -23,7 +26,7 @@ class TestResultV2Repository
 
         $groupAnswered = collect($testResult->group_score_detail);
         $graphOverview = GraphOverview::latest()->first()->description ?? '';
-        //get all aswered sections
+        //get all answered sections
         $sectionAnswered = collect($testResult->section_score_detail)->map(function ($testResult){
             return $testResult['section_id'];
         });
@@ -35,11 +38,15 @@ class TestResultV2Repository
             $sections =  $group->sections->map(function($section) use ($sectionAnswered, $sessionId){
                 //from answered sections
                 if (in_array($section->id, $sectionAnswered->toArray())){
-                    $recommendation = collect($this->getQuestionRecommendation($sessionId, $section->id))->map(function ($recommendation){
+                    $getQuestionRecommendation = $this->getQuestionRecommendation($sessionId, $section->id);
+                    $recommendation = collect($getQuestionRecommendation)->map(function ($recommendation){
                         return $recommendation['recommendation'];
                     });
-                    $gradePoint = collect($this->getQuestionRecommendation($sessionId, $section->id))->map(function ($recommendation){
+                    $gradePoint = collect($getQuestionRecommendation)->map(function ($recommendation){
                         return $recommendation['grade_point'];
+                    });
+                    $resource = collect($getQuestionRecommendation)->map(function ($recommendation){
+                        return $recommendation['resource'];
                     });
                     return[
                         'icon'=>$section->icon,
@@ -47,7 +54,8 @@ class TestResultV2Repository
                         'short_name'=>$section->short_name,
                         'description'=>$section->description,
                         'recommendations'=> $recommendation->filter()->values(),
-                        'score'=>round($gradePoint->sum(), 2)
+                        'score'=>round($gradePoint->sum(), 2),
+                        'section_resources'=>$resource
                     ];
                 }
             });
@@ -55,12 +63,24 @@ class TestResultV2Repository
             //get section recommendations
 
             $numSection = count($sections);
+
+            $mergedResource = array();
+            $sectionResources =collect($sections)->map(function ($section){
+                return $section['section_resources']->filter();
+            });
+            //merge all section resources to a single array
+            foreach($sectionResources as $collection) {
+                if (count($collection) > 0){//only collection with data
+                    $mergedResource= array_merge($mergedResource, $collection->toArray());
+                }
+
+            }
             return[
                 'title'=>$group->name,
                 'color'=>$group->result_color,
                 'description'=>$group->description,
                 'reports'=>$sections,
-                'resources'=>$group->resource,
+                'resources'=>$mergedResource,
                 'chart'=>[
                     "labels"=>collect($sections)->map(function ($section){
                         return $section['short_name'];
@@ -103,7 +123,7 @@ class TestResultV2Repository
             return[
                 "title"=>$group['title'],
                 'color'=>$group['color'],
-                'score'=> round($group['group_score'], 2)
+                'score'=> round((float)$group['group_score'], 2)
             ];
         });
 
@@ -134,7 +154,7 @@ class TestResultV2Repository
         $userData = $this->getUserDetail($role, $testResult);
 
         $groupAnswered = collect($testResult->group_score_detail);
-        //get all aswered sections
+        //get all answered sections
         $sectionAnswered = collect($testResult->section_score_detail)->map(function ($testResult){
             return $testResult['section_id'];
         });
@@ -197,6 +217,22 @@ class TestResultV2Repository
         return ($weightPoint == null) ? null : $weightPoint->remark;
     }
 
+    private function getSectionResource($sessionId, $recommendationId){
+        //no recommendation question
+        if ($recommendationId == null)
+            return;
+
+        $testRecord = TestRecord::where([
+            ['session_id', $sessionId],
+            ['questionnaire_id', $recommendationId]
+        ])->first();
+
+        if ($testRecord == null)
+            return ;
+        $weightPoint = QuestionnaireWeightPoint::find($testRecord->answer);
+        return ($weightPoint == null) ? null : $weightPoint->remark;
+    }
+
     private function getQuestionRecommendation($sessionId, $sectionId){
         //get all questions in this section
         $questionnaireIds = Questionnaire::where('section_id', $sectionId)->pluck('id');
@@ -214,19 +250,22 @@ class TestResultV2Repository
                 ->join('questionnaire_weight_points',
                     'questionnaire_weight_points.id','=',
                     'test_records.answer')
-                ->select('questionnaire_weight_points.remark AS remark','questionnaires.grade_point as grade_point')
+                ->select('questionnaire_weight_points.remark AS remark','questionnaires.grade_point as grade_point','questionnaire_weight_points.resource AS resource')
                 ->get();
             if (!empty($testRecord)){
                 //if solution is triggered (remark) therefore grade_point is 0
                 if (!empty($testRecord[0]->remark))
                     $recommendations[] = [
                         'recommendation'=>$testRecord[0]->remark ?? '',
-                        'grade_point'=>0
+                        'grade_point'=>0,
+                        'resource'=>$testRecord[0]->resource
                     ];
                 else
                     $recommendations[] = [
                         'recommendation'=> '',
-                        'grade_point'=>$testRecord[0]->grade_point ?? 0
+                        'grade_point'=>$testRecord[0]->grade_point ?? 0,
+                        'resource'=>$testRecord[0]->resource
+
                     ];
             }
 
