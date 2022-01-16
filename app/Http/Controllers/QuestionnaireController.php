@@ -37,7 +37,7 @@ class QuestionnaireController extends Controller
 
         if ($request->weight_point != null)
         foreach ($request->weight_point as $item){
-            QuestionnaireWeightPoint::createNew($questionnaire->id, $item["weight_point"], $item["remark"]);
+            QuestionnaireWeightPoint::createNew($questionnaire->id, $item["weight_point"], $item["remark"], $item['resource']);
         }
 
         return response()->json(['status'=>true, "message"=>"Created successfully"], 201);
@@ -71,6 +71,7 @@ class QuestionnaireController extends Controller
             ]);
         //update or create weight points
         if ($request->weight_point){
+//            dd($request->weight_point);
             foreach ($request->weight_point as $item){
                 QuestionnaireWeightPoint::updateOrCreate(
                     [
@@ -78,7 +79,8 @@ class QuestionnaireController extends Controller
                         'weight_point' => $item["weight_point"]
                     ],
                     [
-                        'remark' => $item["remark"]
+                        'remark' => $item["remark"],
+                        'resource' => $item["resource"]
                     ]);
             }
         }
@@ -118,7 +120,7 @@ class QuestionnaireController extends Controller
         }
 
         foreach ($request->weight_point as $item){
-            QuestionnaireWeightPoint::createNew($questionnaireId, $item["weight_point"], $item["remark"]);
+            QuestionnaireWeightPoint::createNew($questionnaireId, $item["weight_point"], $item["remark"], $item['resource']);
         }
 
         return response()->json(['status'=>true, "message"=>"Created successfully"], 201);

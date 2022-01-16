@@ -77,10 +77,17 @@
                                     <x-jet-label for="school" value="{{ __('School') }}" />
                                     <x-jet-input id="school" class="block mt-1 w-full" type="tel" name="school" :value="old('school')" required />
                                 </div>
+                                <div class="">
+                                    <x-jet-label for="level" value="{{ __('Level') }}" />
+                                    <x-jet-input id="level" class="block mt-1 w-full" type="tel" name="level" :value="old('level')" required />
+                                </div>
                                 <div>
                                     <x-jet-label for="age" value="{{ __('Country') }}" />
                                     <select name="country_id" id="country" class="block mt-1 w-full border-gray-200" required>
                                         <option value="">Select Country</option>
+                                    @foreach($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div>
@@ -213,6 +220,7 @@
 
     </x-jet-authentication-card>
     @push('scripts')
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             let sessionId;
 
@@ -221,6 +229,26 @@
 
                 document.getElementById('session_id').setAttribute('value', sessionId);
             }
+
+            $('#country').on('change',function(){
+                let countryId = $(this).val();
+
+                let url = '{{route('country.states',':id')}}';
+                let action = url.replace(':id',countryId);
+                $.get(action, function (data) {
+                    $('#state').empty();
+                    var dropdowncont = '<select  class=\"form-control \"  name="state_id" id="state" data-style=\"select-with-transition\"  >';
+                    var options = "<option disabled> Choose State </option>";
+                    $.each(data, function(index,name){
+                        //alert(name.id);
+                        options+="<option value= "+name.id+" >" +name.name + "</option>";
+                    });
+                    dropdowncont+=options;
+                    dropdowncont+="</select>";
+                    $('#state').html(dropdowncont);
+                });
+
+            });
 
         </script>
     @endpush

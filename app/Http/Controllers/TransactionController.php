@@ -68,24 +68,6 @@ class TransactionController extends Controller
         return view('pages.transaction.payment', compact('user','data'));
     }
 
-    /*public function getAll(Request $request){
-        $query = \request()->input();
-        $transactions = Transaction::orderBy('created_at','desc');
-        $sum = $transactions->sum('amount');
-        $row = $request->query('row') ?? 10;
-        if ($request->query('filter_by')) {
-            $filterBy = trim($request->query('filter_by'));
-            $transactions->where('payment_type', $filterBy);
-        }
-        if ($request->query('payment_for')) {
-            $paymentFor = trim($request->query('payment_for'));
-            $transactions->where('payment_for', $paymentFor);
-        }
-        return TransactionResource::collection($transactions->paginate(10))->additional(['total_amount' => [
-            'amount' => $sum,
-        ]]);
-    }*/
-
     public function confirmPayment(){
         $transactionId = \request()->input('trans');
         $reference = \request()->input('ref');
@@ -194,6 +176,7 @@ class TransactionController extends Controller
     }
 
     protected function transactionHistory($payerId, $type=null){
+
         $data = [];
         if ($type =='school'){
             $transactions = Transaction::where([['payment_for', $payerId],['payment_type','school_capacity']])->get();
@@ -213,7 +196,7 @@ class TransactionController extends Controller
     protected function generateRefNumber() {
         $number = mt_rand(1000000000, 9999999999); // better than rand()
 
-        // call the same function if the barcode exists already
+        // call the same function if the reference exists already
         if ($this->refNumberExists($number)) {
             return $this->generateRefNumber();
         }

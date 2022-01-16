@@ -78,10 +78,10 @@ export const DetailedReport = ({ match }) => {
     return (
         <ResultLayout
             checkAuth={true}
-            bottomButton={{
+            /*bottomButton={{
                 text: "View Detailed Report",
                 url: `/result/${sessionId}/check-report`,
-            }}
+            }}*/
         >
             <div className="row justify-content-center detailed-report">
                 <HeaderDetail

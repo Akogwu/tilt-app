@@ -1,3 +1,10 @@
+@push('styles')
+    <style>
+        .report-box{
+            cursor: pointer;
+        }
+    </style>
+@endpush
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -12,15 +19,15 @@
                         <x-jet-application-logo class="block h-12 w-auto" />
                     </div>
                     <div class="grid grid-cols-12 gap-6 mt-5">
-                        <div
-                            class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-green-400 via-green-500 to-green-700">
+
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y shadow-lg rounded bg-gradient-to-r from-green-400 via-green-500 to-green-700">
                             <div class="report-box zoom-in">
                                 <div class="box p-5">
                                     <div class="flex">
                                         <img src="/images/graduation.svg" height="24px" width="24px" alt="" />
                                     </div>
                                     <div class="text-3xl font-bold leading-8 mt-6">{{ $data['total_students'] }}</div>
-                                    <div class="text-base text-gray-600 mt-1">Students Registered</div>
+                                    <div class="text-base text-gray-600 mt-1"><a href="{{route('schools.index')}}" class="card-link">Students Registered</a> </div>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +39,7 @@
                                         <img src="/images/school.svg" height="24px" width="24px" alt="" />
                                     </div>
                                     <div class="text-3xl font-bold leading-8 mt-6">{{$data['total_school']}}</div>
-                                    <div class="text-base text-gray-600 mt-1">School Enrolled</div>
+                                    <div class="text-base text-gray-600 mt-1"><a href="{{route('schools.index')}}" class="card-link">School Enrolled</a></div>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +51,7 @@
                                         <img src="/images/test.svg" height="24px" width="24px" alt="" />
                                     </div>
                                     <div class="text-3xl font-bold leading-8 mt-6">{{$data['total_test_taken']}}</div>
-                                    <div class="text-base text-gray-600 mt-1 text-white">Total Test Taken</div>
+                                    <div class="text-base text-gray-600 mt-1 text-white"><a href="#" class="card-link">Total Test Taken</a></div>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +63,7 @@
                                         <img src="/images/credit-card.svg" height="24px" width="24px" alt="" />
                                     </div>
                                     <div class="text-3xl font-bold leading-8 mt-6">{{ $data['successful_transaction'] }}</div>
-                                    <div class="text-base text-gray-600 mt-1">Successful Transactions</div>
+                                    <div class="text-base text-gray-600 mt-1"><a href="{{route('admin.transaction')}}" class="card-link">Successful Transactions</a></div>
                                 </div>
                             </div>
                         </div>
@@ -196,5 +203,15 @@
     </div>
     @push('scripts')
         <script src="/js/app.js"></script>
+
+        <script>
+            $('.report-box').on('click', function(e){
+                let link = $(this).find('.card-link').attr('href');
+                //alert(link);
+                setTimeout(function() {
+                    window.location = link;
+                }, 1000);
+            });
+        </script>
     @endpush
 </x-app-layout>

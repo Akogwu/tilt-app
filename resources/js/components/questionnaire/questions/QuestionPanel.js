@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -15,6 +15,7 @@ import validate from "./validateInfo";
 import QuestionDeleteModal from "./QuestionDeleteModal";
 import AlertMessage from "../../Alert";
 import { ChromePicker } from 'react-color';
+import {CustomTextEditor} from "./editor";
 const useStyles = makeStyles((theme) => ({
     // root: {
     //     width: '100%',
@@ -60,7 +61,7 @@ const  QuestionPanel = ({question,index}) => {
     const handleSuccess = ($success = true) => {
         setSuccess($success);
     }
-    const {state,handleChanges, handleChangeRemark,handleAddRemark,handleUpdateQuestion, handleColorChanges, errors, handleSubmit} = useForm(validate,handleSuccess,false, question);
+    const {state,handleChanges, handleChangeRemark, handleResourceChangeEdit, handleAddRemark, handleAddResource,handleUpdateQuestion, handleColorChanges, errors, handleSubmit} = useForm(validate,handleSuccess,false, question);
     const [openDeleteModal,setOpenDeleteModal] = useState(false);
     const [success,setSuccess] = useState(false);
 
@@ -118,13 +119,35 @@ const  QuestionPanel = ({question,index}) => {
                                     id="outlined-multiline-flexible"
                                     label={"Remark"}
                                     multiline
-                                    value={state.remark}
+                                    value={state.remark ? state.remark : ''}
                                     name={"remark"}
                                     onChange={handleChanges}
                                     onBlur={handleAddRemark}
                                     helperText={state.weight_point}
-                                    rowsMax={4}
+                                    // rowsMax={4}
                                     variant="outlined"/>
+
+                                <div className="grid grid-cols-1 gap-2.5 my-2 border border-dark" style={{borderRadius:5, padding:5, marginLeft:15, marginBottom:10}}>
+                                     {/*Group Resources*/}
+                                    <label
+                                        style={{
+                                            color: "#989898",
+                                            fontSize:
+                                                "13px",
+                                            padding:5,
+                                            paddingLeft:10
+                                        }}
+                                    >
+                                        Score Resources
+                                    </label>
+                                    <CustomTextEditor
+                                        callback={(e) => handleResourceChangeEdit(e)}
+                                        value={state.resource ? state.resource : '<p></p>'}
+                                        scoreChange={state.weight_point}
+
+                                    />
+                                </div>
+
                                 <TextField
                                     fullWidth
                                     id="select-section-grade-point"

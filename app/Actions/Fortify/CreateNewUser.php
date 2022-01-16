@@ -68,12 +68,6 @@ class CreateNewUser implements CreatesNewUsers
                     SchoolAdmin::createNew($user->id, $school->id);
                 }
 
-//                if ($input['role_id'] == 'PRIVATE_LEARNER'):
-//                    PrivateLearner::createNewOrUpdate($input,$user);
-//                elseif ($input['role_id'] == 'SCHOOL_ADMIN'):
-//                    $school = School::createNew($input);
-//                    SchoolAdmin::createNew($user->id, $school->id);
-//                endif;
                 $this->createTeam($user);
             });
         });
