@@ -14,11 +14,6 @@ export const ResultLayout = ({
             const loader = document.getElementById("page-loader");
             loader.classList.add("d-none");
         }, 1000);
-
-        window.addEventListener('resize', () => {
-            window.location = ""
-        });
-
     }, [])
 
     return (

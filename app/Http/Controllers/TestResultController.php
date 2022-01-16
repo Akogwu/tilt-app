@@ -55,7 +55,7 @@ class TestResultController extends Controller
 
     public function viewTestResult($sessionId){
 
-        return $detail = $this->testResultV2Repository->detailResult($sessionId);
+        $detail = $this->testResultV2Repository->detailResult($sessionId);
         $data = $this->testResultV2Repository->summaryResult($sessionId);
         $data["overview"] = $detail["overview"];
         $data["dominant_group"] = [];
