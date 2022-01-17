@@ -87,12 +87,12 @@
                                                                 <td>{{ $result->testResult->total_score ?? 0 }}</td>
                                                                 <td>{{ $result->testResult->obtainable_score ?? 0 }}</td>
                                                                 <td>
-                                                                    <a href="{{ route('pages.result', [$result->testResult->session_id, 'report']) }}"
+                                                                    <a href="{{ route('pages.result', [$result->testResult->session_id??'0', 'report']) }}"
                                                                         class="pr-1 text-tertiary" title="view summary result">
                                                                         <i class="fa fa-eye"></i>
                                                                     </a>
                                                                     @if ($result->testResult->payment_status != 1)
-                                                                        <a href="{{ route('pages.result', [$result->testResult->session_id, 'detailed-report']) }}">
+                                                                        <a href="{{ route('pages.result', [$result->testResult->session_id??'0', 'detailed-report']) }}">
                                                                             <i class="fa fa-print"></i>
                                                                         </a>
                                                                     @else
