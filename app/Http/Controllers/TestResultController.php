@@ -62,6 +62,7 @@ class TestResultController extends Controller
         $data["detailedReport"] = [];
         $data["dominant_group"] = $detail["dominant_group"];
         $data["detailedReport"] = $detail["report"];
+        // return $data;
         return view("pages.result", $data);
         // return Redirect::to('/transactions/result/'.$sessionId);
     }

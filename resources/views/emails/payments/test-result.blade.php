@@ -1,5 +1,5 @@
 @component('mail::message')
-Your payment was successful, login to our platform to view/download your test result.
+Your payment was successful, login to our platform to view your test result.
 <p>
     <a href= {{$link}}>view result</a>
 </p>

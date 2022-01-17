@@ -158,7 +158,7 @@ export const AlignItemsList = ({
                                 className="mb-1"
                                 style={{ color: color?.primary }}
                             >
-                                {item.title}
+                                {item.title} 
                             </h5>
                         </div>
                         <p className="mb-1">{item.description}</p>
@@ -204,7 +204,7 @@ export const AlignItemsList = ({
                 );
             })}
 
-            {(recommendations || []).length > 0 || resources && (
+            {((recommendations || []).length > 0 || resources) && (
                 <>
                     <div
                         class="card after-list mt-3"

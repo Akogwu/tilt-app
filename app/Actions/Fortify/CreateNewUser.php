@@ -2,6 +2,8 @@
 
 namespace App\Actions\Fortify;
 
+use App\Mail\WelcomeAdminMail;
+use App\Mail\WelcomeMail;
 use App\Models\PrivateLearner;
 use App\Models\School;
 use App\Models\SchoolAdmin;
@@ -10,6 +12,8 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
@@ -66,6 +70,20 @@ class CreateNewUser implements CreatesNewUsers
                 if (($input['role_id'] == 'SCHOOL_ADMIN')){
                     $school = School::createNew($input);
                     SchoolAdmin::createNew($user->id, $school->id);
+                    try {
+                        Mail::to($user)->send(new WelcomeAdminMail($user->name, $input['school_name']));
+                    }catch (\Exception $exception){
+                        Log::error('createuser',['message'=>$exception->getMessage()]);
+                    }
+                }
+
+                //mail to student and learners
+                if (in_array($input['role_id'], ['PRIVATE_LEARNER','STUDENT'])){
+                    try {
+                        Mail::to($user)->send(new WelcomeMail($user->name));
+                    }catch (\Exception $exception){
+                        Log::error('createuser',['message'=>$exception->getMessage()]);
+                    }
                 }
 
                 $this->createTeam($user);
