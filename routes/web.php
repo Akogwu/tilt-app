@@ -65,6 +65,9 @@ Route::get('logout',function (){
     return redirect('/');
 });
 
+Route::get('/email',function (){
+    return new \App\Mail\WelcomeAdminMail("femi","Kings college");
+});
 
 // print complete result route
 //Route::get('/print-result',[\App\Http\Controllers\PDFController::class,'generateResult'])->name('print-result');

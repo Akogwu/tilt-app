@@ -18,14 +18,14 @@ use Laravel\Sanctum\HasApiTokens;
 use Webpatser\Uuid\Uuid;
 
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
     use HasTeams;
     use Notifiable;
-    use TwoFactorAuthenticatable;
+    //use TwoFactorAuthenticatable;
 
 
     /**

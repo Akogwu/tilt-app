@@ -1,0 +1,13 @@
+@extends('layouts.email')
+
+@section('title')
+    Welcome to Tilt.ng
+@endsection
+
+@section('content')
+    <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Montserrat, sans-serif;line-height:24px;color:#333333;font-size:16px">Hi {{$name}},</p>
+    <br>
+    <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Montserrat, sans-serif;line-height:24px;color:#333333;font-size:16px">
+        You are all set to start with yourself assessment test on our platform.
+    </p>
+@endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TestCompletedMail;
 use App\Models\Group;
 use App\Http\Resources\AllQuestionnaireResource;
 use App\Http\Resources\SessionAnswersResource;
@@ -14,6 +15,7 @@ use App\Util\TestResultCalculator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class TakeTestController extends Controller
 {
@@ -69,6 +71,17 @@ class TakeTestController extends Controller
             $session->update(['completed'=>true]);
         }catch (\Exception $exception){
                 Log::error("TakeTestController",['method'=>'submitTest','error'=>$exception->getMessage()]);
+        }
+        //send mail if not anonymous .
+        try {
+            $user = $session->user;
+            if ($user->role_id != 'ANONYMOUS'){
+                $email= $user->email;
+                $link = route('pages.result',[$sessionId,'report']);
+                Mail::to($user)->send(new TestCompletedMail($user->name, $link));
+            }
+        }catch (\Exception $exception){
+                Log::error('submitTest',['message'=>$exception->getMessage()]);
         }
         return response()->json(['status'=>true, 'message'=>'Submitted successfully'],201);
     }
