@@ -52,13 +52,13 @@
                             <span class="nav-link-inner-text">About</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{--<li class="nav-item">
                         <a href="#" class="nav-link">
                             <span class="nav-link-inner-text">Gallery</span>
                         </a>
-                    </li>
+                    </li>--}}
 
-                    <li class="nav-item dropdown">
+                    {{--<li class="nav-item dropdown">
                         <a href="#" class="nav-link" data-toggle="dropdown" role="button">
                             <span class="nav-link-inner-text mr-1">Tilt Learn</span> <i class="fas fa-angle-down nav-link-arrow"></i>
                         </a>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li>--}}
                     <li class="nav-item">
                         <a href="/contact" class="nav-link">
                             <span class="nav-link-inner-text">Contact us</span>

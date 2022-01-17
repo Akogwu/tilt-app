@@ -108,7 +108,7 @@ class TestResultV2Repository
         });
 
         $graphData = collect($summaryResultData)->map(function ($data){
-            return $data['group_score'];
+            return round($data['group_score'],2);
         });
         $groupData= array();
         $a=0;
@@ -123,7 +123,7 @@ class TestResultV2Repository
             return[
                 "title"=>$group['title'],
                 'color'=>$group['color'],
-                'score'=> round((float)$group['group_score'], 2)
+                'score'=> number_format((float)$group['group_score'], 2)
             ];
         });
 
@@ -297,7 +297,7 @@ class TestResultV2Repository
                 'sex'=>$privaterLearner->gender,
                 'age'=>$privaterLearner->age,
                 'school'=>$privaterLearner->school,
-                'class'=>$privaterLearner->class,
+                'class'=>$privaterLearner->level,
                 'state'=>$privaterLearner->state->name ?? '',
                 'country'=>$privaterLearner->country->name ?? '',
                 'image_url'=> (is_null($user->image_url)) ? null : url($user->image_url),
