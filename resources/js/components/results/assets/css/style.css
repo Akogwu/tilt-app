@@ -308,3 +308,14 @@ div p.font-weight-bolder{
 .resource-list a {
 	color: #3b5999 !important;
 }
+
+
+
+
+@media screen and (min-width: 1500px)  {
+
+    div div.container {
+        max-width: 80% !important;
+        margin: auto !important;
+    }
+}
