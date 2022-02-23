@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="/css/tailwind.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/custom.css">
+    <link rel="shortcut icon" href="{{asset("favicon.ico")}}" type="image/x-icon">
+    <link rel="icon" href="{{asset("favicon.ico")}}" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon-32x32.png")}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset("favicon-16x16.png")}}">
     <script src="https://kit.fontawesome.com/c8d84f105a.js" crossorigin="anonymous"></script>
     @stack('styles')
     <style>

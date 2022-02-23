@@ -234,7 +234,7 @@
                                                                 <div class="col mb-3">
                                                                     <div class="form-group">
                                                                         <label>School</label>
-                                                                        <input class="form-control" type="text" value="{{ $user->privateLearner->school }}"
+                                                                        <input class="form-control" type="text" value="{{ $user->privateLearner->school??'' }}"
                                                                                placeholder="School">
                                                                     </div>
                                                                 </div>

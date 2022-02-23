@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\School;
 use App\Models\SchoolAdmin;
 use App\Models\Session;
+use App\Models\Settings;
 use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\User;
@@ -27,10 +28,9 @@ class SchoolAdminController extends Controller
     }
 
     public function dashboard(){
+
         $schoolAdminId = Auth::id();
         $schoolAdmin = SchoolAdmin::where('user_id', $schoolAdminId)->first();
-
-
 
         if ($schoolAdmin ==null)
             abort(404, 'No school found');
@@ -48,8 +48,6 @@ class SchoolAdminController extends Controller
             'students'=>$students->latest()->limit(10)->get(),
             'total_students'=>$students->count(),
         ];
-
-        //dd($data);
 
         return view('pages.school.admin.dashboard',compact('data'));
     }

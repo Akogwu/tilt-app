@@ -60,7 +60,7 @@ class School extends Model
                 'state' => $input['school_state'] ?? null,
                 'city' => $input['school_city'] ?? null,
                 'zipcode' => $input['school_zipcode'] ?? null,
-                'school_capacity'=> GeneralUtil::DEFAULT_SCHOOL_CAPACITY
+                'school_capacity'=> self::getDefaultSchoolCapacity()
             ]
         );
         return $school;
@@ -68,6 +68,10 @@ class School extends Model
 
     public function getRemainingCapacity(){
         return $this->school_capacity;
+    }
+
+    public static function getDefaultSchoolCapacity(){
+        return Settings::where('name','INITIAL_NUMBER_OF_STUDENTS')->value("value");
     }
 
     public function schema(){

@@ -7,6 +7,10 @@
 
         <title>{{ config('app.name', 'Tilt') }}</title>
 
+        <link rel="shortcut icon" href="{{asset("favicon.ico")}}" type="image/x-icon">
+        <link rel="icon" href="{{asset("favicon.ico")}}" type="image/x-icon">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{asset("favicon-32x32.png")}}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{asset("favicon-16x16.png")}}">
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 {{--        <script src="https://use.fontawesome.com/b1f9168bbf.js"></script>--}}
