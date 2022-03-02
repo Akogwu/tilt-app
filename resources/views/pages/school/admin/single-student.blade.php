@@ -46,13 +46,13 @@
                                         <strong class="font-bold">Age: </strong>{{ $age }}
                                     </div>
                                     <div class="pt-1">
-                                        <strong class="font-bold">Class: </strong> {{ $user->student->level }}
+                                        <strong class="font-bold">Class: </strong> {{ $user->student->level??'' }}
                                     </div>
                                     <div class="pt-1">
-                                        <strong class="font-bold">State: </strong> {{ $user->student->level }}
+                                        <strong class="font-bold">State: </strong> {{ $user->student->state->name??'' }}
                                     </div>
                                     <div class="pt-1">
-                                        <strong class="font-bold">Country: </strong> {{ $user->student->level }}
+                                        <strong class="font-bold">Country: </strong> {{ $user->student->country->name??'' }}
                                     </div>
                                 </figcaption>
                                 <button class="rounded-full w-5 h-5 text-tertiary" title="Edit Profile"><i
