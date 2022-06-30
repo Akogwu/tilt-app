@@ -23,6 +23,7 @@ class StudentController extends Controller
         $user = User::find($userId);
         if (!$user)
             abort(404);
+
         $testResultRepo = new TestResultRepository();
         $testResults = $testResultRepo->getMyTestResults($user->id);
         $testDetail = $testResultRepo->getTestDetails($user->id);

@@ -46,13 +46,13 @@
                                         <strong class="font-bold">Age: </strong>{{ $age }}
                                     </div>
                                     <div class="pt-1">
-                                        <strong class="font-bold">Class: </strong> {{ $user->student->level }}
+                                        <strong class="font-bold">Class: </strong> {{ $user->student->level??'' }}
                                     </div>
                                     <div class="pt-1">
-                                        <strong class="font-bold">State: </strong> {{ $user->student->level }}
+                                        <strong class="font-bold">State: </strong> {{ $user->student->state->name??'' }}
                                     </div>
                                     <div class="pt-1">
-                                        <strong class="font-bold">Country: </strong> {{ $user->student->level }}
+                                        <strong class="font-bold">Country: </strong> {{ $user->student->country->name??'' }}
                                     </div>
                                 </figcaption>
                                 <button class="rounded-full w-5 h-5 text-tertiary" title="Edit Profile"><i
@@ -93,17 +93,11 @@
                                                             <td>{{ $result->testResult->total_score }}</td>
                                                             <td>{{ $result->testResult->obtainable_score }}</td>
                                                             <td>
-                                                                <a href="{{ route('result.summary', $result->testResult->session_id) }}"
-                                                                   class="pr-1 text-tertiary"
-                                                                   title="view summary result"><i
-                                                                        class="fa fa-eye"></i></a>
-                                                                @if ($result->testResult->payment_status == 1)
-                                                                    <a href="{{ route('result.getResult', $result->testResult->session_id) }}" target='_blank'>
-                                                                        <i class="fa fa-print"></i>
-                                                                    </a>
-                                                                @else
-                                                                    <i class="fa fa-print" disabled=""></i>
-                                                                @endif
+                                                                <a href="{{ route('pages.result', [$result->testResult->session_id, "report"]) }}" target='_blank'
+                                                                   class="pr-1 text-tertiary" title="view summary result">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
