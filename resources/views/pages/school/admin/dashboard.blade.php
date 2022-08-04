@@ -56,7 +56,7 @@
                             Student Capacity
                         </p>
                         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                            {{$data['total_transactions']}}
+                            {{$data['school_capacity']}}
 
                             <button class="btn btn-danger rounded" style="position: absolute; right: 1.2rem;"
                                     data-toggle="modal" data-target="#addStudentCapacity"> Increase Capacity</button>
@@ -68,15 +68,20 @@
             <div class="modal fade" id="addStudentCapacity" tabindex="-1" role="dialog" aria-labelledby="addStudentCapacityTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Increase School Capacity</h5>
+                        <div class="modal-header" style="background-color: #11AB7C">
+                            <h5 class="modal-title" style="color: #f5f5f5">Increase School Capacity</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                                <span aria-hidden="true" class="text-white">&times;</span>
                             </button>
                         </div>
 
                         <form class="needs-validation" action="{{route('schoolCapacity.payment',['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
                         <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <span class="badge badge-danger mb-2">Rate: &#8358; {{$data['INDIVIDUAL_STUDENT_FLAT_RATE']}} per student</span>
+                                </div>
+                            </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="capacity">Student Capacity</label>
@@ -85,11 +90,18 @@
                                         Looks good!
                                     </div>
                                 </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="capacity">Total Amount</label>
+                                    <input type="text" class="form-control" id="total" disabled>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Proceed</button>
+                            <button type="submit" class="btn btn-primary">Proceed</button>
                         </div>
                     </form>
                     </div>
@@ -178,6 +190,13 @@
     @push('scripts')
         <script src="/js/app.js"></script>
         <script>
+            $('#capacity').on('change',function(){
+                let rate= {!! $data['INDIVIDUAL_STUDENT_FLAT_RATE'] !!};
+                let capacity=$('#capacity').val();
+                let sum = parseInt(capacity) * parseInt(rate);
+                $('#total').val('₦' + sum);
+                //alert(sum);
+            });
             // Example starter JavaScript for disabling form submissions if there are invalid fields
             (function() {
                 'use strict';

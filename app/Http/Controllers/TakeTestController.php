@@ -62,7 +62,7 @@ class TakeTestController extends Controller
             foreach ($request->questionnaire as $item){
                 $data[]=$item;
                 //$session_id, $questionnaire_id, $answer
-                TestRecord::createNew($session->id, $item["questionnaire_id"], $item["weight_point_id"]);
+                TestRecord::createNew($sessionId, $item["questionnaire_id"], $item["weight_point_id"]);
             }
         try {
             //calculate the result

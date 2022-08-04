@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,13 +12,15 @@ class WelcomeAdminMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
+    public $user;
     public $schoolName;
+    public $password;
 
-    public function __construct($name, $schoolName)
+    public function __construct(User $user, $schoolName, $password)
     {
-        $this->name=$name;
+        $this->user=$user;
         $this->schoolName = $schoolName;
+        $this->password = $password;
     }
 
     /**

@@ -48,8 +48,7 @@
                                             <optgroup label="Countries">
                                                 <option>Select country</option>
                                             @foreach($countries as $country)
-
-                                                    <option {{ (old('school_country',$school->country) === $country->id)?'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
+                                                    <option {{ (old('school_country',$school->country) == $country->id)?'selected':'' }} value="{{ $country->id }}">{{ $country->name }}</option>
 
                                             @endforeach
                                             </optgroup>
@@ -62,6 +61,10 @@
                                 <div>
                                     <label for="school_state" class="block font-medium text-sm text-gray-700">State</label>
                                     <select name="school_state" disabled id="school_state" placeholder="Select state" class="block rounded-md 2xl:focus-within:bg-gray-100 shadow-sm mt-1 block w-full">
+
+                                        <optgroup label="State">
+                                                <option value="{{ $school->state }}" selected >{{ $school->stateProvince->name }}</option>
+                                        </optgroup>
 
                                     </select>
                                     @error('school_state')
@@ -94,6 +97,7 @@
                     </div>
 
                     <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <a href="{{route('schools.index')}}"><<< back </a> &nbsp;&nbsp;&nbsp;
                         <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
                             Create
                         </button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeAdminMail;
 use App\Models\Country;
 use App\Models\PrivateLearner;
 use App\Models\Role;
@@ -13,7 +14,10 @@ use App\Models\Subscription;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class RegistrationController extends Controller
 {
@@ -96,7 +100,7 @@ class RegistrationController extends Controller
             $session->update(['user_id'=>$user->id]);
 
         //TODO send mail
-
+        //345
         return response()->json(['status'=>true, 'message'=>"Registration Successful"], 201);
     }
     //TODO update image for all users
@@ -106,28 +110,30 @@ class RegistrationController extends Controller
             'school_description' => 'required|string',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|string',
-            'password' => 'required|string',
+            'email' => 'required|email|unique:users,email',
         ]);
 
-        if ($this->emailExist($request->email))
-            return response()->json(['status'=> false,"message"=>"Email already exist"], 403);
-        //get school admin role
-        $role = Role::where('role','SCHOOL_ADMIN')->first();
-        //add to request object
-        $request->request->add(['role_id' => $role->id]);
-        $user = User::createNew($request);
-
-        $school = School::createNew($request);
-        SchoolAdmin::createNew($user->id, $school->id);
-
-        //TODO send mail
+        DB::transaction(function () use ($request) {
+            $role = Role::where('role','SCHOOL_ADMIN')->first();
+            $password = Str::random(6);
+            $request->request->add(['role_id' => $role->id, 'password'=>$password]);
+            $schoolAdminUser = User::createNew($request);
+            $school = School::createNew($request);
+            SchoolAdmin::createNew($schoolAdminUser->id, $school->id);
+            try {
+                Mail::to($schoolAdminUser)->send(new WelcomeAdminMail($schoolAdminUser, $school->name, $password));
+            }catch (\Exception $exception){
+                Log::error('createuser',['message'=>$exception->getMessage()]);
+            }
+        });
 
         return redirect()->route('schools.index');
-        //response()->json(['status'=> true,"message"=>"Registration Successful"], 201);
+
+        //get school admin role
+
+        //add to request object
+
     }
-
-
 
     public function student(Request $request){
 

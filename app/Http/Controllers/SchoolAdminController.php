@@ -27,7 +27,7 @@ class SchoolAdminController extends Controller
         return view('schools');
     }
 
-    public function dashboard(){
+    public function dashboard() {
 
         $schoolAdminId = Auth::id();
         $schoolAdmin = SchoolAdmin::where('user_id', $schoolAdminId)->first();
@@ -38,15 +38,21 @@ class SchoolAdminController extends Controller
         //school ddetails
         $studentIds = $schoolAdmin->school->student->pluck('user_id');
         $sessionCount = Session::whereIn('user_id', $studentIds)->count();
-        $transaction = Transaction::where([['payment_type','school_capacity'],'payment_for'=>$schoolAdmin->school_id],['status'=>true])->count();
+        $transaction = Transaction::where([
+            ['payment_type','school_capacity'],
+            ['payment_for', $schoolAdmin->school_id],
+            ['status', true]
+        ])->count();
         $students = Student::where('school_id', $schoolAdmin->school_id);
 
         $data = [
-            'school'=>$schoolAdmin->school->schema(),
-            'total_test'=> $sessionCount,
-            'total_transactions'=> $transaction,
-            'students'=>$students->latest()->limit(10)->get(),
-            'total_students'=>$students->count(),
+            'school' => $schoolAdmin->school->schema(),
+            'total_test' => $sessionCount,
+            'total_transactions' => $transaction,
+            'students' => $students->latest()->limit(10)->get(),
+            'total_students' => $students->count(),
+            'school_capacity' => $schoolAdmin->school->school_capacity,
+            'INDIVIDUAL_STUDENT_FLAT_RATE' => Settings::getValue('INDIVIDUAL_STUDENT_FLAT_RATE')
         ];
 
         return view('pages.school.admin.dashboard',compact('data'));
