@@ -58,14 +58,6 @@ class SchoolAdminController extends Controller
         return view('pages.school.admin.dashboard',compact('data'));
     }
 
-   /* //only admin and school_admin
-    public function getSchoolAdmin($schoolAdminId){
-        $schoolAdmin = SchoolAdmin::where('user_id', $schoolAdminId)->first();
-        if ($schoolAdmin ==null)
-            return response()->json(['status'=>false, 'message'=>'School-Admin Id '.$schoolAdminId.' not found'], 404);
-        return response()->json($schoolAdmin->detail(), 200);
-    }*/
-
     public function getTransaction(){
         $schoolAdmin = Auth::user()->schoolAdmin;
         $schoolName = $schoolAdmin->school->name;

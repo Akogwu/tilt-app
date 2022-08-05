@@ -57,9 +57,11 @@
                         </p>
                         <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                             {{$data['school_capacity']}}
-
-                            <button class="btn btn-danger rounded" style="position: absolute; right: 1.2rem;"
-                                    data-toggle="modal" data-target="#addStudentCapacity"> Increase Capacity</button>
+                            @if($data['school_capacity'] < 5)
+                                <button class="btn btn-danger rounded" style="position: absolute; right: 1.2rem;"
+                                        data-toggle="modal" data-target="#addStudentCapacity"> Increase Capacity
+                                </button>
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -75,7 +77,7 @@
                             </button>
                         </div>
 
-                        <form class="needs-validation" action="{{route('schoolCapacity.payment',['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
+                        <form class="needs-validation" action="{{route('schoolCapacity.payment', ['school_id'=>$data['school']['id']])}}" method="GET" novalidate>
                         <div class="modal-body">
                             <div class="form-row">
                                 <div class="col-md-12">

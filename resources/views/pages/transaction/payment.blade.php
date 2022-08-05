@@ -92,10 +92,10 @@
                 },
                 callback: function(response){
                     console.log(response)
-                    if (response.status =='success'){
+                    if (response.status =='success') {
                         alert("payment successful")
                         setTimeout(function (){
-                            //window.location = '{{route('result.getResult',$data['payment_for'])}}';
+                            //window.location = '{{route('result.getResult', $data['payment_for'])}}';
                             window.location = '/transactions/confirm?ref='+response.reference+'&trans='+response.trans
                         }, 500)
 
