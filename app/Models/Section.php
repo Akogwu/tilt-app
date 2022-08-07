@@ -32,6 +32,7 @@ class Section extends Model
         return [
             'id'=>$this->id,
             'name'=>$this->name,
+            'short_name'=>$this->short_name,
             'group'=>["id"=>$this->group->id, "name"=>$this->group->name, 'description'=>$this->description],
             'recommendation'=>['id'=>$this->recommendationMessage->id ?? '', 'recommendation'=>$this->recommendationMessage->question ?? ''],
             'description'=>$this->description

@@ -14,6 +14,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class TestResultV2Repository
 {
@@ -35,7 +36,7 @@ class TestResultV2Repository
             $item = (object)$item;
             $group = Group::find($item->group_id);
             //get all section
-            $sections =  $group->sections->map(function($section) use ($sectionAnswered, $sessionId){
+            $sections =  $group->sections->map(function($section) use ($sectionAnswered, $sessionId) {
                 //from answered sections
                 if (in_array($section->id, $sectionAnswered->toArray())){
                     $getQuestionRecommendation = $this->getQuestionRecommendation($sessionId, $section->id);
@@ -46,8 +47,8 @@ class TestResultV2Repository
                         return $recommendation['grade_point'];
                     });
                     $resource = collect($getQuestionRecommendation)->map(function ($recommendation){
-                        return $recommendation['resource'];
-                    });
+                        return str_ireplace('<p></p>','', $recommendation['resource']);
+                    })->filter();
                     return[
                         'icon'=>$section->icon,
                         'title'=>$section->name,
@@ -83,7 +84,7 @@ class TestResultV2Repository
                 'resources'=>$mergedResource,
                 'chart'=>[
                     "labels"=>collect($sections)->map(function ($section){
-                        return $section['short_name'];
+                        return $section['short_name']?? Str::slug($section['title'], '_');
                     }),
 
                     "data"=>[[
@@ -98,7 +99,6 @@ class TestResultV2Repository
                         return 0;
                     //find the average
                     return round($section['score']/$numSection, 2);
-
             })
             ];
         });
@@ -138,10 +138,6 @@ class TestResultV2Repository
             'report'=>$summaryResultData,
             'session_id'=>$sessionId,
         ];
-    }
-
-    private function getSectionName($array){
-
     }
 
     /*New update*/
@@ -258,14 +254,13 @@ class TestResultV2Repository
                     $recommendations[] = [
                         'recommendation'=>$testRecord[0]->remark ?? '',
                         'grade_point'=>0,
-                        'resource'=>$testRecord[0]->resource
+                        'resource'=>$testRecord[0]->resource ?? null
                     ];
                 else
                     $recommendations[] = [
                         'recommendation'=> '',
                         'grade_point'=>$testRecord[0]->grade_point ?? 0,
-                        'resource'=>$testRecord[0]->resource
-
+                        'resource'=>$testRecord[0]->resource ?? null
                     ];
             }
 
