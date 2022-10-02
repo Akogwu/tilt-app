@@ -20,7 +20,7 @@
                         </tr>
                         <tr>
                             <td>Sub total</td>
-                            <td> <strong> &#x20A6; {{$data['amount']}}</strong></td>
+                            <td> <strong> &#x20A6;{{number_format($data['amount'])}}</strong></td>
                         </tr>
                         <tr>
                             <td>Quantity</td>
@@ -28,7 +28,7 @@
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td>  <strong> &#x20A6; {{$data['amount']}}</strong></td>
+                            <td>  <strong> &#x20A6;{{ number_format($data['amount'], 2)}}</strong></td>
                         </tr>
 
                     </table>
@@ -38,6 +38,7 @@
                         <input type="hidden" id="amount" value="{{$data['amount']}}" />
 
                         <div class="form-submit mt-4 right-0">
+                            <button type="button" class="btn btn-default" id="back"> {{"<<go back"}} </button>
                             <button type="submit" class="btn btn-success" id="checkout" onclick="payWithPaystack()"> Checkout </button>
                         </div>
                     </form>
@@ -91,19 +92,15 @@
                     ]
                 },
                 callback: function(response){
-                    console.log(response)
+                    //console.log(response)
                     if (response.status =='success') {
-                        alert("payment successful")
+                        //alert("payment successful")
                         setTimeout(function (){
-                            //window.location = '{{route('result.getResult', $data['payment_for'])}}';
                             window.location = '/transactions/confirm?ref='+response.reference+'&trans='+response.trans
                         }, 500)
-
                     }
-
                 },
                 onClose: function(){
-
                     alert('Action aborted');
                 },
             });

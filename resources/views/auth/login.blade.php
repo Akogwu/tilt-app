@@ -44,14 +44,7 @@
         </div>
 
         <div class="action-pane">
-            <div class="row">
-                <x-jet-validation-errors class="mb-4 table" />
-                @if (session('status'))
-                    <div class="mb-4 font-medium text-green-600" style="margin: 20px; width: 100%">
-                        {{ session('status') }}
-                    </div>
-                @endif
-            </div>
+
 
             <div id="fh" class="loadingdiv localized">
                 <div class="ld-outer">
@@ -63,6 +56,15 @@
             </div>
 
             <div class="content">
+                <div class="content-changeable">
+                    <x-jet-validation-errors class="mb-4 table" />
+                    @if (session('status'))
+                        <div class="mb-4 font-medium text-green-600" style="margin: 20px; width: 100%">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                </div>
+
                 <div class="content-changeable" id="content-1" data-content="1" style="display:none">
                     <p class="headliner m-b-20"><span class="highlighted">Login</span> to your Tilt account</p>
 

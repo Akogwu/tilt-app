@@ -17,24 +17,33 @@ use Illuminate\Support\Facades\Mail;
 
 class TransactionController extends Controller
 {
-    public function schoolCapacityPayment($schoolId, $capacity){
-        //TODO get amount from settings
+    public function schoolCapacityPayment($schoolId){
+        $capacity = \request()->input('capacity', 1);
+
         $user = Auth::user();
         $data = [
-          'amount'=>Settings::getValue('INDIVIDUAL_STUDENT_FLAT_RATE'),
+          'amount'=> (float)Settings::getValue('INDIVIDUAL_STUDENT_FLAT_RATE') * (int)$capacity,
           'type'=>'school_capacity',
           'description'=>'Increase school capacity',
             'quantity'=>$capacity,
             'payment_type'=>'school_capacity',
-            'payment_for'=>$schoolId,
-            'reference_num'=>$this->generateRefNumber(),
+            'payment_for' => $schoolId,
+            'reference_num' => $this->generateRefNumber(),
             'user_id'=>Auth::id(),
             'first_name'=> Auth::user()->first_name,
             'last_name'=> Auth::user()->last_name,
         ];
         try {
             //save to db
-            Transaction::createNew($data['user_id'], $data['payment_type'], $data['payment_for'], $data['reference_num'], null, $data['amount'], false, $data['quantity']);
+            Transaction::createNew(
+                $data['user_id'],
+                $data['payment_type'],
+                $data['payment_for'],
+                $data['reference_num'],
+                null,
+                $data['amount'],
+                false,
+                $data['quantity']);
 
         }catch (\Exception $exception){
             Log::error($exception->getMessage());
@@ -59,7 +68,14 @@ class TransactionController extends Controller
         ];
         try {
             //save to db
-            Transaction::createNew($data['user_id'], $data['payment_type'], $data['payment_for'], $data['reference_num'], null, $data['amount'], false, $data['quantity']);
+            Transaction::createNew($data['user_id'],
+                $data['payment_type'],
+                $data['payment_for'],
+                $data['reference_num'],
+                null,
+                $data['amount'],
+                false,
+                $data['quantity']);
 
         }catch (\Exception $exception){
             Log::error($exception->getMessage());
@@ -68,13 +84,12 @@ class TransactionController extends Controller
         return view('pages.transaction.payment', compact('user','data'));
     }
 
+
     public function confirmPayment(){
         $transactionId = \request()->input('trans');
         $reference = \request()->input('ref');
         $data = array();
         $user = Auth::user();
-
-
         $transaction  = Transaction::where('reference', $reference)->first();
         if (is_null($transaction)){
             $data=[
@@ -85,28 +100,32 @@ class TransactionController extends Controller
         }
 
         if ($transaction){
-
             if ($transaction->payment_type == 'test_result'){
                 TestResult::where('session_id', $transaction->payment_for)->update(['payment_status'=>true]);
                 $data=[
-                    'link'=>route('pages.result', [$transaction->payment_for,'check-report']),
-                    'success'=>true,
-                    'ref'=>$reference,
-                    'text'=>'View result'
+                    'link' => route('pages.result', [$transaction->payment_for,'check-report']),
+                    'success' => true,
+                    'ref' => $reference,
+                    'text' => 'View result'
                 ];
 
             }elseif ($transaction->payment_type == 'school_capacity'){
+                if ($transaction->status == false) {
+                    $transaction->update(['status'=>true]);
+                    School::where('id', $transaction->payment_for)->increment('school_capacity', $transaction->quantity);
+                    //email
+                }
                 $data=[
-                    'link'=>route('result.getResult', $transaction->payment_for),
-                    'success'=>true,
-                    'ref'=>$reference,
-                    'text'=>'go back to dashboard'
+                    'link' => route('school.admin.dashboard'),
+                    'success' => true,
+                    'ref' => $reference,
+                    'text' => 'go back to dashboard'
                 ];
             }else{
                 abort(400);
             }
 
-            $transaction->update(['status'=>true]);
+
             return view('pages.transaction.confirm-payment', compact('user','data'));
         }
     }
@@ -206,7 +225,6 @@ class TransactionController extends Controller
     }
 
     protected function refNumberExists($number) {
-
         return Transaction::where('reference', $number)->exists();
     }
 
